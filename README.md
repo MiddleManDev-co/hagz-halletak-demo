@@ -1,9 +1,12 @@
 # Hagz Halletak — حجز هالتك
 
-Large interactive product demo for an Egyptian event-tech concept combining:
+Large responsive interactive product demo for an Egyptian event-tech concept combining:
 
 - Real-time venue availability marketplace
 - Venue discovery, comparison, visits, holds and booking
+- Flexible-date search and waitlist concepts
+- DateDrop / last-minute inventory
+- Reverse marketplace / request offers
 - Shared family shortlist
 - Venue management SaaS (`VenueOS`)
 - Platform administration and marketplace intelligence
@@ -21,6 +24,7 @@ Use **Demo Scenario** and walk through one connected story:
 1. **Customer**
    - Search: 15 Oct 2027 / New Cairo / 300 guests / 100K–180K
    - Explore available venues
+   - Try Flexible Dates, DateDrop and Request Offers
    - Open Royal Garden
    - Check the availability calendar
    - Compare venues
@@ -55,6 +59,9 @@ Use **Demo Scenario** and walk through one connected story:
 
 - `#/home`
 - `#/explore`
+- `#/flexible-dates`
+- `#/datedrop`
+- `#/request-offers`
 - `#/venue/royal-garden`
 - `#/compare`
 - `#/booking/royal-garden`
@@ -81,14 +88,16 @@ Use **Demo Scenario** and walk through one connected story:
 
 - `#/vision`
 
-## Included product ideas
+## Product ideas represented in the demo
 
 - Real-time availability states
 - Verified venue badge
 - Smart match percentage
-- Flexible-date concept
-- DateDrop / last-minute deal concept
-- Reverse-marketplace concept
+- Flexible dates and cheaper alternatives
+- Waitlist concept
+- DateDrop / last-minute deals
+- Reverse marketplace / request offers
+- Venue-to-customer messaging concept
 - Family shortlist and voting
 - Venue comparison
 - Visit scheduling simulation
@@ -112,14 +121,7 @@ Use **Demo Scenario** and walk through one connected story:
 
 ## Responsive design
 
-The demo is designed for:
-
-- Desktop / presentation screens
-- Laptops
-- Tablets
-- Mobile devices
-
-Responsive behavior includes stacked content, mobile-friendly cards, horizontally scrollable operational tables/calendars where appropriate, and a mobile bottom navigation bar.
+The demo is designed for desktop presentation screens, laptops, tablets and phones. It includes stacked mobile layouts, responsive cards, mobile bottom navigation and scroll-safe operational tables/calendars.
 
 ## Stack
 
@@ -135,12 +137,8 @@ No build step, framework, database, backend, API, authentication or real payment
 
 ## Reset the demo
 
-To reset the simulated booking/shortlist state, clear this site's browser storage (`localStorage`) and refresh.
+Clear this site's browser `localStorage` and refresh.
 
 ## Deployment
 
-GitHub Pages deployment is handled by:
-
-`.github/workflows/pages.yml`
-
-Every push to `main` publishes the latest demo automatically.
+GitHub Pages deployment is handled by `.github/workflows/pages.yml` and every push to `main` publishes the latest demo automatically.
