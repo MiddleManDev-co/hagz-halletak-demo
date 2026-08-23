@@ -29,18 +29,29 @@ jobs:
 
       - name: Validate JavaScript syntax
         run: |
+          node --check i18n.js
           node --check app.js
           node --check extras.js
+          node --check i18n.test.js
+
+      - name: Run bilingual translation tests
+        run: node i18n.test.js
 
       - name: Verify static entry files
         run: |
           test -f index.html
           test -f styles.css
+          test -f i18n.css
+          test -f i18n.js
           test -f app.js
           test -f extras.js
           grep -q 'styles.css' index.html
+          grep -q 'i18n.css' index.html
+          grep -q 'i18n.js' index.html
           grep -q 'app.js' index.html
           grep -q 'extras.js' index.html
+          grep -q 'data-lang="ar"' index.html
+          grep -q 'data-lang="en"' index.html
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
