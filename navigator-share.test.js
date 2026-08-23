@@ -6,4 +6,6 @@ for(const id of ['full','customer','venue','admin','investor'])assert(js.include
 assert(js.includes("URLSearchParams(location.search).get('tour')"),'direct tour query parsing missing');
 assert(js.includes('hhCopyTourLink'),'copy tour link action missing');
 assert(js.includes('hhStartTour'),'shared links must start guided tour');
+assert(js.includes('hhStopTour'),'free explore must exit active guided tour');
+assert(js.includes('history.replaceState'),'reset must remove direct-tour query before reload');
 console.log('shareable tour tests passed');
