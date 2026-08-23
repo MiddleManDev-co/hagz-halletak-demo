@@ -27,6 +27,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate JavaScript syntax
+        run: |
+          node --check app.js
+          node --check extras.js
+
+      - name: Verify static entry files
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f app.js
+          test -f extras.js
+          grep -q 'styles.css' index.html
+          grep -q 'app.js' index.html
+          grep -q 'extras.js' index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
