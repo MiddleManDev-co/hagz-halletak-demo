@@ -11,7 +11,9 @@ const enCases = [
   ['السعر', 'Price'],
   ['التوافر', 'Availability'],
   ['طريقة دفع العربون', 'Deposit payment method'],
-  ['قول أنت عايز إيه، وخلي القاعات تتنافس على الطلب', 'Tell us what you need and let venues compete for it']
+  ['قول أنت عايز إيه، وخلي القاعات تتنافس على الطلب', 'Tell us what you need and let venues compete for it'],
+  ['قاعتك', 'Your venue'],
+  ['فاضية يوم إيه؟', 'When is it available?']
 ];
 
 for (const [source, expected] of enCases) {
@@ -35,7 +37,8 @@ for (const [source, expected] of arCases) {
 }
 
 const englishRepresentative = [
-  'قاعتك فاضية يوم إيه؟',
+  'قاعتك',
+  'فاضية يوم إيه؟',
   'اختار التاريخ وشوف القاعات المتاحة فعليًا، قارن، احجز زيارة، اعمل Hold، وكمل الحجز. وفي الخلفية صاحب القاعة بيدير كل حاجة من VenueOS.',
   '15 أكتوبر 2027 · القاهرة الجديدة · 300 ضيف',
   'الطلب على 15 أكتوبر أعلى بوضوح من العرض المؤكد.'
