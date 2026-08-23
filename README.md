@@ -21,6 +21,10 @@ Deployment is handled automatically through:
 
 Every push to `main` triggers a GitHub Pages deployment.
 
+Live URL:
+
+`https://middlemandev-co.github.io/hagz-halletak-demo/`
+
 ## Stack
 
 - Semantic HTML5
