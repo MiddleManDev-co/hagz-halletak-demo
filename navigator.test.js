@@ -1,0 +1,13 @@
+const fs=require('fs');const assert=require('assert');
+const index=fs.readFileSync('index.html','utf8');
+const js=fs.readFileSync('navigator.js','utf8');
+const css=fs.readFileSync('navigator.css','utf8');
+for(const f of ['navigator.css','navigator.js'])assert(index.includes(f),`index missing ${f}`);
+for(const id of ['full','customer','venue','admin','investor'])assert(js.includes(`${id}:`),`tour missing: ${id}`);
+for(const route of ['venue/royal-garden','package-builder/royal-garden','venue-os/quick-booking','admin/verification','admin/disputes','investor'])assert(js.includes(`'${route}'`),`guided route missing: ${route}`);
+for(const fn of ['hhOpenDemoNavigator','hhStartTour','hhTourNext','hhTourBack','hhTakeSmartNext','hhResetGuidedDemo'])assert(js.includes(fn),`global action missing: ${fn}`);
+assert(js.includes('hh:languagechange'),'navigator must react to language changes');
+assert(js.includes('hh-booking'),'guided story must seed booking state');
+assert(css.includes('@media(max-width:760px)'),'mobile navigator styles missing');
+assert(css.includes('@media(prefers-reduced-motion:reduce)'),'reduced motion support missing');
+console.log('demo navigator tests passed');
