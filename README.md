@@ -25,6 +25,8 @@ Live URL:
 
 `https://middlemandev-co.github.io/hagz-halletak-demo/`
 
+Deployment trigger refreshed after enabling GitHub Actions as the Pages source on 2026-08-24.
+
 ## Stack
 
 - Semantic HTML5
