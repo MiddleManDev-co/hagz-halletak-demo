@@ -35,9 +35,11 @@ jobs:
           node --check audit.js
           node --check polish.js
           node --check navigator.js
+          node --check navigator-share.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
+          node --check navigator-share.test.js
 
       - name: Run bilingual translation tests
         run: node i18n.test.js
@@ -48,6 +50,9 @@ jobs:
       - name: Run guided demo navigator tests
         run: node navigator.test.js
 
+      - name: Run shareable tour tests
+        run: node navigator-share.test.js
+
       - name: Verify static entry files
         run: |
           test -f index.html
@@ -56,23 +61,27 @@ jobs:
           test -f audit.css
           test -f polish.css
           test -f navigator.css
+          test -f navigator-share.css
           test -f i18n.js
           test -f app.js
           test -f extras.js
           test -f audit.js
           test -f polish.js
           test -f navigator.js
+          test -f navigator-share.js
           grep -q 'styles.css' index.html
           grep -q 'i18n.css' index.html
           grep -q 'audit.css' index.html
           grep -q 'polish.css' index.html
           grep -q 'navigator.css' index.html
+          grep -q 'navigator-share.css' index.html
           grep -q 'i18n.js' index.html
           grep -q 'app.js' index.html
           grep -q 'extras.js' index.html
           grep -q 'audit.js' index.html
           grep -q 'polish.js' index.html
           grep -q 'navigator.js' index.html
+          grep -q 'navigator-share.js' index.html
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
 
