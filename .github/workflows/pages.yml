@@ -33,6 +33,7 @@ jobs:
           node --check app.js
           node --check extras.js
           node --check audit.js
+          node --check polish.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
 
@@ -48,17 +49,21 @@ jobs:
           test -f styles.css
           test -f i18n.css
           test -f audit.css
+          test -f polish.css
           test -f i18n.js
           test -f app.js
           test -f extras.js
           test -f audit.js
+          test -f polish.js
           grep -q 'styles.css' index.html
           grep -q 'i18n.css' index.html
           grep -q 'audit.css' index.html
+          grep -q 'polish.css' index.html
           grep -q 'i18n.js' index.html
           grep -q 'app.js' index.html
           grep -q 'extras.js' index.html
           grep -q 'audit.js' index.html
+          grep -q 'polish.js' index.html
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
 
