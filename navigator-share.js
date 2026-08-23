@@ -28,8 +28,17 @@ function inject(){
  let row=launcher.querySelector('.dn-share-row');
  if(!row){row=document.createElement('div');row.className='dn-share-row';const foot=launcher.querySelector('.dn-launcher-foot');launcher.insertBefore(row,foot)}
  row.innerHTML=`<span>${L('روابط مباشرة للعرض','Direct presentation links')}</span>${valid.map(id=>{const [label,icon]=tourLabel(id);return `<button type="button" onclick="hhCopyTourLink('${id}')">${icon} ${label}</button>`}).join('')}`;
+ const foot=launcher.querySelector('.dn-launcher-foot');
+ const buttons=foot?.querySelectorAll('button')||[];
+ if(buttons[0])buttons[0].onclick=()=>{window.hhStopTour?.();window.hhCloseDemoNavigator?.();window.navTo?.('home')};
+ if(buttons[1])buttons[1].onclick=()=>{window.hhStopTour?.();window.hhCloseDemoNavigator?.();window.auditToggleGuide?.(true)};
 }
 window.hhCopyTourLink=copy;
+const baseReset=window.hhResetGuidedDemo;
+window.hhResetGuidedDemo=()=>{
+ if(location.search)history.replaceState(null,'',location.pathname+location.hash);
+ baseReset?.();
+};
 const obs=new MutationObserver(()=>requestAnimationFrame(inject));
 document.addEventListener('DOMContentLoaded',()=>{
  obs.observe(document.body,{childList:true,subtree:true});
