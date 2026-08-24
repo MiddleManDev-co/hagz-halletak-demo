@@ -41,10 +41,10 @@ const navs={
 };
 const mobile={customer:['home','explore','my-wedding','account'],venue:['venue-os/overview','venue-os/calendar','venue-os/business-center','venue-os/analytics'],admin:['admin/overview','admin/venues','admin/economics','admin/marketplace-health'],investor:['investor','admin/economics','strategy-simulator','vision']};
 function inferRole(route=currentRoute()){
- if(route==='investor'||route==='strategy-simulator')return 'investor';
+ const stored=localStorage.getItem('hh-active-role');
+ if(route==='investor'||route==='strategy-simulator'||(route==='vision'&&stored==='investor'))return 'investor';
  if(route.startsWith('venue-os/'))return 'venue';
  if(route.startsWith('admin/')){
-  const stored=localStorage.getItem('hh-active-role');
   if(stored==='investor'&&(route==='admin/economics'||route==='admin/marketplace-health'))return 'investor';
   return 'admin';
  }
@@ -100,7 +100,7 @@ function addWorkspaceBadge(){
 function syncFromRoute(){
  const inferred=inferRole();const stored=getRole();
  const r=currentRoute();
- const investorShared=stored==='investor'&&(r==='admin/economics'||r==='admin/marketplace-health');
+ const investorShared=stored==='investor'&&(r==='admin/economics'||r==='admin/marketplace-health'||r==='vision');
  if(!investorShared&&stored!==inferred)localStorage.setItem('hh-active-role',inferred);
 }
 function render(){syncFromRoute();renderRoleSwitch();renderMainNav();renderMobileNav();renderBrand();renderRibbon();addWorkspaceBadge();document.body.dataset.demoRole=getRole()}
