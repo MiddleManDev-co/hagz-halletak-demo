@@ -38,12 +38,14 @@ jobs:
           node --check navigator-share.js
           node --check business-intelligence.js
           node --check persona-ui.js
+          node --check venue-360.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
           node --check navigator-share.test.js
           node --check business-intelligence.test.js
           node --check persona-ui.test.js
+          node --check venue-360.test.js
 
       - name: Run bilingual translation tests
         run: node i18n.test.js
@@ -63,6 +65,9 @@ jobs:
       - name: Run persona workspace tests
         run: node persona-ui.test.js
 
+      - name: Run 360 venue experience tests
+        run: node venue-360.test.js
+
       - name: Verify static entry files
         run: |
           test -f index.html
@@ -74,6 +79,8 @@ jobs:
           test -f navigator-share.css
           test -f business-intelligence.css
           test -f persona-ui.css
+          test -f ui-premium.css
+          test -f venue-360.css
           test -f i18n.js
           test -f app.js
           test -f extras.js
@@ -83,6 +90,7 @@ jobs:
           test -f navigator-share.js
           test -f business-intelligence.js
           test -f persona-ui.js
+          test -f venue-360.js
           grep -q 'styles.css' index.html
           grep -q 'i18n.css' index.html
           grep -q 'audit.css' index.html
@@ -91,6 +99,8 @@ jobs:
           grep -q 'navigator-share.css' index.html
           grep -q 'business-intelligence.css' index.html
           grep -q 'persona-ui.css' index.html
+          grep -q 'ui-premium.css' index.html
+          grep -q 'venue-360.css' index.html
           grep -q 'i18n.js' index.html
           grep -q 'app.js' index.html
           grep -q 'extras.js' index.html
@@ -100,6 +110,7 @@ jobs:
           grep -q 'navigator-share.js' index.html
           grep -q 'business-intelligence.js' index.html
           grep -q 'persona-ui.js' index.html
+          grep -q 'venue-360.js' index.html
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
 
