@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const valid=['full','customer','venue','admin','investor'];
+const valid=['full','customer','venue','admin','investor','business'];
 const en=()=>window.hhGetLanguage?.()==='en';
 const L=(ar,enText)=>en()?enText:ar;
 const requested=new URLSearchParams(location.search).get('tour');
@@ -12,7 +12,8 @@ function tourLabel(id){
   customer:[L('العميل','Customer'),'💍'],
   venue:[L('القاعة','Venue'),'🏛'],
   admin:[L('الإدارة','Admin'),'🛡'],
-  investor:[L('المستثمر','Investor'),'📈']
+  investor:[L('المستثمر','Investor'),'📈'],
+  business:[L('الماليات والاستراتيجية','Business intelligence'),'₤']
  };
  return labels[id];
 }
@@ -30,20 +31,21 @@ function inject(){
  row.innerHTML=`<span>${L('روابط مباشرة للعرض','Direct presentation links')}</span>${valid.map(id=>{const [label,icon]=tourLabel(id);return `<button type="button" onclick="hhCopyTourLink('${id}')">${icon} ${label}</button>`}).join('')}`;
  const foot=launcher.querySelector('.dn-launcher-foot');
  const buttons=foot?.querySelectorAll('button')||[];
- if(buttons[0])buttons[0].onclick=()=>{window.hhStopTour?.();window.hhCloseDemoNavigator?.();window.navTo?.('home')};
- if(buttons[1])buttons[1].onclick=()=>{window.hhStopTour?.();window.hhCloseDemoNavigator?.();window.auditToggleGuide?.(true)};
+ if(buttons[0])buttons[0].onclick=()=>{window.hhStopTour?.();window.biStopTour?.();window.hhCloseDemoNavigator?.();window.navTo?.('home')};
+ if(buttons[1])buttons[1].onclick=()=>{window.hhStopTour?.();window.biStopTour?.();window.hhCloseDemoNavigator?.();window.auditToggleGuide?.(true)};
 }
 window.hhCopyTourLink=copy;
 const baseReset=window.hhResetGuidedDemo;
 window.hhResetGuidedDemo=()=>{
  if(location.search)history.replaceState(null,'',location.pathname+location.hash);
+ window.biStopTour?.();
  baseReset?.();
 };
 const obs=new MutationObserver(()=>requestAnimationFrame(inject));
 document.addEventListener('DOMContentLoaded',()=>{
  obs.observe(document.body,{childList:true,subtree:true});
  inject();
- if(valid.includes(requested))setTimeout(()=>window.hhStartTour?.(requested),260);
+ if(valid.includes(requested)&&requested!=='business')setTimeout(()=>window.hhStartTour?.(requested),260);
 });
 window.addEventListener('hh:languagechange',()=>setTimeout(inject,30));
 })();
