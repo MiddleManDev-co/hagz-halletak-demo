@@ -36,10 +36,12 @@ jobs:
           node --check polish.js
           node --check navigator.js
           node --check navigator-share.js
+          node --check business-intelligence.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
           node --check navigator-share.test.js
+          node --check business-intelligence.test.js
 
       - name: Run bilingual translation tests
         run: node i18n.test.js
@@ -53,6 +55,9 @@ jobs:
       - name: Run shareable tour tests
         run: node navigator-share.test.js
 
+      - name: Run business intelligence tests
+        run: node business-intelligence.test.js
+
       - name: Verify static entry files
         run: |
           test -f index.html
@@ -62,6 +67,7 @@ jobs:
           test -f polish.css
           test -f navigator.css
           test -f navigator-share.css
+          test -f business-intelligence.css
           test -f i18n.js
           test -f app.js
           test -f extras.js
@@ -69,12 +75,14 @@ jobs:
           test -f polish.js
           test -f navigator.js
           test -f navigator-share.js
+          test -f business-intelligence.js
           grep -q 'styles.css' index.html
           grep -q 'i18n.css' index.html
           grep -q 'audit.css' index.html
           grep -q 'polish.css' index.html
           grep -q 'navigator.css' index.html
           grep -q 'navigator-share.css' index.html
+          grep -q 'business-intelligence.css' index.html
           grep -q 'i18n.js' index.html
           grep -q 'app.js' index.html
           grep -q 'extras.js' index.html
@@ -82,6 +90,7 @@ jobs:
           grep -q 'polish.js' index.html
           grep -q 'navigator.js' index.html
           grep -q 'navigator-share.js' index.html
+          grep -q 'business-intelligence.js' index.html
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
 
