@@ -23,6 +23,15 @@ https://middlemandev-co.github.io/hagz-halletak-demo/?tour=venue#/home
 
 KPIs → calendar → CRM → Quick Booking → DateDrop → analytics.
 
+## Business / finance / strategy
+
+**Business Intelligence — ~4 minutes**  
+https://middlemandev-co.github.io/hagz-halletak-demo/?tour=business#/home
+
+Venue P&L → cash flow → break-even → package/day profitability → pricing simulator → action center → platform economics → marketplace health → growth simulator.
+
+Use this route when presenting to a venue owner, finance-minded operator, strategic partner, or investor who wants to understand whether the business makes money and what decisions the system recommends.
+
 ## Platform operations / admin
 
 **Admin operations — ~2 minutes**  
@@ -46,3 +55,5 @@ Use the **Guide** button to start or change a scenario at any time. The guide su
 ## Before presenting
 
 Use **Reset Demo** from the Guide launcher to clear simulated booking/visit/refund/package state while keeping the selected language.
+
+All financial figures and scenario outputs in the demo are illustrative mock data, not real forecasts or audited financial statements.
