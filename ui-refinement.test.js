@@ -1,0 +1,12 @@
+const fs=require('fs');const assert=require('assert');
+const index=fs.readFileSync('index.html','utf8');
+const css=fs.readFileSync('ui-refinement.css','utf8');
+const js=fs.readFileSync('ui-refinement.js','utf8');
+for(const f of ['ui-refinement.css','ui-refinement.js'])assert(index.includes(f),`index missing ${f}`);
+for(const marker of ['ux-value-points','ux-result-intel','ux-venue-trust','ux-mobile-booking','ux-exec-strip','ux-priority-card','ux-thesis'])assert(js.includes(marker),`missing UI marker ${marker}`);
+for(const route of ["path()!=='home'","path()!=='explore'","path().startsWith('venue/')","path()!=='venue-os/overview'","path()!=='admin/overview'","path()!=='investor'"])assert(js.includes(route),`missing route refinement ${route}`);
+for(const bp of ['@media(max-width:1020px)','@media(max-width:760px)','@media(max-width:520px)'])assert(css.includes(bp),`missing responsive marker ${bp}`);
+assert(css.includes('.ux-filter-toggle{display:none}'),'filter progressive disclosure missing');
+assert(css.includes('.ux-mobile-booking{display:none}'),'mobile booking bar default behavior missing');
+assert(index.indexOf('venue-360.js')<index.indexOf('ui-refinement.js'),'refinement must load after 360 enhancement');
+console.log('ui refinement tests passed');
