@@ -1,0 +1,16 @@
+const fs=require('fs');const assert=require('assert');
+const js=fs.readFileSync('business-intelligence.js','utf8');
+const css=fs.readFileSync('business-intelligence.css','utf8');
+const index=fs.readFileSync('index.html','utf8');
+const workflow=fs.readFileSync('.github/workflows/pages.yml','utf8');
+for(const marker of ["a==='business-center'","a==='revenue-intelligence'","a==='action-center'","a==='economics'","a==='marketplace-health'","p==='strategy-simulator'"])assert(js.includes(marker),`missing BI route ${marker}`);
+for(const concept of ['Break-even','Pricing Simulator','Platform Economics','LTV/CAC','Marketplace Health','Availability reliability','Strategic Simulator','Business Intelligence Tour'])assert(js.includes(concept),`missing BI concept ${concept}`);
+assert(js.includes("qs.get('tour')==='business'"),'business share tour missing');
+assert(js.includes('hhStopTour'),'business tour must stop existing navigator tour');
+assert(css.includes('@media(max-width:760px)'),'tablet/mobile responsive marker missing');
+assert(css.includes('@media(max-width:520px)'),'small mobile responsive marker missing');
+assert(index.includes('business-intelligence.css'),'index missing BI css');
+assert(index.includes('business-intelligence.js'),'index missing BI js');
+assert(workflow.includes('node --check business-intelligence.js'),'workflow missing BI syntax check');
+assert(workflow.includes('node business-intelligence.test.js'),'workflow missing BI test');
+console.log('business intelligence tests passed');
