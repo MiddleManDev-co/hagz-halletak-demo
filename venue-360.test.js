@@ -1,0 +1,13 @@
+const fs=require('fs');const assert=require('assert');
+const index=fs.readFileSync('index.html','utf8');
+const js=fs.readFileSync('venue-360.js','utf8');
+const css=fs.readFileSync('venue-360.css','utf8');
+for(const f of ['ui-premium.css','venue-360.css','venue-360.js'])assert(index.includes(f),`index missing ${f}`);
+for(const marker of ['vv360-viewer','vv360-scene-strip','vv360-hotspot','vv-manager-hero','vv-quality-grid'])assert(css.includes(marker),`360 CSS missing ${marker}`);
+for(const marker of ["p==='venue-os'&&a==='360-manager'","p==='admin'&&a==='content-quality'",'mountCustomerTour','vv360ToggleAuto','vv360Fullscreen','Tour coverage','Content Quality'])assert(js.includes(marker),`360 feature missing ${marker}`);
+assert(js.includes("document.querySelectorAll('.venue-card')"),'all venue cards must expose 360 tour');
+assert(js.includes("a.href='#virtual-tour'"),'venue details must expose 360 tour navigation');
+assert(js.includes('requestFullscreen'),'fullscreen 360 control missing');
+assert(js.includes('onpointermove'),'drag interaction missing');
+for(const marker of ['@media(max-width:900px)','@media(max-width:620px)','@media(prefers-reduced-motion:reduce)'])assert(css.includes(marker),`360 responsive/accessibility CSS missing ${marker}`);
+console.log('360 venue experience tests passed');
