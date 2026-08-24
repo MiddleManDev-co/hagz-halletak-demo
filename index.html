@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="navigator.css">
   <link rel="stylesheet" href="navigator-share.css">
   <link rel="stylesheet" href="business-intelligence.css">
+  <link rel="stylesheet" href="persona-ui.css">
 </head>
 <body>
   <header class="topbar">
@@ -26,9 +27,7 @@
         <a href="#/home">الرئيسية</a>
         <a href="#/explore">القاعات</a>
         <a href="#/my-wedding">القائمة المشتركة</a>
-        <a href="#/venue-os/overview">VenueOS</a>
-        <a href="#/admin/overview">Admin</a>
-        <a href="#/vision">رؤية المنتج</a>
+        <a href="#/account">حسابي</a>
       </nav>
 
       <div class="top-actions">
@@ -37,11 +36,12 @@
           <button type="button" data-lang="en" onclick="hhSetLanguage('en')" aria-label="English">EN</button>
         </div>
         <div class="persona-switch" aria-label="تبديل شخصية الديمو">
-          <button data-persona="customer" onclick="setPersona('customer','home')">Customer</button>
-          <button data-persona="venue" onclick="setPersona('venue','venue-os/overview')">Venue</button>
-          <button data-persona="admin" onclick="setPersona('admin','admin/overview')">Admin</button>
+          <button data-persona="customer">Customer</button>
+          <button data-persona="venue">Venue</button>
+          <button data-persona="admin">Admin</button>
+          <button data-persona="investor">Investor</button>
         </div>
-        <button class="icon-btn" onclick="openPersonaModal(true)" title="Demo Scenario">▶</button>
+        <button class="icon-btn" onclick="hhOpenDemoNavigator?.()" title="Demo Guide">▶</button>
         <button class="icon-btn menu-btn" id="menuBtn" title="القائمة">☰</button>
       </div>
     </div>
@@ -49,20 +49,20 @@
 
   <div class="demo-ribbon">
     <div class="container demo-ribbon-inner">
-      <span><strong>Interactive demo:</strong> نفس رحلة الحجز بتظهر للعميل، صاحب القاعة، وإدارة المنصة.</span>
-      <button onclick="openPersonaModal(true)">ابدأ السيناريو</button>
+      <span><strong>Customer:</strong> مساحة العميل فقط.</span>
+      <button onclick="hhOpenDemoNavigator?.()">Guide</button>
     </div>
   </div>
 
   <div id="app" aria-live="polite"></div>
 
-  <button class="floating-demo btn btn-primary" onclick="openPersonaModal(true)">▶ Demo Scenario</button>
+  <button class="floating-demo btn btn-primary" onclick="hhOpenDemoNavigator?.()">▶ Demo Guide</button>
 
   <nav class="mobile-bottom" aria-label="تنقل الموبايل">
     <a href="#/home"><span>⌂</span><span>Home</span></a>
     <a href="#/explore"><span>⌕</span><span>Explore</span></a>
-    <a href="#/venue-os/overview"><span>▦</span><span>VenueOS</span></a>
-    <a href="#/vision"><span>◎</span><span>Product Vision</span></a>
+    <a href="#/my-wedding"><span>♥</span><span>Wedding</span></a>
+    <a href="#/account"><span>◎</span><span>Account</span></a>
   </nav>
 
   <div id="personaModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="demoTitle" onclick="if(event.target===this)closeModal()">
@@ -71,24 +71,27 @@
         <div>
           <span class="badge blue">Demo Mode</span>
           <h2 id="demoTitle" style="margin-top:8px">اختار هتشوف المنتج من أنهي ناحية</h2>
-          <p class="small muted">ابدأ كعميل، كمل الحجز، وبعدها شوف نفس العملية في VenueOS وAdmin.</p>
+          <p class="small muted">كل شخصية لها مساحة منفصلة وNavigation خاص بها.</p>
         </div>
         <button class="btn btn-light btn-sm" onclick="closeModal()">✕</button>
       </div>
       <div class="persona-cards">
-        <button class="persona-card" onclick="choosePersona('customer')">
+        <button class="persona-card" onclick="hhSwitchRole('customer');closeModal()">
           <span class="emoji">💍</span><strong>Customer</strong><span>Search → Compare → Hold → Book</span>
         </button>
-        <button class="persona-card" onclick="choosePersona('venue')">
-          <span class="emoji">🏛</span><strong>Venue Owner</strong><span>Calendar → Leads → Revenue</span>
+        <button class="persona-card" onclick="hhSwitchRole('venue');closeModal()">
+          <span class="emoji">🏛</span><strong>Venue Owner</strong><span>Calendar → Leads → Business</span>
         </button>
-        <button class="persona-card" onclick="choosePersona('admin')">
-          <span class="emoji">🛡</span><strong>Platform Admin</strong><span>Supply → GMV → Demand</span>
+        <button class="persona-card" onclick="hhSwitchRole('admin');closeModal()">
+          <span class="emoji">🛡</span><strong>Platform Admin</strong><span>Supply → Payments → Market Health</span>
+        </button>
+        <button class="persona-card" onclick="hhSwitchRole('investor');closeModal()">
+          <span class="emoji">📈</span><strong>Investor</strong><span>Economics → Growth → Strategy</span>
         </button>
       </div>
       <div class="card card-pad" style="margin-top:14px;background:var(--ivory)">
-        <strong>Recommended story</strong>
-        <p class="tiny muted" style="margin-bottom:0">Customer: 15 Oct 2027 / 300 guests / New Cairo → Royal Garden → Booking HGZ-2031 → switch to VenueOS Calendar → switch to Admin GMV.</p>
+        <strong>Role-based workspace</strong>
+        <p class="tiny muted" style="margin-bottom:0">اختيار الشخصية يغيّر الـnavigation والـmobile menu ويظهر فقط الأدوات المناسبة لهذا المنظور.</p>
       </div>
     </div>
   </div>
@@ -102,5 +105,6 @@
   <script src="navigator.js" defer></script>
   <script src="navigator-share.js" defer></script>
   <script src="business-intelligence.js" defer></script>
+  <script src="persona-ui.js" defer></script>
 </body>
 </html>
