@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#14243a">
-  <meta name="description" content="Dawwar — trusted venue discovery, request-to-book, venue operations and future marketplace vision.">
-  <title>Dawwar | Interactive Product Demo</title>
+  <meta name="description" content="دوّر — اكتشاف قاعات موثوقة ومتاحة، طلب الحجز، إدارة الزيارات والعروض، ثم تأكيد الحجز.">
+  <title>دوّر | عرض تفاعلي للمنتج</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="i18n.css">
   <link rel="stylesheet" href="audit.css">
@@ -22,9 +22,9 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="#/home" aria-label="Dawwar">
-        <span class="brand-mark">D</span>
-        <span>Dawwar</span>
+      <a class="brand" href="#/home" aria-label="دوّر">
+        <span class="brand-mark">د</span>
+        <span>دوّر</span>
       </a>
 
       <nav class="main-nav" aria-label="التنقل الرئيسي">
@@ -39,13 +39,13 @@
           <button type="button" data-lang="ar" onclick="hhSetLanguage('ar')" aria-label="العربية">عربي</button>
           <button type="button" data-lang="en" onclick="hhSetLanguage('en')" aria-label="English">EN</button>
         </div>
-        <div class="persona-switch" aria-label="تبديل شخصية الديمو">
-          <button data-persona="customer">Customer</button>
-          <button data-persona="venue">Venue</button>
-          <button data-persona="admin">Admin</button>
-          <button data-persona="investor">Investor</button>
+        <div class="persona-switch" aria-label="تبديل منظور العرض">
+          <button data-persona="customer">العميل</button>
+          <button data-persona="venue">القاعة</button>
+          <button data-persona="admin">الإدارة</button>
+          <button data-persona="investor">المستثمر</button>
         </div>
-        <button class="icon-btn" onclick="hhOpenDemoNavigator?.()" title="Demo Guide">▶</button>
+        <button class="icon-btn" onclick="hhOpenDemoNavigator?.()" title="دليل العرض">▶</button>
         <button class="icon-btn menu-btn" id="menuBtn" title="القائمة">☰</button>
       </div>
     </div>
@@ -53,49 +53,49 @@
 
   <div class="demo-ribbon">
     <div class="container demo-ribbon-inner">
-      <span><strong>Dawwar Pilot:</strong> Availability → Enquiry → Visit/Quote → Confirmed booking.</span>
-      <button onclick="hhOpenDemoNavigator?.()">Guide</button>
+      <span><strong>نسخة دوّر التجريبية:</strong> التوافر ← الاستفسار ← الزيارة والعرض ← الحجز المؤكد.</span>
+      <button onclick="hhOpenDemoNavigator?.()">الدليل</button>
     </div>
   </div>
 
   <div id="app" aria-live="polite"></div>
 
-  <button class="floating-demo btn btn-primary" onclick="hhOpenDemoNavigator?.()">▶ Demo Guide</button>
+  <button class="floating-demo btn btn-primary" onclick="hhOpenDemoNavigator?.()">▶ دليل العرض</button>
 
   <nav class="mobile-bottom" aria-label="تنقل الموبايل">
-    <a href="#/home"><span>⌂</span><span>Home</span></a>
-    <a href="#/explore"><span>⌕</span><span>Explore</span></a>
-    <a href="#/my-wedding"><span>♥</span><span>Shortlist</span></a>
-    <a href="#/account"><span>◎</span><span>Account</span></a>
+    <a href="#/home"><span>⌂</span><span>الرئيسية</span></a>
+    <a href="#/explore"><span>⌕</span><span>استكشف</span></a>
+    <a href="#/my-wedding"><span>♥</span><span>القائمة</span></a>
+    <a href="#/account"><span>◎</span><span>الحساب</span></a>
   </nav>
 
   <div id="personaModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="demoTitle" onclick="if(event.target===this)closeModal()">
     <div class="modal">
       <div class="panel-head">
         <div>
-          <span class="badge blue">Dawwar Demo</span>
-          <h2 id="demoTitle" style="margin-top:8px">اختار منظور Dawwar</h2>
-          <p class="small muted">الـPilot هو القصة الأساسية؛ الشاشات المتقدمة محفوظة كـFuture Vision.</p>
+          <span class="badge blue">عرض دوّر</span>
+          <h2 id="demoTitle" style="margin-top:8px">اختار منظور دوّر</h2>
+          <p class="small muted">النسخة التجريبية هي القصة الأساسية؛ الشاشات المتقدمة محفوظة ضمن الرؤية المستقبلية.</p>
         </div>
         <button class="btn btn-light btn-sm" onclick="closeModal()">✕</button>
       </div>
       <div class="persona-cards">
         <button class="persona-card" onclick="hhSwitchRole('customer');closeModal()">
-          <span class="emoji">💍</span><strong>Customer</strong><span>Search → Enquiry → Visit → Confirm</span>
+          <span class="emoji">💍</span><strong>العميل</strong><span>البحث ← الاستفسار ← الزيارة ← التأكيد</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('venue');closeModal()">
-          <span class="emoji">🏛</span><strong>Venue Owner</strong><span>Calendar → Leads → Visits → Commission</span>
+          <span class="emoji">🏛</span><strong>صاحب القاعة</strong><span>التقويم ← العملاء المحتملون ← الزيارات ← العمولة</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('admin');closeModal()">
-          <span class="emoji">🛡</span><strong>Platform Admin</strong><span>Verification → Freshness → Attribution → Commission</span>
+          <span class="emoji">🛡</span><strong>إدارة المنصة</strong><span>التحقق ← حداثة البيانات ← تحديد المصدر ← العمولة</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('investor');closeModal()">
-          <span class="emoji">📈</span><strong>Investor</strong><span>Marketplace → VenueOS → Commission → Future Vision</span>
+          <span class="emoji">📈</span><strong>المستثمر</strong><span>السوق ← إدارة القاعات ← العمولة ← الرؤية المستقبلية</span>
         </button>
       </div>
       <div class="card card-pad" style="margin-top:14px;background:var(--ivory)">
-        <strong>Pilot-first workspace</strong>
-        <p class="tiny muted" style="margin-bottom:0">نبدأ بالـtrusted availability وrequest-to-book وcommission-only؛ Payment orchestration و360 وBI تظل رؤية مستقبلية.</p>
+        <strong>مساحة عمل تبدأ بالنسخة التجريبية</strong>
+        <p class="tiny muted" style="margin-bottom:0">نبدأ بالتوافر الموثوق وطلب الحجز وعمولة النجاح فقط؛ إدارة المدفوعات والجولات الافتراضية وذكاء الأعمال تظل ضمن الرؤية المستقبلية.</p>
       </div>
     </div>
   </div>
@@ -113,5 +113,7 @@
   <script src="venue-360.js" defer></script>
   <script src="ui-refinement.js" defer></script>
   <script src="dawwar-pilot.js" defer></script>
+  <script src="language-purity.js" defer></script>
+  <script src="language-purity-terms.js" defer></script>
 </body>
 </html>
