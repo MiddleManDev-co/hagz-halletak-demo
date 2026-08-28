@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Validate and deploy static demo
 
 on:
   push:
@@ -15,17 +15,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: false
+  group: github-pages-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+  validate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,99 +49,59 @@ jobs:
           node --check ui-refinement.test.js
           node --check dawwar-pilot.test.js
 
-      - name: Run bilingual translation tests
-        run: node i18n.test.js
-
-      - name: Run full demo integrity tests
-        run: node demo.integrity.test.js
-
-      - name: Run guided demo navigator tests
-        run: node navigator.test.js
-
-      - name: Run shareable tour tests
-        run: node navigator-share.test.js
-
-      - name: Run business intelligence tests
-        run: node business-intelligence.test.js
-
-      - name: Run persona workspace tests
-        run: node persona-ui.test.js
-
-      - name: Run 360 venue experience tests
-        run: node venue-360.test.js
-
-      - name: Run clarity-first UI tests
-        run: node ui-refinement.test.js
-
-      - name: Run Dawwar pilot tests
-        run: node dawwar-pilot.test.js
+      - name: Run test suite
+        run: |
+          node i18n.test.js
+          node demo.integrity.test.js
+          node navigator.test.js
+          node navigator-share.test.js
+          node business-intelligence.test.js
+          node persona-ui.test.js
+          node venue-360.test.js
+          node ui-refinement.test.js
+          node dawwar-pilot.test.js
 
       - name: Verify static entry files
         run: |
-          test -f index.html
-          test -f styles.css
-          test -f i18n.css
-          test -f audit.css
-          test -f polish.css
-          test -f navigator.css
-          test -f navigator-share.css
-          test -f business-intelligence.css
-          test -f persona-ui.css
-          test -f ui-premium.css
-          test -f venue-360.css
-          test -f ui-refinement.css
-          test -f dawwar-pilot.css
-          test -f i18n.js
-          test -f app.js
-          test -f extras.js
-          test -f audit.js
-          test -f polish.js
-          test -f navigator.js
-          test -f navigator-share.js
-          test -f business-intelligence.js
-          test -f persona-ui.js
-          test -f venue-360.js
-          test -f ui-refinement.js
-          test -f dawwar-pilot.js
-          grep -q 'styles.css' index.html
-          grep -q 'i18n.css' index.html
-          grep -q 'audit.css' index.html
-          grep -q 'polish.css' index.html
-          grep -q 'navigator.css' index.html
-          grep -q 'navigator-share.css' index.html
-          grep -q 'business-intelligence.css' index.html
-          grep -q 'persona-ui.css' index.html
-          grep -q 'ui-premium.css' index.html
-          grep -q 'venue-360.css' index.html
-          grep -q 'ui-refinement.css' index.html
-          grep -q 'dawwar-pilot.css' index.html
-          grep -q 'i18n.js' index.html
-          grep -q 'app.js' index.html
-          grep -q 'extras.js' index.html
-          grep -q 'audit.js' index.html
-          grep -q 'polish.js' index.html
-          grep -q 'navigator.js' index.html
-          grep -q 'navigator-share.js' index.html
-          grep -q 'business-intelligence.js' index.html
-          grep -q 'persona-ui.js' index.html
-          grep -q 'venue-360.js' index.html
-          grep -q 'ui-refinement.js' index.html
-          grep -q 'dawwar-pilot.js' index.html
+          for f in \
+            index.html styles.css i18n.css audit.css polish.css navigator.css \
+            navigator-share.css business-intelligence.css persona-ui.css ui-premium.css \
+            venue-360.css ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js \
+            audit.js polish.js navigator.js navigator-share.js business-intelligence.js \
+            persona-ui.js venue-360.js ui-refinement.js dawwar-pilot.js; do
+            test -f "$f"
+          done
+          for marker in \
+            styles.css i18n.css audit.css polish.css navigator.css navigator-share.css \
+            business-intelligence.css persona-ui.css ui-premium.css venue-360.css \
+            ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js audit.js polish.js \
+            navigator.js navigator-share.js business-intelligence.js persona-ui.js \
+            venue-360.js ui-refinement.js dawwar-pilot.js; do
+            grep -q "$marker" index.html
+          done
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
           grep -q '<title>Dawwar' index.html
 
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload site artifact
-        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
       - name: Deploy to GitHub Pages
-        if: github.event_name != 'pull_request'
         id: deployment
         uses: actions/deploy-pages@v4
