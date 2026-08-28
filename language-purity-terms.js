@@ -129,17 +129,18 @@ function translate(text,pairs){
   return value;
 }
 
+function purifyText(text){return translate(text,lang()==='en'?enPairs:arPairs);}
+
 let applying=false;
 function apply(root=document.body){
   if(!root||applying)return;
   applying=true;
   try{
-    const pairs=lang()==='en'?enPairs:arPairs;
     const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
     const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
     for(const node of nodes){
       if(node.parentElement?.closest('script,style,code,pre'))continue;
-      const value=translate(node.nodeValue,pairs);
+      const value=purifyText(node.nodeValue);
       if(value!==node.nodeValue)node.nodeValue=value;
     }
   }finally{applying=false;}
@@ -148,6 +149,7 @@ function apply(root=document.body){
 let timer;const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>apply(),60)};
 const observer=new MutationObserver(schedule);
 function start(){apply();observer.observe(document.body,{subtree:true,childList:true,characterData:true});}
+global.dawwarPurifyTerminology=purifyText;
 global.addEventListener('hashchange',schedule);
 global.addEventListener('hh:languagechange',()=>setTimeout(apply,100));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
