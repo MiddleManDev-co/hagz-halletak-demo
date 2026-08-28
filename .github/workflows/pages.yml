@@ -39,8 +39,7 @@ jobs:
           node --check venue-360.js
           node --check ui-refinement.js
           node --check dawwar-pilot.js
-          node --check language-purity.js
-          node --check language-purity-terms.js
+          node --check locale-legacy-v2.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
@@ -73,7 +72,7 @@ jobs:
             venue-360.css ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js \
             audit.js polish.js navigator.js navigator-share.js business-intelligence.js \
             persona-ui.js venue-360.js ui-refinement.js dawwar-pilot.js \
-            language-purity.js language-purity-terms.js; do
+            locale-legacy-v2.js; do
             test -f "$f"
           done
           for marker in \
@@ -81,10 +80,11 @@ jobs:
             business-intelligence.css persona-ui.css ui-premium.css venue-360.css \
             ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js audit.js polish.js \
             navigator.js navigator-share.js business-intelligence.js persona-ui.js \
-            venue-360.js ui-refinement.js dawwar-pilot.js language-purity.js \
-            language-purity-terms.js; do
+            venue-360.js ui-refinement.js dawwar-pilot.js locale-legacy-v2.js; do
             grep -q "$marker" index.html
           done
+          ! grep -q 'language-purity.js' index.html
+          ! grep -q 'language-purity-terms.js' index.html
           grep -q 'data-lang="ar"' index.html
           grep -q 'data-lang="en"' index.html
           grep -q '<title>دوّر' index.html

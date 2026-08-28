@@ -5,7 +5,8 @@ const css=fs.readFileSync('dawwar-pilot.css','utf8');
 const workflow=fs.readFileSync('.github/workflows/pages.yml','utf8');
 
 assert(index.includes('<title>دوّر'), 'Arabic first paint must use the localized Dawwar brand');
-assert(index.includes('language-purity.js') && index.includes('language-purity-terms.js'),'localized Dawwar shell must load language purity guards');
+assert(index.includes('locale-legacy-v2.js'),'localized shell must load the safe legacy locale layer');
+assert(!index.includes('language-purity.js') && !index.includes('language-purity-terms.js'),'conflicting broad language-purity observers must not load');
 assert(index.includes('dawwar-pilot.css') && index.includes('dawwar-pilot.js'),'pilot layer must load from index');
 assert(index.indexOf('ui-refinement.js') < index.indexOf('dawwar-pilot.js'),'pilot layer must load after existing demo layers');
 for(const marker of ['Commission only','Request-to-Book','pilot/request','pilot/quote','pilot/confirmed','pilot/commission','pilot/ops','VenueOS Lite','Future Vision'])assert(js.includes(marker),`pilot marker missing: ${marker}`);
