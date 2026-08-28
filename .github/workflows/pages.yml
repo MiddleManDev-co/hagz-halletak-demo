@@ -41,6 +41,7 @@ jobs:
           node --check dawwar-pilot.js
           node --check locale-legacy-v2.js
           node --check dawwar-plain-copy.js
+          node --check demo-sync.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
@@ -77,7 +78,7 @@ jobs:
             venue-360.css ui-refinement.css dawwar-pilot.css demo-quality.css i18n.js app.js extras.js \
             audit.js polish.js navigator.js navigator-share.js business-intelligence.js \
             persona-ui.js venue-360.js ui-refinement.js dawwar-pilot.js \
-            locale-legacy-v2.js dawwar-plain-copy.js; do
+            locale-legacy-v2.js dawwar-plain-copy.js demo-sync.js; do
             test -f "$f"
           done
           for marker in \
@@ -86,7 +87,7 @@ jobs:
             ui-refinement.css dawwar-pilot.css demo-quality.css i18n.js app.js extras.js audit.js polish.js \
             navigator.js navigator-share.js business-intelligence.js persona-ui.js \
             venue-360.js ui-refinement.js dawwar-pilot.js locale-legacy-v2.js \
-            dawwar-plain-copy.js; do
+            dawwar-plain-copy.js demo-sync.js; do
             grep -q "$marker" index.html
           done
           ! grep -q 'language-purity.js' index.html
