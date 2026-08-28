@@ -10,12 +10,14 @@ for(const marker of [
   'إدارة دوّر في شاشة واحدة','Run Dawwar from one simple screen'
 ]) assert(js.includes(marker),`missing plain-copy marker: ${marker}`);
 
+const visible=s=>s.replace(/<[^>]+>/g,'').replace(/&[a-z]+;/gi,'');
 const pair=/L\('([^']*)','([^']*)'\)/g;
 let m,count=0;
 while((m=pair.exec(js))){
   count++;
-  assert(!/[A-Za-z]/.test(m[1]),`Arabic copy contains Latin letters: ${m[1]}`);
-  assert(!/[\u0600-\u06FF]/.test(m[2]),`English copy contains Arabic letters: ${m[2]}`);
+  const ar=visible(m[1]);const en=visible(m[2]);
+  assert(!/[A-Za-z]/.test(ar),`Arabic copy contains Latin letters: ${ar}`);
+  assert(!/[\u0600-\u06FF]/.test(en),`English copy contains Arabic letters: ${en}`);
 }
 assert(count>20,'expected many bilingual copy pairs');
 assert(!/كريم|آية|Karim|Aya/.test(js),'legacy demo names must not return');
