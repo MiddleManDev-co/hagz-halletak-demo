@@ -1,59 +1,55 @@
-# Hagz Halletak — Direct Demo Links
+# Dawwar — Direct Demo Links
 
-Use these URLs when sharing the demo with different audiences. Each link starts the matching guided tour automatically.
+The default story now presents the commission-first pilot. Advanced payment, 360, analytics and strategy screens remain available as Future Vision.
+
+> The GitHub Pages path still uses the repository's current legacy slug. The visible product brand is **Dawwar**.
 
 ## Recommended first-time demo
 
-**Full 5-minute story**  
+**Dawwar Pilot — ~4 minutes**  
 https://middlemandev-co.github.io/hagz-halletak-demo/?tour=full#/home
 
-Customer → booking → VenueOS → Admin → Investor story.
+Search → trusted availability → Request-to-Book → venue quote → direct customer-to-venue deposit → confirmed booking → VenueOS commission → Admin/Ops → Future Vision.
 
 ## Customer / couple
 
-**Customer journey — ~2 minutes**  
+**Customer pilot — ~2 minutes**  
 https://middlemandev-co.github.io/hagz-halletak-demo/?tour=customer#/home
 
-Search → venue → booking → confirmed booking → customer account.
+Search → venue → Request-to-Book → quote/visit → confirmed booking.
 
 ## Venue owner / operator
 
-**Venue operations — ~2 minutes**  
+**VenueOS Lite — ~2 minutes**  
 https://middlemandev-co.github.io/hagz-halletak-demo/?tour=venue#/home
 
-KPIs → calendar → CRM → Quick Booking → DateDrop → analytics.
-
-## Business / finance / strategy
-
-**Business Intelligence — ~4 minutes**  
-https://middlemandev-co.github.io/hagz-halletak-demo/?tour=business#/home
-
-Venue P&L → cash flow → break-even → package/day profitability → pricing simulator → action center → platform economics → marketplace health → growth simulator.
-
-Use this route when presenting to a venue owner, finance-minded operator, strategic partner, or investor who wants to understand whether the business makes money and what decisions the system recommends.
+Overview → unified calendar → leads → confirmed booking / success commission.
 
 ## Platform operations / admin
 
-**Admin operations — ~2 minutes**  
+**Pilot Ops — ~90 seconds**  
 https://middlemandev-co.github.io/hagz-halletak-demo/?tour=admin#/home
 
-GMV → venue verification → bookings → disputes/refunds → payouts → marketplace intelligence.
+Verification → availability freshness → booking attribution → commission reconciliation.
 
-## Investor / partner
+## Business / investor
 
-**Investor story — ~90 seconds**  
+**Business story — ~90 seconds**  
 https://middlemandev-co.github.io/hagz-halletak-demo/?tour=investor#/home
 
-Problem → VenueOS supply layer → marketplace intelligence → flywheel / monetization / moat.
+Marketplace demand → VenueOS supply retention → commission-first monetization → hybrid subscription/payment/BI Future Vision.
+
+## Business Intelligence vision
+
+**Advanced BI vision — ~4 minutes**  
+https://middlemandev-co.github.io/hagz-halletak-demo/?tour=business#/home
+
+This remains useful for explaining the long-term product, but it is intentionally not the recommended launch story.
 
 ## Free exploration
 
 https://middlemandev-co.github.io/hagz-halletak-demo/
 
-Use the **Guide** button to start or change a scenario at any time. The guide supports Arabic RTL and English LTR, and the language choice persists across the demo.
+Use **Guide** to start or change a scenario. Use **Reset Demo** to clear simulated state while keeping the selected language.
 
-## Before presenting
-
-Use **Reset Demo** from the Guide launcher to clear simulated booking/visit/refund/package state while keeping the selected language.
-
-All financial figures and scenario outputs in the demo are illustrative mock data, not real forecasts or audited financial statements.
+All financial figures, booking states, availability, payments, commission values and analytics shown in the repository are illustrative demo data, not audited financial statements or production transactions.

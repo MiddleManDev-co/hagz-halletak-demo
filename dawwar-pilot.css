@@ -1,0 +1,34 @@
+/* Dawwar commission-first pilot presentation layer */
+.dawwar-pilot-hero{padding:72px 0 54px;background:linear-gradient(135deg,#f7f4ef 0%,#fff 58%,#edf4f2 100%)}
+.dawwar-pilot-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center}
+.dawwar-pilot-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#e9f5f0;color:#176b55;font-size:13px;font-weight:800}
+.dawwar-pilot-title{font-size:clamp(38px,5vw,66px);line-height:1.05;margin:16px 0;color:var(--navy,#14243a)}
+.dawwar-pilot-title span{color:var(--purple,#6e315d)}
+.dawwar-pilot-copy{font-size:18px;line-height:1.9;color:#536070;max-width:680px}
+.dawwar-pilot-proof{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.dawwar-pilot-proof span{background:#fff;border:1px solid #dfe5ea;padding:9px 12px;border-radius:12px;font-size:13px;font-weight:700;color:#344054}
+.dawwar-search-card{background:#fff;border:1px solid #dce4e8;border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(20,36,58,.08)}
+.dawwar-search-card h3{margin:0 0 5px;color:var(--navy,#14243a)}
+.dawwar-search-card .pilot-note{margin:0 0 16px;font-size:13px;color:#667085}
+.dawwar-search-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dawwar-search-grid .full{grid-column:1/-1}
+.dawwar-pilot-strip{background:#14243a;color:#fff;padding:18px 0}
+.dawwar-pilot-strip .container{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.dawwar-pilot-strip div div{font-size:12px;opacity:.72;margin-bottom:4px}.dawwar-pilot-strip strong{font-size:16px}
+.dawwar-section{padding:58px 0}.dawwar-section.soft{background:#f6f8fa}.dawwar-section.white{background:#fff}
+.dawwar-section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}
+.dawwar-section-head h2{margin:5px 0;color:var(--navy,#14243a);font-size:30px}.dawwar-section-head p{margin:0;color:#667085;max-width:720px}
+.dawwar-how-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.dawwar-step{background:#fff;border:1px solid #e1e7ec;border-radius:16px;padding:18px;position:relative}.dawwar-step b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#14243a;color:#fff;margin-bottom:12px}.dawwar-step strong{display:block;color:#172b44;margin-bottom:7px}.dawwar-step p{font-size:13px;line-height:1.7;color:#667085;margin:0}
+.dawwar-model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.dawwar-model-card{background:#fff;border:1px solid #dfe5ea;border-radius:18px;padding:22px}.dawwar-model-card.primary{border-color:#b8d9cd;background:#f2faf7}.dawwar-model-card .tag{font-size:12px;font-weight:800;color:#176b55}.dawwar-model-card h3{margin:8px 0;color:#14243a}.dawwar-model-card p{color:#667085;line-height:1.8;font-size:14px}.dawwar-model-card ul{margin:12px 0 0;padding-inline-start:20px;color:#475467;font-size:13px;line-height:1.9}
+.dawwar-vision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.dawwar-vision-card{border:1px dashed #cbd5df;border-radius:15px;padding:16px;background:#fafbfd}.dawwar-vision-card small{display:block;color:#9a6700;font-weight:800;margin-bottom:5px}.dawwar-vision-card strong{color:#344054}.dawwar-vision-card p{font-size:12px;color:#667085;margin-bottom:0;line-height:1.6}
+.dawwar-pilot-callout{margin:14px 0;padding:13px 15px;border:1px solid #b7d7cc;background:#effaf6;border-radius:13px;color:#176b55;font-size:13px;line-height:1.7}
+.dawwar-future-banner{margin:0;background:#fff6dc;border-bottom:1px solid #ead59d;color:#6d5310}.dawwar-future-banner .container{padding-top:10px;padding-bottom:10px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.dawwar-request-page{padding:44px 0 72px;background:#f6f8fa;min-height:70vh}.dawwar-request-layout{display:grid;grid-template-columns:1fr .78fr;gap:22px;align-items:start}.dawwar-panel{background:#fff;border:1px solid #dde4e9;border-radius:18px;padding:22px}.dawwar-panel h1,.dawwar-panel h2,.dawwar-panel h3{color:#14243a}.dawwar-flow-list{display:grid;gap:11px;margin-top:16px}.dawwar-flow-row{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid #e4e9ed;border-radius:12px}.dawwar-flow-row i{font-style:normal;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:#eaf4f0;color:#176b55;font-weight:900;flex:none}.dawwar-flow-row strong{display:block;color:#344054}.dawwar-flow-row span{font-size:12px;color:#667085}
+.dawwar-quote{border:2px solid #b8d9cd;background:#f6fcfa}.dawwar-price{font-size:34px;font-weight:900;color:#14243a}.dawwar-price small{font-size:13px;color:#667085;font-weight:500}.dawwar-status{display:inline-flex;padding:6px 9px;border-radius:999px;background:#e7f6ef;color:#176b55;font-size:12px;font-weight:900}
+.dawwar-confirmed{border:2px solid #b8d9cd;text-align:center;padding:32px}.dawwar-confirmed .check{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 13px;background:#1d7a60;color:#fff;font-size:28px;font-weight:900}.dawwar-ref{font-size:26px;font-weight:900;letter-spacing:1px;color:#14243a}
+.dawwar-commission-box{background:#14243a;color:#fff;border-radius:16px;padding:18px}.dawwar-commission-box small{opacity:.7}.dawwar-commission-box strong{display:block;font-size:26px;margin-top:4px}
+.dawwar-brand-word{font-weight:900;letter-spacing:.2px}
+@media(max-width:1000px){.dawwar-pilot-grid,.dawwar-request-layout{grid-template-columns:1fr}.dawwar-how-grid{grid-template-columns:repeat(2,1fr)}.dawwar-model-grid{grid-template-columns:1fr}.dawwar-vision-grid{grid-template-columns:repeat(2,1fr)}.dawwar-pilot-strip .container{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.dawwar-pilot-hero{padding:42px 0}.dawwar-search-grid,.dawwar-how-grid,.dawwar-vision-grid,.dawwar-pilot-strip .container{grid-template-columns:1fr}.dawwar-section{padding:42px 0}.dawwar-section-head{align-items:start;flex-direction:column}.dawwar-pilot-title{font-size:40px}}
+@media(prefers-reduced-motion:reduce){.dawwar-pilot-hero *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
