@@ -69,7 +69,16 @@ let activeTour=null;let stepIndex=0;let launcherOpen=false;
 
 function persist(){try{if(activeTour){localStorage.setItem('hh-guide-tour',activeTour);localStorage.setItem('hh-guide-step',String(stepIndex))}else{localStorage.removeItem('hh-guide-tour');localStorage.removeItem('hh-guide-step')}}catch(_){}}
 function seedBooking(){try{localStorage.setItem('hh-booking','1')}catch(_){}if(window.state)window.state.bookingCreated=true}
-function setPersonaAndRoute(persona,route){if(persona==='investor'){try{localStorage.setItem('hh-persona','investor')}catch(_){}if(window.state)window.state.persona='investor';window.navTo?.(route);return}window.setPersona?.(persona,route)||window.navTo?.(route)}
+function setPersonaAndRoute(persona,route){
+  if(persona==='investor'){
+    try{localStorage.setItem('hh-persona','investor')}catch(_){}
+    if(window.state)window.state.persona='investor';
+    window.navTo?.(route);
+    return;
+  }
+  if(window.setPersona)window.setPersona(persona,route);
+  else window.navTo?.(route);
+}
 function currentStep(){return activeTour?tours[activeTour]?.steps[stepIndex]:null}
 function stepTo(i){if(!activeTour||!tours[activeTour])return;stepIndex=Math.max(0,Math.min(i,tours[activeTour].steps.length-1));const s=currentStep();if(!s)return;if(s[0].startsWith('pilot/confirmed')||s[0].startsWith('pilot/commission'))seedBooking();persist();setPersonaAndRoute(s[1],s[0]);setTimeout(renderAll,100)}
 function startTour(id){if(!tours[id])return;activeTour=id;stepIndex=0;launcherOpen=false;try{localStorage.setItem('hh-guide-welcome','1')}catch(_){}persist();stepTo(0)}
@@ -95,9 +104,16 @@ function takeSmartNext(){const n=smartNext();if(n)setPersonaAndRoute(n[1],n[0])}
 
 function ensureRoot(){let r=document.querySelector('#demoNavigatorRoot');if(!r){r=document.createElement('div');r.id='demoNavigatorRoot';document.body.appendChild(r)}return r}
 function launcherHtml(){const icons={full:'◎',customer:'💍',venue:'🏛',admin:'🛡',investor:'📈'};return `<div class="dn-backdrop" onclick="if(event.target===this)hhCloseDemoNavigator()"><section class="dn-launcher" role="dialog" aria-modal="true"><div class="dn-head"><div><span class="badge blue">Dawwar Pilot</span><h2>${L('إنت عايز تعرض إيه؟','What do you want to show?')}</h2><p>${L('الـPilot هو القصة الأساسية. الـPayments و360 وBI موجودة كـFuture Vision.','Pilot is the default story. Payments, 360, and BI remain Future Vision.')}</p></div><button class="dn-x" onclick="hhCloseDemoNavigator()">✕</button></div><div class="dn-tour-grid">${Object.entries(tours).map(([id,t],idx)=>`<button class="dn-tour ${idx===0?'recommended':''}" onclick="hhStartTour('${id}')"><span class="dn-tour-icon">${icons[id]}</span><strong>${t.label()}</strong><small>${t.note()}</small>${idx===0?`<em>${L('مقترح','Recommended')}</em>`:''}</button>`).join('')}</div><div class="dn-launcher-foot"><button class="btn btn-light" onclick="hhCloseDemoNavigator();hhStopTour();navTo('home')">${L('استكشف براحتك','Explore freely')}</button><button class="btn btn-light" onclick="hhCloseDemoNavigator();auditToggleGuide?.(true)">${L('خريطة كل الشاشات','All screens map')}</button><button class="btn btn-soft" onclick="hhResetGuidedDemo()">↻ ${L('Reset Demo','Reset Demo')}</button></div></section></div>`}
-function tourbarHtml(){if(!activeTour)return'';const s=currentStep();if(!s)return'';const total=tours[activeTour].steps.length;const pct=Math.round((stepIndex+1)/total*100);return `<aside class="dn-tourbar"><div class="dn-tourbar-top"><div><span>${tours[activeTour].label()} · ${L('خطوة','Step')} ${stepIndex+1}/${total}</span><strong>${s[2]}</strong></div><button onclick="hhStopTour()">✕</button></div><div class="dn-progress"><i style="width:${pct}%"></i></div><div class="dn-tourbar-actions"><button class="btn btn-light btn-sm" onclick="hhTourBack()" ${stepIndex===0?'disabled':''}>${L('السابق','Back')}</button><button class="btn btn-primary btn-sm" onclick="${stepIndex===total-1?'hhStopTour()':'hhTourNext()'}">${stepIndex===total-1?L('تم ✓','Done ✓'):L('التالي','Next')}</button></div></aside>`}
-function smartHtml(){if(activeTour||launcherOpen)return'';const n=smartNext();if(!n)return'';return `<button class="dn-smart-next" onclick="hhTakeSmartNext()"><span>${L('الخطوة المنطقية التالية','Suggested next')}</span><strong>${n[2]} →</strong></button>`}
-function renderAll(){const r=ensureRoot();r.innerHTML=(launcherOpen?launcherHtml():'')+tourbarHtml()+smartHtml();window.hhApplyLanguage?.(r)}
+function progressHtml(){
+  if(!activeTour)return'';
+  const s=currentStep();if(!s)return'';
+  const total=tours[activeTour].steps.length;
+  const pct=Math.round((stepIndex+1)/total*100);
+  return `<aside class="dn-progress"><div class="dn-progress-top"><div><span class="dn-step">${L('خطوة','Step')} ${stepIndex+1}/${total}</span><strong>${tours[activeTour].label()}</strong></div><button onclick="hhStopTour()">✕</button></div><div class="dn-bar"><i style="width:${pct}%"></i></div><p>${s[2]}</p><div class="dn-progress-actions"><button class="btn btn-light btn-sm" onclick="hhTourBack()" ${stepIndex===0?'disabled':''}>${L('السابق','Back')}</button><button class="btn btn-light btn-sm" onclick="hhOpenDemoNavigator()">${L('تغيير','Change')}</button><button class="btn btn-primary btn-sm" onclick="${stepIndex===total-1?'hhStopTour()':'hhTourNext()'}">${stepIndex===total-1?L('تم ✓','Done ✓'):L('التالي','Next')}</button></div></aside>`;
+}
+function smartHtml(){if(activeTour||launcherOpen)return'';const n=smartNext();if(!n)return'';return `<div class="dn-smartbar"><div><span>${L('الخطوة المقترحة','Suggested next')}</span><strong>${n[2]}</strong></div><button onclick="hhTakeSmartNext()">${L('كمل القصة','Continue story')} ${isEn()?'→':'←'}</button></div>`}
+function guideButtonHtml(){return `<button class="dn-guide-btn" onclick="hhOpenDemoNavigator()" aria-label="${L('موجه الديمو','Demo guide')}"><span>◎</span><strong>Guide</strong></button>`}
+function renderAll(){const r=ensureRoot();r.innerHTML=(launcherOpen?launcherHtml():'')+progressHtml()+smartHtml()+guideButtonHtml();const old=document.querySelector('.floating-demo');if(old)old.style.display='none';window.hhApplyLanguage?.(r)}
 function openNavigator(){launcherOpen=true;renderAll()}
 function closeNavigator(){launcherOpen=false;renderAll()}
 
