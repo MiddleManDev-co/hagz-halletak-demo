@@ -13,8 +13,10 @@ assert(js.includes('hh:languagechange'),'navigator must react to language change
 assert(js.includes('No booking, no fee'),'venue tour must explain commission in plain language');
 assert(js.includes('reception or security'),'venue tour must include the visit view used by front-desk/security staff');
 assert(!js.includes("['admin/overview','admin'"),'pilot admin tour must not present legacy scale metrics as the main story');
-assert(js.indexOf("'venue-os/leads'") < js.indexOf("'venue-os/visits'"),'venue requests must come before visits');
-assert(js.indexOf("'venue-os/visits'") < js.indexOf("'venue-os/bookings'"),'venue visits must come before bookings');
+const venueTour=js.slice(js.indexOf('  venue:{'),js.indexOf('  admin:{'));
+assert(venueTour.indexOf("'venue-os/leads'") < venueTour.indexOf("'venue-os/visits'"),'venue requests must come before visits');
+assert(venueTour.indexOf("'venue-os/visits'") < venueTour.indexOf("'venue-os/bookings'"),'venue visits must come before bookings');
+assert(venueTour.indexOf("'venue-os/bookings'") < venueTour.indexOf("'pilot/commission'"),'venue bookings must come before commission');
 assert(css.includes('@media(max-width:760px)'),'mobile navigator styles missing');
 assert(css.includes('@media(prefers-reduced-motion:reduce)'),'reduced motion support missing');
 console.log('Dawwar demo navigator tests passed');
