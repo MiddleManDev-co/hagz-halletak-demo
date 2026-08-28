@@ -53,7 +53,7 @@
 
   <div class="demo-ribbon">
     <div class="container demo-ribbon-inner">
-      <span><strong>نسخة دوّر التجريبية:</strong> التوافر ← الاستفسار ← الزيارة والعرض ← الحجز المؤكد.</span>
+      <span><strong>دوّر ببساطة:</strong> دوّر ← اسأل القاعة ← اتفق ← أكد الحجز.</span>
       <button onclick="hhOpenDemoNavigator?.()">الدليل</button>
     </div>
   </div>
@@ -74,28 +74,28 @@
       <div class="panel-head">
         <div>
           <span class="badge blue">عرض دوّر</span>
-          <h2 id="demoTitle" style="margin-top:8px">اختار منظور دوّر</h2>
-          <p class="small muted">النسخة التجريبية هي القصة الأساسية؛ الشاشات المتقدمة محفوظة ضمن الرؤية المستقبلية.</p>
+          <h2 id="demoTitle" style="margin-top:8px">هتشوف دوّر من ناحية مين؟</h2>
+          <p class="small muted">اختار الشخص، وهنوريك بس الحاجات اللي تهمه.</p>
         </div>
         <button class="btn btn-light btn-sm" onclick="closeModal()">✕</button>
       </div>
       <div class="persona-cards">
         <button class="persona-card" onclick="hhSwitchRole('customer');closeModal()">
-          <span class="emoji">💍</span><strong>العميل</strong><span>البحث ← الاستفسار ← الزيارة ← التأكيد</span>
+          <span class="emoji">💍</span><strong>العميل</strong><span>يلاقي قاعة ويحجزها</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('venue');closeModal()">
-          <span class="emoji">🏛</span><strong>صاحب القاعة</strong><span>التقويم ← العملاء المحتملون ← الزيارات ← العمولة</span>
+          <span class="emoji">🏛</span><strong>فريق القاعة</strong><span>طلبات، زيارات، حجوزات، وعمولة</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('admin');closeModal()">
-          <span class="emoji">🛡</span><strong>إدارة المنصة</strong><span>التحقق ← حداثة البيانات ← تحديد المصدر ← العمولة</span>
+          <span class="emoji">🛡</span><strong>إدارة دوّر</strong><span>تراجع القاعات وتحل المشاكل</span>
         </button>
         <button class="persona-card" onclick="hhSwitchRole('investor');closeModal()">
-          <span class="emoji">📈</span><strong>المستثمر</strong><span>السوق ← إدارة القاعات ← العمولة ← الرؤية المستقبلية</span>
+          <span class="emoji">📈</span><strong>المستثمر</strong><span>يشوف المشروع ممكن يكبر إزاي</span>
         </button>
       </div>
       <div class="card card-pad" style="margin-top:14px;background:var(--ivory)">
-        <strong>مساحة عمل تبدأ بالنسخة التجريبية</strong>
-        <p class="tiny muted" style="margin-bottom:0">نبدأ بالتوافر الموثوق وطلب الحجز وعمولة النجاح فقط؛ إدارة المدفوعات والجولات الافتراضية وذكاء الأعمال تظل ضمن الرؤية المستقبلية.</p>
+        <strong>الفكرة بسيطة</strong>
+        <p class="tiny muted" style="margin-bottom:0">نبدأ بحاجة الناس محتاجاها دلوقتي: قاعات متاحة فعلًا وحجز سهل. ونزود الباقي بعدين.</p>
       </div>
     </div>
   </div>
@@ -114,5 +114,6 @@
   <script src="ui-refinement.js" defer></script>
   <script src="dawwar-pilot.js" defer></script>
   <script src="locale-legacy-v2.js" defer></script>
+  <script src="dawwar-plain-copy.js" defer></script>
 </body>
 </html>
