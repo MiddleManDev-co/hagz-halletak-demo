@@ -40,6 +40,7 @@ jobs:
           node --check ui-refinement.js
           node --check dawwar-pilot.js
           node --check locale-legacy-v2.js
+          node --check dawwar-plain-copy.js
           node --check i18n.test.js
           node --check demo.integrity.test.js
           node --check navigator.test.js
@@ -50,6 +51,7 @@ jobs:
           node --check ui-refinement.test.js
           node --check dawwar-pilot.test.js
           node --check language-purity.test.js
+          node --check dawwar-plain-copy.test.js
 
       - name: Run test suite
         run: |
@@ -63,6 +65,7 @@ jobs:
           node ui-refinement.test.js
           node dawwar-pilot.test.js
           node language-purity.test.js
+          node dawwar-plain-copy.test.js
 
       - name: Verify static entry files
         run: |
@@ -72,7 +75,7 @@ jobs:
             venue-360.css ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js \
             audit.js polish.js navigator.js navigator-share.js business-intelligence.js \
             persona-ui.js venue-360.js ui-refinement.js dawwar-pilot.js \
-            locale-legacy-v2.js; do
+            locale-legacy-v2.js dawwar-plain-copy.js; do
             test -f "$f"
           done
           for marker in \
@@ -80,7 +83,8 @@ jobs:
             business-intelligence.css persona-ui.css ui-premium.css venue-360.css \
             ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js audit.js polish.js \
             navigator.js navigator-share.js business-intelligence.js persona-ui.js \
-            venue-360.js ui-refinement.js dawwar-pilot.js locale-legacy-v2.js; do
+            venue-360.js ui-refinement.js dawwar-pilot.js locale-legacy-v2.js \
+            dawwar-plain-copy.js; do
             grep -q "$marker" index.html
           done
           ! grep -q 'language-purity.js' index.html
