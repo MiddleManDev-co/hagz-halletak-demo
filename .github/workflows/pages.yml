@@ -52,6 +52,7 @@ jobs:
           node --check dawwar-pilot.test.js
           node --check language-purity.test.js
           node --check dawwar-plain-copy.test.js
+          node --check demo-quality.test.js
 
       - name: Run test suite
         run: |
@@ -66,13 +67,14 @@ jobs:
           node dawwar-pilot.test.js
           node language-purity.test.js
           node dawwar-plain-copy.test.js
+          node demo-quality.test.js
 
       - name: Verify static entry files
         run: |
           for f in \
             index.html styles.css i18n.css audit.css polish.css navigator.css \
             navigator-share.css business-intelligence.css persona-ui.css ui-premium.css \
-            venue-360.css ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js \
+            venue-360.css ui-refinement.css dawwar-pilot.css demo-quality.css i18n.js app.js extras.js \
             audit.js polish.js navigator.js navigator-share.js business-intelligence.js \
             persona-ui.js venue-360.js ui-refinement.js dawwar-pilot.js \
             locale-legacy-v2.js dawwar-plain-copy.js; do
@@ -81,7 +83,7 @@ jobs:
           for marker in \
             styles.css i18n.css audit.css polish.css navigator.css navigator-share.css \
             business-intelligence.css persona-ui.css ui-premium.css venue-360.css \
-            ui-refinement.css dawwar-pilot.css i18n.js app.js extras.js audit.js polish.js \
+            ui-refinement.css dawwar-pilot.css demo-quality.css i18n.js app.js extras.js audit.js polish.js \
             navigator.js navigator-share.js business-intelligence.js persona-ui.js \
             venue-360.js ui-refinement.js dawwar-pilot.js locale-legacy-v2.js \
             dawwar-plain-copy.js; do
