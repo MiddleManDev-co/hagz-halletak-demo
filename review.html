@@ -305,12 +305,18 @@ var LS={api:'dawwar-review-api',pass:'dawwar-review-pass',me:'dawwar-review-me',
 function get(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
 function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 
-// The endpoint can be baked in below, or passed once as ?api=... on the shared link.
-var API='';
+// The Google Sheet web app. ?api=... on the link still overrides it, so a new
+// deployment can be tried without a release.
+var API='https://script.google.com/macros/s/AKfycbzezUMFjIGmeU27lpheJehyDyocswaqxfuGNy3u4ASsjDBVZn3xfEdrt1LbyFzTguCgJA/exec';
 (function(){
+  // precedence: ?api= wins (lets a new deployment be tried), then the value
+  // baked in above, then whatever a previous visit saved. A stale saved value
+  // must never shadow a newly released endpoint.
   var qp=new URLSearchParams(location.search);
-  if(qp.get('api')){API=qp.get('api');set(LS.api,API);}
-  else API=get(LS.api);
+  var fromQuery=qp.get('api');
+  if(fromQuery){API=fromQuery}
+  else if(!API){API=get(LS.api)}
+  if(API)set(LS.api,API);
   if(qp.get('pass'))set(LS.pass,qp.get('pass'));
 })();
 
