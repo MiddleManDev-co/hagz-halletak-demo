@@ -159,17 +159,109 @@ function enhanceVenue(){
   const box=document.querySelector('.booking-box');if(!box)return;
   const venue=parts()[1]||'royal-garden';
   box.innerHTML=`<div class="panel-head"><div><span class="tiny muted">${L('سعر مبدئي','Starting price')}</span><div class="price-lg">145,000 ${L('ج.م','EGP')}</div></div><span class="badge green">✓ ${L('موثقة','Verified')}</span></div><div class="dawwar-pilot-callout"><strong>${L('النسخة التجريبية: التوافر يحتاج تأكيد القاعة','Pilot: availability is venue-confirmed')}</strong><br>${L('آخر تحديث للعرض حديث. أرسل طلب حجز لتأكيد التاريخ والسعر النهائي.','Demo freshness: current. Send a Request-to-Book to confirm the date and final quote.')}</div><div class="grid-2"><button class="btn btn-light" onclick="toast('${L('تم طلب زيارة الخميس الساعة 5 مساءً — عرض تجريبي','Thursday 5:00 PM visit requested — Demo')}')">${L('احجز زيارة','Schedule visit')}</button><button class="btn btn-primary" onclick="navTo('pilot/request/${venue}')">${L('اطلب الحجز','Request booking')}</button></div><p class="tiny muted" style="margin:12px 0 0">${L('لا يوجد حجز مؤقت أو دفع إلكتروني على المنصة خلال النسخة التجريبية. الاتفاق والعربون مباشرة مع القاعة.','No online hold or platform payment in pilot. Terms and deposit are handled directly with the venue.')}</p>`;
+  ensureResponseNote(box,venue);
+  const vRec=venueById(venue);
+  if(vRec){const c=box.querySelector('.dawwar-pilot-callout');if(c&&!c.querySelector('.dawwar-fresh-inline')){const sp=document.createElement('div');sp.className='dawwar-fresh-inline';const f=freshLine(vRec.updated);sp.textContent='◷ '+f[0];if(f[1])sp.classList.add('is-stale');c.appendChild(sp)}}
   document.querySelectorAll('button[onclick*="createHold"]').forEach(btn=>{btn.textContent=L('اطلب الحجز','Request booking');btn.setAttribute('onclick',`navTo('pilot/request/${venue}')`)});
   document.querySelectorAll('.badge.orange').forEach(x=>{if(/Hold/i.test(x.textContent))x.textContent=L('تأكيد مطلوب','Confirmation needed')});
 }
 
+function venueById(id){try{return (typeof venues!=='undefined'?venues:[]).find(v=>v.id===id)||null}catch(_){return null}}
+
+// Freshness is the claim the whole product rests on, so it is stated as an age,
+// never as a vague reassurance. Past a week the venue must reconfirm.
+function freshLine(days){
+  if(days<=1)return[L('محدّث امبارح','Updated yesterday'),false];
+  if(days<=6)return[L('محدّث من','Updated')+' '+days+' '+L('أيام','days ago'),false];
+  return[L('محتاج تأكيد · آخر تحديث من','Needs confirming · updated')+' '+days+' '+L('أيام','days ago'),true];
+}
+
+function paintFreshness(scope){
+  (scope||document).querySelectorAll('.venue-card').forEach(card=>{
+    const body=card.querySelector('.venue-body');if(!body)return;
+    const v=venueById(card.getAttribute('data-venue'));
+    let el=body.querySelector('.dawwar-fresh');
+    if(!el){el=document.createElement('div');el.className='dawwar-fresh';body.insertBefore(el,body.querySelector('.venue-foot'))}
+    const f=freshLine(v?v.updated:3);
+    el.textContent='◷ '+f[0];
+    el.classList.toggle('is-stale',f[1]);
+  });
+}
+
+// A shortlist that survives being shown to a parent: a link, no account needed.
+window.dawwarShareShortlist=function(){
+  let ids=[];try{ids=(typeof state!=='undefined'&&state.shortlist)||[]}catch(_){}
+  const url=location.origin+location.pathname+'?list='+encodeURIComponent(ids.join(','))+'#/compare';
+  const done=()=>window.toast?.(L('اتنسخ رابط القائمة — ابعته للعيلة','List link copied — send it to the family'));
+  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(url).then(done).catch(()=>window.prompt(L('انسخ الرابط','Copy this link'),url));
+  else window.prompt(L('انسخ الرابط','Copy this link'),url);
+};
+
+let sharedListSeeded=false;
+function seedSharedList(){
+  if(sharedListSeeded)return;sharedListSeeded=true;
+  const raw=new URLSearchParams(location.search).get('list');if(!raw)return;
+  const ids=raw.split(',').map(x=>x.trim()).filter(Boolean);if(!ids.length)return;
+  try{localStorage.setItem('hh-shortlist',JSON.stringify(ids));if(typeof state!=='undefined')state.shortlist=ids}catch(_){}
+}
+
+function ensureShareButton(){
+  const top=document.querySelector('.results-top');if(!top||top.querySelector('.dawwar-share-list'))return;
+  const b=document.createElement('button');
+  b.className='btn btn-soft btn-sm dawwar-share-list';
+  b.setAttribute('onclick','dawwarShareShortlist()');
+  b.textContent='⇪ '+L('شارك القائمة','Share list');
+  top.appendChild(b);
+}
+
+// A busy date must never return a blank page: it returns the nearest free dates
+// at the venues that matched everything except the date.
+window.dawwarTogglePeak=function(){window.__dawwarPeak=!window.__dawwarPeak;apply()};
+
+function ensurePeakFilter(){
+  const bar=document.querySelector('.filters');if(!bar)return;
+  let b=bar.querySelector('.dawwar-peak');
+  if(!b){b=document.createElement('button');b.className='filter dawwar-peak';b.setAttribute('onclick','dawwarTogglePeak()');bar.appendChild(b)}
+  b.textContent=L('تاريخ مزدحم','Peak date');
+  b.classList.toggle('active',!!window.__dawwarPeak);
+}
+
+function paintNoResult(){
+  const grid=document.querySelector('.results-layout .grid-2');if(!grid)return;
+  const existing=grid.querySelector('.dawwar-noresult');
+  if(!window.__dawwarPeak){if(existing)existing.remove();return}
+  grid.querySelectorAll('.venue-card').forEach(c=>c.remove());
+  const head=document.querySelector('.result-summary h2');
+  if(head)head.textContent=L('مفيش قاعات متاحة في التاريخ ده','No venues are free on that date');
+  if(existing)return;
+  let list=[];try{list=(typeof venues!=='undefined'?venues:[]).slice(0,3)}catch(_){}
+  const rows=list.map(v=>'<li><div class="dawwar-alt-name"><strong>'+v.name+'</strong><span>'+v.area+'</span></div><div class="dawwar-alt-date">'+v.next+'</div><button class="btn btn-light btn-sm" onclick="navTo(\'venue/'+v.id+'\')">'+L('افتح','Open')+'</button></li>').join('');
+  const box=document.createElement('div');
+  box.className='dawwar-noresult';
+  box.innerHTML='<h3>'+L('مفيش قاعة متاحة في اليوم ده','No venue is free on that date')+'</h3><p>'+L('دي أقرب أيام متاحة في نفس المنطقة وبنفس الميزانية.','These are the nearest free dates in the same area and budget.')+'</p><ul>'+rows+'</ul>';
+  grid.appendChild(box);
+}
+
+// Set the reply expectation before the request is sent, not after.
+function ensureResponseNote(host,venueId){
+  if(!host||host.querySelector('.dawwar-responds'))return;
+  const v=venueById(venueId);
+  const p=document.createElement('p');
+  p.className='dawwar-responds';
+  p.textContent='↩ '+L('القاعة بترد عادة خلال','The venue usually replies within')+' '+(v?v.responds:6)+' '+L('ساعات','hours');
+  // The anchor can be nested, so insert relative to its own parent.
+  const anchor=host.querySelector('.grid-2')||host.firstElementChild;
+  if(anchor&&anchor.parentNode)anchor.parentNode.insertBefore(p,anchor);
+  else host.appendChild(p);
+}
+
 function enhanceExplore(){
   if(parts()[0]!=='explore')return;
-  document.querySelectorAll('.venue-card').forEach(card=>{
-    const chips=card.querySelector('.chips');if(chips&&!chips.querySelector('.dawwar-fresh')){
-      const s=document.createElement('span');s.className='chip dawwar-fresh';s.textContent='◷ '+L('محدّث حديثًا','Recently updated');chips.appendChild(s);
-    }
-  });
+  seedSharedList();
+  paintFreshness(document);
+  ensureShareButton();
+  ensurePeakFilter();
+  paintNoResult();
   document.querySelectorAll('.badge.orange').forEach(x=>{if(/Hold/i.test(x.textContent))x.textContent=L('تأكيد مطلوب','Confirmation needed')});
 }
 
@@ -214,7 +306,7 @@ function patchChrome(){
 
 function apply(){
   patchChrome();
-  if(renderPilotRoute()){brandVisible(document);return}
+  if(renderPilotRoute()){const rq=document.querySelector('.dawwar-request-page');if(rq)ensureResponseNote(rq,parts()[2]||'royal-garden');brandVisible(document);return}
   if(parts()[0]==='home'&&A()&&!A().querySelector('[data-dawwar-pilot-home]'))A().innerHTML=pilotHome();
   enhanceExplore();enhanceVenue();addFutureBanner();brandVisible(document);
 }

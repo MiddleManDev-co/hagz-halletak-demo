@@ -19,6 +19,12 @@ const venues = [
   {id:'lake-house',name:'Lake House',area:'القاهرة الجديدة',capacity:'200–400',price:142000,rating:4.8,match:86,photo:venuePhotos.lake,availability:'محجوز',status:'red',next:'22 أكتوبر 2027',features:['Lake view','Outdoor','Bridal room'],verified:true}
 ];
 
+// Availability freshness (days since the venue last confirmed dates) and the
+// venue's typical reply time. Freshness is the product's core claim, so it is
+// carried on the venue record rather than assembled at render time.
+const venueSignals={'royal-garden':[2,4],'luma-hall':[1,6],'nile-palace':[5,12],'garden-37':[3,5],'palm-palace':[9,18],'lake-house':[4,8]};
+venues.forEach(v=>{const s=venueSignals[v.id]||[3,6];v.updated=s[0];v.responds=s[1];});
+
 const state = {
   persona: localStorage.getItem('hh-persona') || 'customer',
   shortlist: JSON.parse(localStorage.getItem('hh-shortlist') || '["royal-garden","luma-hall","nile-palace"]'),
@@ -29,7 +35,7 @@ const state = {
   filters: 'all'
 };
 
-const fmt = n => new Intl.NumberFormat('ar-EG').format(n) + ' ج.م';
+const fmt = n => new Intl.NumberFormat('ar-EG-u-nu-latn').format(n) + ' ج.م';
 const route = () => (location.hash.replace(/^#\/?/, '') || 'home').split('/');
 
 function navTo(path){ location.hash = '#/' + path; window.scrollTo({top:0,behavior:'smooth'}); }
@@ -38,7 +44,7 @@ function syncPersonaUI(){ $$('.persona-switch button').forEach(b=>b.classList.to
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
 function addShortlist(id){ if(!state.shortlist.includes(id)) state.shortlist.push(id); else state.shortlist=state.shortlist.filter(x=>x!==id); localStorage.setItem('hh-shortlist',JSON.stringify(state.shortlist)); toast(state.shortlist.includes(id)?'اتضاف للقائمة المشتركة':'اتشال من القائمة'); render(); }
 function badge(v){ return `<span class="badge ${v.status}">${v.availability}</span>`; }
-function venueCard(v){ return `<article class="card venue-card hover">
+function venueCard(v){ return `<article class="card venue-card hover" data-venue="${v.id}">
   <div class="venue-photo" style="background-image:url('${v.photo}')">
     ${v.verified?'<span class="badge white photo-badge">✓ قاعة موثقة</span>':''}
     <div class="photo-bottom"><span>أقرب تاريخ<br><strong>${v.next}</strong></span><span>${v.match}% match</span></div>

@@ -9,7 +9,7 @@ assert(index.includes('demo-quality.css'),'final presentation CSS must load');
 assert(index.includes('demo-sync.js'),'immediate pilot sync must load');
 assert(index.indexOf('dawwar-plain-copy.js') < index.indexOf('demo-sync.js'),'sync must load after the presentation layers');
 assert(sync.includes('dawwarPilotApply'),'sync must force the pilot view immediately');
-for(const marker of ['.badge.green{color:#0f684b}','.badge.orange{color:#8d4600}','.badge.blue{color:#2f56b6}','focus-visible','@media(max-width:760px)','prefers-reduced-motion'])assert(css.includes(marker),`missing quality marker: ${marker}`);
+for(const marker of ['.badge.green{color:#17603c}','.badge.orange{color:#7d5200}','.badge.blue{color:#234e80}','focus-visible','@media(max-width:760px)','prefers-reduced-motion'])assert(css.includes(marker),`missing quality marker: ${marker}`);
 for(const route of ['venue-os/visits','venue-os/bookings','admin/support'])assert(persona.includes(route)&&nav.includes(route),`people-first route missing from nav/tour: ${route}`);
 assert(persona.includes("admin:'pilot/ops'"),'admin must land on pilot operations');
 assert(nav.includes('No booking, no fee'),'simple commission message missing');

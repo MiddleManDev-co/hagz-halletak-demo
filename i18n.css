@@ -1,4 +1,4 @@
-.language-switch{display:flex;padding:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);border-radius:12px;flex:0 0 auto}.language-switch button{border:0;background:transparent;color:rgba(255,255,255,.68);padding:7px 9px;border-radius:9px;cursor:pointer;font-size:11px;font-weight:700;min-width:38px}.language-switch button.active{background:#fff;color:var(--navy)}
+.language-switch{display:flex;padding:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);border-radius:12px;flex:0 0 auto}.language-switch button{border:0;background:transparent;color:rgba(255,255,255,.68);padding:7px 9px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:700;min-width:38px}.language-switch button.active{background:#fffdf9;color:var(--navy)}
 html[dir="ltr"] body{text-align:left}html[dir="rtl"] body{text-align:right}
 html[dir="ltr"] .photo-badge{right:auto;left:13px}
 html[dir="ltr"] .compare-cell{border-left:0;border-right:1px solid var(--line)}
@@ -11,4 +11,4 @@ html[dir="ltr"] .topbar-inner,html[dir="ltr"] .main-nav,html[dir="ltr"] .top-act
 html[dir="ltr"] .venue-foot,html[dir="ltr"] .venue-top,html[dir="ltr"] .section-head,html[dir="ltr"] .panel-head,html[dir="ltr"] .results-top,html[dir="ltr"] .dash-head{direction:ltr}
 @media(max-width:1120px){.language-switch button{padding:7px 7px;min-width:34px}.persona-switch button{padding:7px 8px}}
 @media(max-width:900px){.language-switch{margin-inline-start:auto}.language-switch button{min-width:42px}.persona-switch{display:none}}
-@media(max-width:560px){.language-switch button{padding:7px 8px}.top-actions{gap:6px}.language-switch{border-radius:10px}.language-switch button{font-size:10px}}
+@media(max-width:560px){.language-switch button{padding:7px 8px}.top-actions{gap:6px}.language-switch{border-radius:10px}.language-switch button{font-size:12px}}

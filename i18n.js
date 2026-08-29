@@ -2,6 +2,22 @@
   'use strict';
 
   const exactEn = {
+    // Composite strings the pair matcher cannot reach because of a leading
+    // glyph or an embedded date; exact keys are the only way in.
+    'تخطي للمحتوى': 'Skip to content',
+    '✓ قاعة موثقة': '✓ Verified venue',
+    'قاعة موثقة': 'Verified venue',
+    'دليل العرض': 'Demo guide',
+    '▶ دليل العرض': '▶ Demo guide',
+    'عرض دوّر': 'Dawwar demo',
+    'خريطة العرض': 'Demo map',
+    'الرئيسية / البحث / 15 أكتوبر 2027': 'Home / Search / 15 October 2027',
+    '♥ في القائمة': '♥ In shortlist',
+    '♡ أضف للقائمة': '♡ Add to shortlist',
+    'سارة وأحمد': 'Sara & Ahmed',
+    'منة ومحمود': 'Menna & Mahmoud',
+    'Verified booking · سارة وأحمد': 'Verified booking · Sara & Ahmed',
+    'Verified booking · منة ومحمود': 'Verified booking · Menna & Mahmoud',
     'حجز هالتك': 'Hagz Halletak',
     'ح': 'H',
     'الرئيسية': 'Home',

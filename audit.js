@@ -3,7 +3,7 @@
 
 const isEn=()=>window.hhGetLanguage?.()==='en';
 const L=(ar,en)=>isEn()?en:ar;
-const money=n=>`${new Intl.NumberFormat(isEn()?'en-US':'ar-EG').format(n)} ${L('ج.م','EGP')}`;
+const money=n=>`${new Intl.NumberFormat(isEn()?'en-US':'ar-EG-u-nu-latn').format(n)} ${L('ج.م','EGP')}`;
 const app=()=>document.querySelector('#app');
 const current=()=> (location.hash.replace(/^#\/?/,'')||'home').split('/');
 const demoState={

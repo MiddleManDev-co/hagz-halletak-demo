@@ -1,21 +1,21 @@
 /* Final presentation polish for the public Dawwar demo. */
 
 /* Small status labels must stay readable on projectors, phones, and low-quality displays. */
-.badge.green{color:#0f684b}
-.badge.orange{color:#8d4600}
-.badge.blue{color:#2f56b6}
+.badge.green{color:#17603c}
+.badge.orange{color:#7d5200}
+.badge.blue{color:#234e80}
 
 /* Make keyboard focus obvious without changing the visual language. */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
-  outline:3px solid #c39a4b;
+  outline:3px solid var(--burgundy);
   outline-offset:3px;
 }
 
 /* Keep the first screen calm and easy to scan. */
 .dawwar-pilot-title{max-width:760px;text-wrap:balance}
 .dawwar-pilot-copy{max-width:650px}
-.dawwar-search-card{box-shadow:0 18px 48px rgba(20,36,58,.10)}
-.dawwar-step,.dawwar-model-card,.dawwar-vision-card,.dawwar-panel{box-shadow:0 1px 0 rgba(20,36,58,.02)}
+.dawwar-search-card{box-shadow:0 18px 48px rgba(10,46,46,.10)}
+.dawwar-step,.dawwar-model-card,.dawwar-vision-card,.dawwar-panel{box-shadow:0 1px 0 rgba(10,46,46,.02)}
 
 /* Main actions should be obvious when the demo is shown from a distance. */
 .dawwar-pilot-hero .btn-primary,
@@ -27,16 +27,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* Navigation should feel like a product, not a dashboard full of options. */
 .main-nav a{font-weight:650}
 .persona-switch button{min-height:36px}
-.demo-ribbon{box-shadow:0 1px 0 rgba(14,20,36,.08)}
+.demo-ribbon{box-shadow:0 1px 0 rgba(10,46,46,.08)}
 
 /* Tables and operational screens need breathing room in demos. */
-.table th{font-size:11px;letter-spacing:.01em}
+.table th{font-size:13px;letter-spacing:.01em}
 .table td{line-height:1.55}
 .table-wrap{scrollbar-width:thin}
 
 /* Avoid tiny text in cards that people cannot read on a shared screen. */
 .dawwar-vision-card p,.dawwar-flow-row span{font-size:13px}
-.dawwar-pilot-strip div div{font-size:12px}
+.dawwar-pilot-strip div div{font-size:13px}
 
 @media(max-width:760px){
   .dawwar-pilot-copy{font-size:16px;line-height:1.8}
@@ -48,4 +48,92 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* --- Availability freshness ------------------------------------------------
+   The product's whole claim is that availability is real, so every venue
+   states when it was last confirmed. Past a week it asks to be reconfirmed
+   rather than quietly presenting a stale date as fact. */
+.dawwar-fresh{
+  display:flex;align-items:center;gap:6px;
+  margin-top:12px;padding:7px 10px;border-radius:var(--r8);
+  background:var(--green-bg);color:var(--green);
+  font-size:12px;font-weight:600;
+}
+.dawwar-fresh.is-stale{background:var(--orange-bg);color:var(--orange)}
+.dawwar-fresh-inline{
+  margin-top:8px;font-size:12px;font-weight:600;color:var(--green);
+}
+.dawwar-fresh-inline.is-stale{color:var(--orange)}
+
+/* Reply expectation, set before the request is sent rather than after. */
+.dawwar-responds{
+  margin:0 0 12px;padding:9px 12px;border-radius:var(--r8);
+  background:var(--blue-bg);color:var(--blue);
+  font-size:13px;font-weight:600;
+}
+
+/* The shortlist has to survive being shown to a parent. */
+.dawwar-share-list{margin-inline-start:8px}
+
+/* A busy date returns the nearest free dates, never a blank page. */
+.dawwar-noresult{
+  grid-column:1/-1;
+  border:1px solid var(--line);border-radius:var(--r20);
+  background:var(--paper);padding:26px 24px;box-shadow:var(--shadow);
+}
+.dawwar-noresult h3{margin:0 0 6px;color:var(--navy);font-size:20px}
+.dawwar-noresult p{margin:0 0 16px;color:var(--muted);font-size:14px}
+.dawwar-noresult ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dawwar-noresult li{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:var(--r12);
+  padding:12px 14px;background:var(--ivory);
+}
+.dawwar-alt-name{display:flex;flex-direction:column;flex:1 1 160px;min-width:0}
+.dawwar-alt-name strong{font-size:14px;color:var(--navy)}
+.dawwar-alt-name span{font-size:12px;color:var(--soft)}
+.dawwar-alt-date{
+  font-size:13px;font-weight:700;color:var(--green);
+  background:var(--green-bg);border-radius:var(--pill);padding:4px 12px;
+  font-variant-numeric:tabular-nums;
+}
+@media(max-width:760px){
+  .dawwar-noresult{padding:18px 16px}
+  .dawwar-noresult li{gap:10px}
+  .dawwar-share-list{margin-inline-start:0;margin-top:8px}
+}
+
+/* --- Presentation QA fixes -------------------------------------------------
+   A collapsed `1fr` track cannot shrink below its content's min-content width,
+   so on narrow screens the venue detail column pushed the page 26px wider than
+   the viewport and the whole page scrolled sideways. minmax(0,1fr) lets the
+   track shrink; min-width:0 lets the grid item follow. */
+@media(max-width:1080px){
+  .detail-layout,.checkout-layout,.results-layout{grid-template-columns:minmax(0,1fr)}
+  .detail-layout>*,.checkout-layout>*,.results-layout>*{min-width:0}
+}
+
+/* The top bar runs out of room in English, where labels are longer: nav items
+   wrapped onto a second line and the row overflowed its container. Keep every
+   item on one line and let the nav scroll instead of breaking the bar. */
+.topbar-inner{min-width:0}
+.main-nav{min-width:0;flex:1 1 auto;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{white-space:nowrap;flex:0 0 auto}
+.brand,.top-actions{flex:0 0 auto}
+
+/* `small` is 0.8em of its parent by user-agent default, which reintroduced
+   10px text inside the 12px calendar cells. Hold the floor. */
+small{font-size:max(12px,.85em)}
+
+/* English weekday names ("Wednesday") no longer fit a 1/7 track once small text
+   was raised to the legibility floor, so the month view pushed the page wider
+   than the phone. Let the header and the grid scroll together as one unit
+   instead of shrinking the type back. Arabic day names still fit, so it is
+   scoped to English. */
+@media(max-width:780px){
+  html[lang="en"] .big-calendar{overflow-x:auto}
+  html[lang="en"] .big-calendar .week-head,
+  html[lang="en"] .big-calendar .month-grid{min-width:520px}
 }

@@ -16,6 +16,7 @@ const tours={
       ['pilot/request/royal-garden','customer',L('العميل يبعت طلب واحد واضح فيه اليوم والعدد والميزانية.','The customer sends one clear request with the date, guest count, and budget.')],
       ['pilot/quote/royal-garden','customer',L('القاعة ترد بالسعر النهائي. لو مناسب، العميل يزور أو يكمل الاتفاق.','The venue replies with the final price. If it fits, the customer can visit or finish the agreement.')],
       ['pilot/confirmed','customer',L('بعد العربون للقاعة مباشرة، الطرفين يأكدوا إن الحجز تم.','After the deposit goes directly to the venue, both sides confirm the booking.')],
+      ['venue-os/calendar','venue',L('ده الجزء المهم: تحديث الأيام الفاضية بياخد ثواني من الموبايل، وده اللي بيخلي التوافر صح قدام العميل.','This is the important part: updating free dates takes seconds on a phone, and that is what keeps availability true for the customer.')],
       ['venue-os/visits','venue',L('فريق القاعة يشوف مين جاي وإمتى؛ دي الشاشة اللي الاستقبال أو الأمن محتاجها.','The venue team sees who is coming and when. This is the view reception or security needs.')],
       ['pilot/commission','venue',L('الحجز المؤكد يظهر للقاعة، وعمولة دوّر تبقى واضحة. مفيش حجز، مفيش عمولة.','The confirmed booking appears for the venue and Dawwar’s fee is clear. No booking, no fee.')],
       ['pilot/ops','admin',L('الإدارة تراجع القاعات والمواعيد والحجوزات والعمولات من مكان واحد.','Admin reviews venues, dates, bookings, and fees in one place.')],
@@ -39,7 +40,7 @@ const tours={
     note:()=>L('مواعيد ← طلبات ← زيارات ← حجوزات','Dates → Requests → Visits → Bookings'),
     steps:[
       ['venue-os/overview','venue',L('ابدأ بملخص بسيط: إيه اللي محتاج يتعمل النهارده؟','Start with a simple question: what needs attention today?')],
-      ['venue-os/calendar','venue',L('حدّث الأيام الفاضية والمحجوزة عشان العميل يشوف معلومة صح.','Keep free and booked dates updated so customers see the right information.')],
+      ['venue-os/calendar','venue',L('ده الجزء المهم: تحديث الأيام الفاضية بياخد ثواني من الموبايل، وده اللي بيخلي التوافر صح قدام العميل.','This is the important part: updating free dates takes seconds on a phone, and that is what keeps availability true for the customer.')],
       ['venue-os/leads','venue',L('المبيعات تشوف طلبات العملاء وترد بسرعة.','Sales sees customer requests and can reply quickly.')],
       ['venue-os/visits','venue',L('الاستقبال أو الأمن يشوف مين جاي وإمتى.','Reception or security sees who is coming and when.')],
       ['venue-os/bookings','venue',L('الحجوزات المؤكدة تبقى واضحة لكل الفريق.','Confirmed bookings stay clear for the whole team.')],
