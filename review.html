@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مراجعة فيتشرز دوّر</title>
+<link rel="icon" href="data:,">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --teal-700:#0d3b3b;--teal-500:#1c5b58;--teal-300:#6ba39c;--teal-100:#cfe1dd;--teal-050:#e8f1ef;
+  --clay-600:#8f3f20;--clay-500:#b4552f;--clay-200:#eccdbe;--clay-050:#f8ebe3;
+  --gold-700:#6f6230;--gold-500:#8a7a3d;
+  --ok:#1f7a4d;--ok-bg:#e4f2ea;--hold:#9a6400;--hold-bg:#fbf0d8;
+  --stop:#a82732;--stop-bg:#fae8e9;--info:#2b5f9e;--info-bg:#e8eff8;
+  --bg:#f6f1e8;--paper:#fffdf9;--surface:#efeadf;
+  --ink:#1b2422;--body:#38423e;--muted:#5f6b66;--soft:#8b968f;
+  --line:#e2ddd2;--line-strong:#cfc9bb;--on-brand:#fffdf9;
+  --shadow:0 1px 2px rgba(10,46,46,.06),0 2px 8px rgba(10,46,46,.04);
+  --ar:"IBM Plex Sans Arabic",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root{
+  --teal-700:#bcd6d2;--teal-500:#8fbdb6;--teal-300:#4d8b84;--teal-100:#1d3a38;--teal-050:#162b2a;
+  --clay-600:#e79c78;--clay-500:#dd8a60;--clay-200:#5a2d18;--clay-050:#2a1710;
+  --gold-700:#d3c489;--gold-500:#c0b073;
+  --ok:#57bd8a;--ok-bg:#122b20;--hold:#d6a340;--hold-bg:#2e2312;
+  --stop:#e5808c;--stop-bg:#2e1518;--info:#7fa9dd;--info-bg:#14202e;
+  --bg:#0e1615;--paper:#141d1c;--surface:#1a2423;
+  --ink:#eae6dc;--body:#cdd4d0;--muted:#9aa5a0;--soft:#78837e;
+  --line:#26312f;--line-strong:#38443f;--on-brand:#0e1615;--shadow:0 1px 2px rgba(0,0,0,.4);
+}}
+*{box-sizing:border-box}
+body{direction:rtl;background:var(--bg);color:var(--body);font-family:var(--ar);font-size:15px;line-height:1.7;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 90px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 0 12px}
+.htop{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+h1{font-size:clamp(20px,3vw,26px);margin:0;color:var(--ink);font-weight:700}
+.sub{font-size:13.5px;color:var(--muted);margin:4px 0 0}
+.who{font-size:13px;color:var(--muted)}
+.who b{color:var(--ink)}
+.sync{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;white-space:nowrap}
+.s-idle{background:var(--surface);color:var(--muted)}
+.s-busy{background:var(--info-bg);color:var(--info)}
+.s-ok{background:var(--ok-bg);color:var(--ok)}
+.s-local{background:var(--hold-bg);color:var(--hold)}
+.s-err{background:var(--stop-bg);color:var(--stop)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:9px}
+.stats b{color:var(--ink);font-family:var(--mono);font-variant-numeric:tabular-nums}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:11px}
+input[type=search],input[type=text],input[type=password]{border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);border-radius:10px;padding:9px 13px;font-family:var(--ar);font-size:14px}
+input[type=search]{flex:1 1 200px;min-width:0}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--clay-500);outline-offset:1px}
+.chip{border:1px solid var(--line-strong);background:var(--paper);color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-family:var(--ar);cursor:pointer;font-weight:600}
+.chip:hover{border-color:var(--teal-300);color:var(--teal-700)}
+.chip.on{background:var(--teal-700);border-color:var(--teal-700);color:var(--on-brand)}
+.tabs{display:flex;gap:8px;margin-top:12px}
+.tab{border:1px solid var(--line-strong);background:var(--paper);color:var(--muted);border-radius:10px;padding:8px 18px;font-size:14px;font-family:var(--ar);cursor:pointer;font-weight:700}
+.tab.on{background:var(--clay-500);border-color:var(--clay-500);color:#fffdf9}
+.grp{margin-top:30px}
+.grp h2{font-size:16.5px;color:var(--ink);margin:0 0 4px;font-weight:700;display:flex;align-items:baseline;gap:9px}
+.grp h2 span.c{font-family:var(--mono);font-size:12px;color:var(--soft);font-weight:400}
+.grp p.gd{font-size:13.5px;color:var(--muted);margin:0 0 13px}
+.feat{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.feat.gap{border-inline-start:3px solid var(--stop)}
+.feat.gapl{border-inline-start:3px solid var(--gold-500)}
+.fname{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.route{font-family:var(--mono);font-size:11px;color:var(--clay-600);direction:ltr;background:var(--surface);padding:2px 7px;border-radius:5px;font-weight:400}
+.fdesc{font-size:14px;color:var(--muted);margin:5px 0 0}
+.tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.t-live{background:var(--ok-bg);color:var(--ok)}
+.t-future{background:var(--hold-bg);color:var(--hold)}
+.t-demo{background:var(--info-bg);color:var(--info)}
+.t-gap{background:var(--stop-bg);color:var(--stop)}
+.t-gapl{background:var(--surface);color:var(--gold-700)}
+.verdicts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.vbtn{border:1px solid var(--line-strong);background:transparent;color:var(--muted);border-radius:8px;padding:5px 11px;font-size:12.5px;font-family:var(--ar);cursor:pointer;font-weight:600}
+.vbtn:hover{border-color:var(--teal-300)}
+.vbtn.on[data-v="keep"]{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.vbtn.on[data-v="change"]{background:var(--clay-050);border-color:var(--clay-500);color:var(--clay-600)}
+.vbtn.on[data-v="drop"]{background:var(--stop-bg);border-color:var(--stop);color:var(--stop)}
+.vbtn.on[data-v="ask"]{background:var(--info-bg);border-color:var(--info);color:var(--info)}
+textarea{width:100%;margin-top:9px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px 12px;font-family:var(--ar);font-size:14px;line-height:1.7;resize:vertical;min-height:42px}
+.note-has{border-color:var(--clay-500)}
+.others{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.oth{border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted);background:var(--surface)}
+.oth b{color:var(--ink);font-weight:600}
+.othnotes{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.othnote{font-size:13.5px;color:var(--muted);margin-bottom:5px}
+.othnote b{color:var(--clay-600)}
+.gate{max-width:440px;margin:70px auto;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+.gate h2{margin:0 0 6px;font-size:20px;color:var(--ink)}
+.gate p{font-size:14px;color:var(--muted);margin:0 0 18px}
+.gate label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:12px 0 5px}
+.gate input{width:100%}
+.btn{border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);border-radius:10px;padding:9px 16px;font-size:14px;font-family:var(--ar);cursor:pointer;font-weight:600}
+.btn.primary{background:var(--clay-500);border-color:var(--clay-500);color:#fffdf9}
+.btn:hover{border-color:var(--clay-500)}
+.bar{position:fixed;bottom:0;right:0;left:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:30}
+.banner{border:1px solid var(--hold);background:var(--hold-bg);color:var(--ink);border-radius:12px;padding:13px 16px;margin-top:14px;font-size:14px}
+.banner b{color:var(--hold)}
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th{text-align:right;font-size:12px;color:var(--on-brand);background:var(--teal-700);font-weight:700;padding:10px 13px;white-space:nowrap}
+td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--surface) 45%,transparent)}
+.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:center}
+.split{display:inline-flex;height:9px;border-radius:999px;overflow:hidden;min-width:120px;background:var(--surface);vertical-align:middle}
+.split i{display:block;height:100%}
+.i-keep{background:var(--ok)}.i-change{background:var(--clay-500)}.i-drop{background:var(--stop)}.i-ask{background:var(--info)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:10px 0}
+.legend span{display:flex;align-items:center;gap:5px}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+h3{font-size:16px;color:var(--ink);margin:26px 0 8px;font-weight:700}
+.empty{text-align:center;color:var(--soft);padding:44px 0;font-size:14px}
+@media(max-width:640px){.wrap{padding:0 14px 100px}.bar{padding:9px 12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var GROUPS=[
+ {id:'customer',name:'👰 العروسين',desc:'اللي بيدوّر على قاعة — البحث لحد الحجز المؤكد.'},
+ {id:'venue',name:'🏛 القاعة',desc:'شغل القاعة اليومي: المواعيد والطلبات والزيارات والحجوزات.'},
+ {id:'admin',name:'🛡 الإدارة',desc:'فريق دوّر: المراجعة والتوثيق والدعم.'},
+ {id:'investor',name:'📈 عرض المستثمر',desc:'مش مستخدم — ده عرض للتقديم بس.'},
+ {id:'core',name:'⚙ فيتشرز عامة',desc:'حاجات شغالة عبر كل المناظير.'},
+ {id:'gapbase',name:'🔴 ناقص · الأرضية',desc:'حاجات المنتج كله مبني عليها ومش موجودة. دي الأول قبل أي حاجة تانية.'},
+ {id:'gappay',name:'🔴 ناقص · الدفع',desc:'الدفع هيبقى من خلال التطبيق — ودي كل تبعاته.'},
+ {id:'gapc',name:'🔴 ناقص · العروسين',desc:'من منظور العميل.'},
+ {id:'gapo',name:'🔴 ناقص · المالك',desc:'من منظور صاحب المركز أو القاعة.'},
+ {id:'gapm',name:'🔴 ناقص · مسؤول القاعة',desc:'من منظور اللي بيشتغل يوم بيوم.'},
+ {id:'gapa',name:'🔴 ناقص · الإدارة',desc:'من منظور فريق دوّر.'},
+ {id:'gapbiz',name:'🔴 ناقص · البيزنس',desc:'قواعد ومؤشرات مش شاشات.'}
+];
+var F=[
+ // ---------------- customer ----------------
+ ['c1','customer','الرئيسية والبحث','home','live','يدخل التاريخ والمنطقة وعدد الضيوف والميزانية. دي نقطة البداية لكل حاجة.'],
+ ['c2','customer','نتايج القاعات','explore','live','بيعرض القاعات المناسبة والمتاحة، وفيه فلاتر بسيطة (متاح في التاريخ، Outdoor، Parking، موثقة، أقل من مبلغ).'],
+ ['c3','customer','حداثة الإتاحة','explore','live','تحت كل قاعة بيكتب آخر تحديث للإتاحة (محدّث امبارح / من كام يوم)، ولو بقى أكتر من أسبوع بيتحول لتحذير «محتاج تأكيد».'],
+ ['c4','customer','تاريخ مزدحم — بديل بدل صفحة فاضية','explore','live','لو مفيش قاعة متاحة في اليوم، مبيرجعش صفحة فاضية — بيعرض أقرب أيام متاحة في نفس المنطقة والميزانية.'],
+ ['c5','customer','صفحة القاعة','venue/:id','live','صور، سعر مبدئي، سعة، مزايا، تقويم الإتاحة للشهر، والباقات.'],
+ ['c6','customer','توقع وقت الرد','venue/:id','live','قبل ما يبعت الطلب بيقوله «القاعة بترد عادة خلال كذا ساعة».'],
+ ['c7','customer','الجولة الافتراضية 360','venue/:id','demo','جولة داخل القاعة بمشاهد متعددة ونقاط تفاعلية.'],
+ ['c8','customer','المقارنة','compare','live','يقارن القاعات اللي في قائمته جنب بعض.'],
+ ['c9','customer','اختياراتي','my-wedding','live','القايمة اللي بيجمع فيها القاعات اللي عجباه.'],
+ ['c10','customer','مشاركة القايمة','my-wedding','live','بينسخ رابط للقايمة يبعته للأهل — بيفتح من غير حساب.'],
+ ['c11','customer','طلب الحجز','pilot/request/:id','live','يبعت طلب واحد فيه التاريخ والعدد والميزانية بدل مكالمة.'],
+ ['c12','customer','رد القاعة والسعر النهائي','pilot/quote/:id','live','القاعة بترد بعرض سعر، والعميل يقبل أو يطلب زيارة.'],
+ ['c13','customer','الحجز المؤكد','pilot/confirmed','live','بعد ما يدفع العربون للقاعة مباشرة، الطرفين يأكدوا.'],
+ ['c14','customer','زياراتي','visits','demo','مواعيد الزيارات اللي حجزها.'],
+ ['c15','customer','الرسائل','messages','demo','المحادثات مع القاعات.'],
+ ['c16','customer','حسابي','account','demo','بيانات الحساب وسجل الطلبات.'],
+ ['c17','customer','الإشعارات','notifications','demo','تنبيهات الردود والمواعيد.'],
+ ['c18','customer','الخريطة','map','demo','عرض القاعات على خريطة بدل قايمة.'],
+ ['c19','customer','باني الباقة','package-builder/:id','future','يركّب الباقة بنفسه (قاعة + بوفيه + إضافات) ويشوف السعر بيتغير.'],
+ ['c20','customer','تفاصيل الحجز والاسترجاع','booking/:id · success · states','future','شاشات الدفع الإلكتروني والاسترجاع — مش جزء من الباكدة الحالية.'],
+ ['c21','customer','تواريخ مرنة','flexible-dates','future','لو التاريخ مش ثابت، يعرض أرخص وأتاح الأيام القريبة.'],
+ ['c22','customer','DateDrop','datedrop','future','عروض اللحظة الأخيرة على أيام فاضية قريبة.'],
+ ['c23','customer','اطلب عروض','request-offers','future','السوق بالعكس: العميل ينشر طلبه والقاعات تتقدم له.'],
+ // ---------------- venue ----------------
+ ['v1','venue','ملخص اليوم','venue-os/overview','live','أول شاشة: إيه اللي محتاج مني النهارده — طلبات مستنية، زيارات، حجوزات.'],
+ ['v2','venue','المواعيد (التقويم)','venue-os/calendar','live','تقويم شهري بحالة كل يوم: متاح / تأكيد مطلوب / محجوز / زيارة. ده مكان تحديث الإتاحة.'],
+ ['v3','venue','طلبات العملاء','venue-os/leads','live','الطلبات الواصلة من المنصة في شكل مراحل، كل طلب فيه التاريخ والعدد والميزانية.'],
+ ['v4','venue','الزيارات','venue-os/visits','live','مين جاي وإمتى — الشاشة اللي الاستقبال أو الأمن محتاجها.'],
+ ['v5','venue','الحجوزات','venue-os/bookings','live','الحجوزات المؤكدة وحالتها.'],
+ ['v6','venue','تفاصيل حجز','venue-os/booking-detail','demo','صفحة الحجز الواحد بكل بياناته.'],
+ ['v7','venue','الباقات','venue-os/packages','demo','أسعار الباقات والمحتوى بتاعها.'],
+ ['v8','venue','الفريق','venue-os/team','demo','أعضاء فريق القاعة وصلاحياتهم.'],
+ ['v9','venue','حجز سريع','venue-os/quick-booking','demo','تسجيل حجز Walk-in أو تليفون بسرعة، مع منع الحجز المزدوج.'],
+ ['v10','venue','العمولة','pilot/commission','live','مستحقات دوّر على الحجوزات اللي جت من المنصة، وكل بند مربوط بالطلب اللي سببه.'],
+ ['v11','venue','التحليلات','venue-os/analytics','demo','أرقام أداء القاعة.'],
+ ['v12','venue','مركز الأعمال','venue-os/business-center','future','لوحة مالية موسّعة — رؤية مستقبلية.'],
+ ['v13','venue','ذكاء الإيراد','venue-os/revenue-intelligence','future','تسعير وتوقعات إيراد — رؤية مستقبلية.'],
+ ['v14','venue','مركز القرارات','venue-os/action-center','future','اقتراحات إجراءات بالأولوية — رؤية مستقبلية.'],
+ ['v15','venue','DateDrop للقاعة','venue-os/datedrop','future','القاعة تنزل عرض على يوم فاضي — رؤية مستقبلية.'],
+ ['v16','venue','إدارة الجولة 360','venue-os/360-manager','future','رفع وإدارة مشاهد الجولة الافتراضية — رؤية مستقبلية.'],
+ // ---------------- admin ----------------
+ ['a1','admin','ملخص التشغيل','pilot/ops','live','حالة المنصة: التوثيق، الإتاحة القديمة، مصدر الحجوزات، العمولات.'],
+ ['a2','admin','مراجعة وتوثيق القاعات','admin/verification','live','مراجعة بيانات القاعة قبل ما تظهر للعملاء. التوثيق مش للبيع.'],
+ ['a3','admin','القاعات','admin/venues','live','كل القاعات على المنصة وحالتها.'],
+ ['a4','admin','الحجوزات','admin/bookings','live','بحث ومراجعة أي حجز ومصدره.'],
+ ['a5','admin','الدعم','admin/support','live','مشاكل بين عميل وقاعة.'],
+ ['a6','admin','اقتصاديات المنصة','admin/economics','demo','GMV والإيراد والعمولة وهامش المساهمة.'],
+ ['a7','admin','صحة السوق','admin/marketplace-health','demo','دقة الإتاحة، تغطية الطلب، نتايج فاضية، تسرب القاعات.'],
+ ['a8','admin','النزاعات والاسترجاع','admin/disputes','future','إدارة النزاعات — رؤية مستقبلية.'],
+ ['a9','admin','التحويلات والعمولات','admin/payouts','future','تحويل فلوس للقاعات — رؤية مستقبلية.'],
+ ['a10','admin','مراجعات العملاء','admin/reviews','future','مراجعة وتنقية التقييمات — رؤية مستقبلية.'],
+ ['a11','admin','العروض','admin/promotions','future','إدارة العروض الترويجية — رؤية مستقبلية.'],
+ ['a12','admin','جودة المحتوى','admin/content-quality','future','مراجعة الصور والبيانات — رؤية مستقبلية.'],
+ // ---------------- investor ----------------
+ ['i1','investor','القصة','investor','demo','المشكلة، الحل، وطريقة الربح في شاشة واحدة.'],
+ ['i2','investor','الرؤية','vision','demo','اللي ممكن يتضاف بعدين من غير ما يعقّد البداية.'],
+ ['i3','investor','محاكي النمو','strategy-simulator','demo','سيناريوهات: عدد القاعات والسعر وأثرهم على الإيراد. أرقام توضيحية.'],
+ // ---------------- core ----------------
+ ['g1','core','تبديل المنظور','—','live','أربع مناظير منفصلة: عميل / قاعة / إدارة / مستثمر. التبديل بضغطة واضحة.'],
+ ['g2','core','عزل المناظير','—','live','كل شاشة بترفض تفتح للمنظور الغلط وبترجّعك لشاشتك — حتى لو كتبت اللينك بإيدك.'],
+ ['g3','core','قايمة واحدة لكل منظور','—','live','القايمة العلوية والجانبية والموبايل كلهم من مصدر واحد، فمش بيتغيروا وانت بتتنقل.'],
+ ['g4','core','الجولات الموجهة','?tour=','live','خمس جولات: الكاملة، العميل، القاعة، الإدارة، المستثمر. كل خطوة بتقولك تبص على إيه.'],
+ ['g5','core','مشاركة رابط الجولة','?tour=','live','رابط مباشر يفتح جولة معينة — للإرسال قبل الاجتماع.'],
+ ['g6','core','عربي / إنجليزي','—','live','اللغتين كاملين مع اتجاه الصفحة، والأرقام بتفضل 0-9 في الاتنين.'],
+ ['g7','core','خريطة العرض','—','demo','قايمة بكل الشاشات للتنقل السريع أثناء العرض.'],
+ ['g8','core','إعادة تعيين الديمو','—','live','بيرجّع الحالة للبداية من غير ما يغيّر اللغة.'],
+ ['g9','core','لافتة «رؤية مستقبلية»','—','live','الشاشات اللي لسه جاية بيظهر فوقها تنبيه إنها مش جزء من الباكدة الحالية.'],
+ ['g10','core','بيانات الديمو','—','live','كل الأرقام والحجوزات والعمولات تمثيلية ومش حقيقية، ومكتوب كده بوضوح.'],
+ // ---------------- gaps: what the business needs and the demo does not have ----------------
+ ['x1','gapo','المركز والقاعات المتعددة','مناظير §03','gap','دلوقتي اسم قاعة واحدة مكتوب ثابت في ٤ ملفات. محتاجين مركز فيه كذا قاعة، والقاعة المستقلة = مركز بقاعة واحدة.'],
+ ['x2','gapo','شاشة ملخص القاعات (للمالك)','مناظير §06','gap','صف لكل قاعة: الإشغال، أقرب أيام فاضية، طلبات مستنية رد، آخر تحديث إتاحة. أول شاشة المالك يفتحها الصبح.'],
+ ['x3','gapo','شاشة الفلوس (للمالك)','مناظير §06','gap','العمولة والإيراد لكل قاعة. المسؤول مايشوفهاش.'],
+ ['x4','gapo','الفريق والصلاحيات لكل قاعة','مناظير §05','gap','مين مسؤول عن أنهي قاعة، ومين يقدر يشوف إيه.'],
+ ['x5','gapo','دخول المالك على قاعة معينة','مناظير §06','gap','يفتح شاشات المسؤول نفسها بس مركّزة على القاعة اللي اختارها — مش نسخة تانية من الشاشات.'],
+ ['x6','gapm','تحديث الإتاحة في ثواني من الموبايل','الباكدة §16','gap','أهم تفاعل في المنتج كله. لو أخد وقت، القاعة مش هتعمله، والإتاحة تبوظ.'],
+ ['x7','gapa','طابور الإتاحة القديمة للإدارة','الباكدة §16','gap','مين محدّثش بقاله أكتر من أسبوعين — كطابور شغل يتعمل، مش تقرير يتقري.'],
+ ['x8','gapbiz','إخفاء الإتاحة تلقائيًا بعد ١٤ يوم','ملف القاعات · بند ٤','gap','القاعة تفضل ظاهرة بس من غير مواعيد مؤكدة، بدل ما تكذب على العميل.'],
+ ['x9','gapm','تنبيه القاعة قبل ما إتاحتها تقدم','الباكدة §16','gap','«٣ مواعيد محتاجة تأكيد» بدل تحذير أحمر.'],
+ ['x10','gapbiz','سجل الطلبات مرئي للقاعة','الباكدة §04','gap','القاعة تشوف الطلب أول بأول — ده اللي بيخلي الإسناد مش محل خلاف.'],
+ ['x11','gapbiz','قواعد الإسناد (٩٠ يوم + رقم الموبايل)','الباكدة §04','gap','الحجز يُحتسب على المنصة إزاي، ومكتوب فين، ومين عليه عبء الإثبات.'],
+ ['x12','gapbiz','حد أقصى للعمولة + إعفاء أول ٣ حجوزات','الباكدة §04','gap','ده اللي بيخلي صاحب القاعة يوافق. لازم يبان في المنتج مش في الورق بس.'],
+ ['x13','gapbiz','الاتفاق وتثبيت السعر ١٢ شهر','ملف القاعات · بند ١٠','gap','نسخة من الاتفاق وبنوده جوه المنتج، مش ورقة برّه.'],
+ ['x14','gappay','الفاتورة وطريقة السداد','الباكدة §08','gap','كل بند مربوط بالطلب اللي سببه، والدفع يبقى أسهل حاجة في الشاشة.'],
+ ['x15','gapbiz','مؤشر التحصيل: مفوتر مقابل محصّل','الباكدة §08','gap','الرقم اللي بيثبت الموديل. مينفعش نعرض GMV من غيره.'],
+ ['x16','gapo','اعتراض القاعة على عمولة','الباكدة §04','gap','مراجعة السجل مع بعض خلال ٧ أيام، والحالة غير الواضحة تتلغى.'],
+ ['x17','gapbiz','سياسة عدم الحضور وإلغاء القاعة','ملف القاعات · مستند ٦','gap','مين بيكلم العميل وفي خلال قد إيه، وإيه اللي بيتعرض عليه، والعمولة بتتلغى.'],
+ ['x18','gapa','تعليق قاعة أو سحب التوثيق','الباكدة §11','gap','إجراء واضح بعد حادثة ثقة، مش قرار شخصي.'],
+ ['x19','gapa','قائمة تحقق التوثيق','الباكدة §16','gap','مين راجع إيه وإمتى. والتوثيق مش للبيع.'],
+ ['x20','gapa','سجل تدقيق لكل تغيير حالة','الباكدة §16','gap','بما فيه العمولات الملغية ونتايج النزاعات.'],
+ ['x21','gapa','إضافة قاعة جديدة (Onboarding)','ملف القاعات · مستند ٧','gap','القاعات والسعات والأسعار والصور والتقويم — في زيارة واحدة.'],
+ ['x22','gapbiz','ثبات القاعات بعد ٦٠ يوم','الباكدة §09','gap','الرقم اللي الشركة كلها بتتقاس بيه في المرحلة دي.'],
+ ['x23','gapbiz','متوسط زمن رد القاعة','الباكدة §09','gap','السوق بيموت من القاعات اللي مبتردش، مش من نقص الفيتشرز.'],
+ ['x24','gapbiz','نسبة النتايج الفاضية','الباكدة §09','gap','فوق ٣٠٪ يعني نوقف التسويق ونرجع نجيب قاعات.'],
+ ['x25','gapbiz','عدد القاعات النشطة فعلاً','الباكدة §09','gap','اللي حدّثت إتاحتها خلال ١٤ يوم — مش اللي سجّلت.'],
+ ['x26','gapc','صفحة القاعة كقناة توزيع','الباكدة §07','gap','لينك القاعة تحطه في الإنستجرام بتاعها فيجيب لنا طلب ويديها صفحة حجز.'],
+ ['x27','gapo','تقرير إشغال يترد للقاعة','الباكدة §08','gap','إشغالك بالشهر وباليوم — ده اللي بيخلي صاحب القاعة يمضي.'],
+ ['x28','gapbiz','ساعات التأسيس لكل قاعة','الباكدة §04','gapl','مؤشر داخلي بيثبت إن التوسع ممكن. يتقاس من أول قاعة.'],
+ ['x29','gapbiz','المنطقة كوحدة توسع','الباكدة §04','gapl','نفتح منطقة جديدة بعد ما الأولى توصل لمرحلة التحصيل.'],
+ ['x30','gapbiz','اشتراك VenueOS','الباكدة · سلم الربح','gapl','المرحلة التانية، بعد ما الأداة يبقى ليها قيمة لوحدها.'],
+ ['x31','gappay','الدفع الإلكتروني والعربون','الباكدة · ما بعد الباكدة','gapl','دلوقتي العربون بيروح للقاعة مباشرة بشكل مقصود.'],
+ ['x32','gapbiz','الفواتير والضرايب','الباكدة §11','gapl','محاسب مصري قبل أول فاتورة عمولة، مش بعدها.'],
+ ['x33','gappay','دفع العربون أونلاين — والفلوس تروح للقاعة','قرار مطلوب','gap','العميل يدفع من موبايله، بس الفلوس تتحوّل للقاعة مباشرة عن طريق حساب أو رابط دفع القاعة نفسها. إحنا بنسجّل إن العربون اتدفع، ومش بنمسك فلوس. ليه المسار ده: بيدي العميل تجربة «دفعت من موبايلي»، وبيحافظ على أقوى جملة بنقولها للقاعة «فلوسك بتوصلك مباشرة»، ومن غير ما نبقى جهة دفع.'],
+ ['x34','gappay','دوّر يمسك فلوس العميل (Escrow)','قرار مطلوب','gapl','البديل التاني: الفلوس تقعد عندنا وبعدين نحوّلها. ده بيخلينا مسؤولين عن الاسترجاع والتسوية والنزاعات، وبيحتاج ترخيص وشريك دفع، وبيشيل من إيدينا أقوى ورقة مع القاعات. اقتراحي: مش دلوقتي — إلا لما حجم المعاملات يستاهل.'],
+ ['x35','gappay','تسجيل العربون وإيصال للعميل','قرار مطلوب','gap','لما العربون يتدفع، الحالة تتسجّل ويطلع إيصال العميل يعرضه للأهل. الفايدة الخفية: ده بيدينا إشارة مؤكدة إن الحجز اتم — وهي بالظبط اللي فوترة العمولة واقفة عليها، فبتحسّن نسبة التحصيل اللي هي المتغيّر اللي بيقرر البيزنس.'],
+ ['x36','gapc','العميل يطلب تفاصيل زيادة والسعر يتعدّل','رحلة العميل','gap','بوفيه أكبر، إضاءة، دي جي، عدد أكتر. العميل يختار، والقاعة ترد بعرض مفصّل بند بند. ليه مهم: بيخلي العروض قابلة للمقارنة بين القاعات، وبيقلل أكتر نوع نزاع بيحصل — «السعر اتغير بعد العربون».'],
+ ['x37','gapc','طلب واحد يروح لكذا قاعة','رحلة العميل','gap','العميل يكتب طلبه مرة واحدة (التاريخ والعدد والميزانية والتفاصيل) ويوصل لأكتر من قاعة، وترجعله عروض. ليه ده مهم لينا مش للعميل بس: الطلب ده <b>إحنا اللي عملناه</b>، فالإسناد فيه مفيش عليه خلاف نهائيًا — وده أنضف حل لأصعب مشكلة عندنا.'],
+ ['x38','gapc','سقف للقاعات ورفض بضغطة','رحلة العميل','gap','الطلب الواحد يروح لعدد محدود من القاعات المناسبة (مثلاً ٥)، والقاعة تقدر ترفض بضغطة من غير ما يتحسب عليها. من غير السقف ده، بنحوّل نفسنا لمصدر الطلبات الغير جادة — وهي بالظبط المشكلة اللي بنحلها للقاعة.'],
+ ['x39','gapc','مقارنة العروض جنب بعض','رحلة العميل','gap','لما تيجي ٤ عروض، العميل محتاج يقارنهم في شاشة واحدة: السعر النهائي، إيه اللي داخل وإيه اللي برّه، والعربون المطلوب. من غيرها العروض بتتحول لزحمة والعميل بيقفل.'],
+ ['x40','gapc','احفظ بحثك وابعتلي لما يفضى','رحلة العميل','gap','لو التاريخ مزدحم ومفيش نتايج، العميل يسيب طلبه ونبعتله لما قاعة تفضى في اليوم ده. ليه: النهارده العميل اللي مبيلاقيش نتايج بيمشي وميرجعش — وإحنا بنجيب انطباع واحد بس لكل بيت.'],
+ ['x41','gapc','تأكيد الزيارة وتذكير قبلها','رحلة العميل','gap','تذكير للعميل وللقاعة قبل الزيارة. ليه: الزيارات اللي محدش بيجي فيها من أكتر حاجات بتضايق فريق القاعة، وده رقم ٤ في قائمة أوجاعهم.'],
+ ['x42','gapc','تقييم بعد الفرح مربوط بحجز حقيقي','رحلة العميل','gapl','تقييم من عميل حجز فعلاً، مش من أي حد. بيبني الثقة من غير ما يفتح باب التقييمات المضروبة. بعدين — محتاج حجوزات كفاية الأول.'],
+ // ---- الأرضية ----
+ ['y1','gapbase','تسجيل دخول وهوية','أساسي','gap','المنتج كله بيفترض إن فيه عميل ومسؤول ومالك — ومفيش طريقة حد يثبت إنه مين. من غيرها العزل ملوش معنى والدفع مستحيل والعميل مش هيرجع يشوف حجزه. الشكل المناسب لمصر: رقم موبايل وكود، مش إيميل وباسورد.'],
+ ['y2','gapbase','الدخول يتطلب عند أول طلب مش أول زيارة','أساسي','gap','العروسة مش هتعمل حساب عشان تتفرج. تتفرج وتقارن من غير حساب، ولما تبعت طلب ساعتها تتحقق برقمها.'],
+ ['y3','gapbase','إشعارات — وواتساب الأول','أساسي','gap','الطلب دلوقتي بيوصل في الشاشة بس، ومحدش بيقول للقاعة. ومؤشر «زمن الرد» اللي بوابة المرحلة التالتة مستحيل يتحقق من غير إشعار. القناة الصح في مصر واتساب قبل أي حاجة.'],
+ ['y4','gapbase','تسجيل حجز جه من برّه المنصة','أساسي','gap','أغلب حجوزات القاعة بتيجي تليفون أو حد داخل. لو مقدرتش تتسجل في ثواني، تقويمنا بيبقى بيكذب — وإحنا ادعاؤنا الأساسي إن الإتاحة حقيقية. ده مش فيتشر للقاعة، ده جزء من منتجنا.'],
+ ['y5','gapbase','منع الحجز المزدوج فعليًا','أساسي','gap','لو اتسجل حجز على يوم محجوز، النظام يمنع ويوضّح الحجز المتعارض. الحجز المزدوج فضيحة لصاحب القاعة وأسوأ حاجة ممكن تحصل من أداة إدارة.'],
+ ['y6','gapbase','شروط الاستخدام وسياسة الخصوصية','أساسي','gap','بنجمع أرقام وبيانات شخصية ومفيش صفحة بتقول بنعمل بيها إيه. وبعد قرار الدفع بقت شرط تشغيلي — مفيش شريك دفع هيتعامل معانا من غيرها.'],
+ ['y7','gapbase','الأداء على شبكة ضعيفة','أساسي','gapl','القاعات والعملاء مش كلهم على نت كويس. الصور والشاشات التقيلة بتضيّع طلبات.'],
+ // ---- الدفع ----
+ ['y8','gappay','شريك دفع مرخّص ووضع قانوني','الدفع','gap','إحنا هنمسك فلوس ناس تانية. ده وضع قانوني محتاج رأي محامي وشريك بنكي قبل أول جنيه — مش قرار تقني.'],
+ ['y9','gappay','ميعاد التحويل للقاعة','الدفع','gap','أهم قرار في الحتة كلها. فورًا = بقينا بوابة دفع بس. بعد الفرح = القاعة هترفض. المتوازن: جزء عند التأكيد والباقي قبل الفرح بمدة معروفة.'],
+ ['y10','gappay','سياسة الاسترجاع','الدفع','gap','أول عميل يطلب فلوسه هيطلبها مننا مش من القاعة. من غير سياسة مكتوبة، القرار هيتاخد بالمزاج وهيتنشر.'],
+ ['y11','gappay','الإلغاء بأنواعه التلاتة','الدفع','gap','العميل يلغي · القاعة تلغي · ظرف قاهر. تلات حالات بتلات نتايج مالية مختلفة، وكل واحدة لازم تتكتب.'],
+ ['y12','gappay','النزاعات واسترداد الكارت','الدفع','gap','لو العميل اعترض على عملية بالكارت، البنك بيرجع الفلوس مننا إحنا. محتاجين نعرف نرد بمستندات.'],
+ ['y13','gappay','التسوية والمطابقة اليومية','الدفع','gap','اللي وصلنا من شريك الدفع = اللي اتسجل عندنا = اللي هيتحوّل للقاعات. أي فرق لازم يبان في نفس اليوم.'],
+ ['y14','gappay','خصم العمولة تلقائيًا','الدفع','gap','<b>أكبر مكسب من الدفع.</b> بدل ما نفوتر ونجري ورا القاعة، بنخصم من الفلوس وهي عدّية. مشكلة التحصيل بتختفي من أساسها.'],
+ ['y15','gappay','بيانات القاعة البنكية والتحقق منها','الدفع','gap','مش هنحوّل لحساب محدش تأكد منه. ده بيضيف خطوة في ضم القاعة.'],
+ ['y16','gappay','الدفع على مراحل','الدفع','gap','الأفراح في مصر بتتدفع على دفعات. لو مسمحناش بده، هيرجعوا يدفعوا برّه وهنخسر الميزة كلها.'],
+ ['y17','gappay','كشف القاعات الوهمية','الدفع','gap','قاعة وهمية تجمع عرابين. بعد الدفع، التوثيق بقى مش علامة ثقة بس — بقى حاجز مالي.'],
+ // ---- العروسين ----
+ ['y18','gapc','يرجع يشوف حجزه برقمه','العميل','gap','من غير حساب دايم، إزاي يرجع بعد شهرين يشوف تفاصيل حجزه؟ استرجاع برقم الموبايل وكود.'],
+ ['y19','gapc','يلغي أو يعدّل حجزه','العميل','gap','العدد اتغير، التاريخ اتزحزح. لو مفيش طريقة في المنتج، هيرجع للتليفون وإحنا نخسر أثر الحجز.'],
+ ['y20','gapc','مين المسؤول من القاعة','العميل','gap','اسم ورقم شخص محدد بيتابع معاه. «القاعة» مش شخص، والعيلة عايزة حد تكلمه.'],
+ ['y21','gapc','تأكيد مكتوب يتحفظ','العميل','gap','ورقة فيها التاريخ والسعر واللي داخل واللي برّه. دي اللي بتتعرض على الأهل وبتمنع الخلاف بعدين.'],
+ ['y22','gapc','لو القاعة اتأخرت في الرد','العميل','gap','بعد مدة معينة نقترح بدايل تلقائيًا. العميل اللي استنى وملقاش رد بيمشي وميرجعش.'],
+ // ---- المالك ----
+ ['y23','gapo','يضيف قاعة جديدة بنفسه','المالك','gap','دلوقتي إحنا اللي بنضيف. مع الوقت لازم يقدر يضيف فرع جديد من غيرنا.'],
+ ['y24','gapo','يعدّل الأسعار والباقات','المالك','gap','الأسعار بتتغير بالموسم. لو محتاج يكلمنا عشان يغيّر سعر، مش هيستخدمنا.'],
+ ['y25','gapo','يقفل أيام (صيانة أو مناسبة خاصة)','المالك','gap','مش كل يوم مش متاح يبقى محجوز. فيه أيام بتتقفل لأسباب تانية.'],
+ ['y26','gapo','سقف خصم للمسؤول','المالك','gapl','لو المسؤول بيدي خصم فوق حد معين، لازم موافقة المالك. من غيرها المالك مش هيدي صلاحية لحد.'],
+ ['y27','gapo','تقرير مالي شهري يتصدّر','المالك','gap','ملف يوديه لمحاسبه. لو مقدرش يطلع أرقامه، هيفضل ماسك دفتر جنبنا.'],
+ // ---- مسؤول القاعة ----
+ ['y28','gapm','يرد من الموبايل بقوالب جاهزة','المسؤول','gap','رد سريع على الطلب من غير ما يكتب من الأول كل مرة. ده اللي بيخلي زمن الرد يقل فعلاً.'],
+ ['y29','gapm','يحوّل الطلب لزميل','المسؤول','gapl','لو هو مش موجود أو الطلب مش تخصصه.'],
+ ['y30','gapm','ملاحظات على العميل','المسؤول','gapl','«العروسة عايزة الحديقة» — معلومات بتفرق في المكالمة الجاية.'],
+ ['y31','gapm','جدول اليوم للاستقبال','المسؤول','gap','قايمة مين جاي النهارده تتطبع أو تتفتح على تابلت في الاستقبال. الاستقبال مش هيفتح النظام.'],
+ // ---- الإدارة ----
+ ['y32','gapa','متابعة الردود المتأخرة','الإدارة','gap','مين مردش خلال ٢٤ ساعة — كطابور شغل. ده مؤشر بوابة المرحلة التالتة، لازم يبقى ليه شاشة.'],
+ ['y33','gapa','إدارة المستخدمين والصلاحيات','الإدارة','gap','مين في فريق دوّر يقدر يشوف ويعمل إيه.'],
+ ['y34','gapa','الدخول على حساب قاعة للدعم','الإدارة','gap','فريق الدعم محتاج يشوف اللي القاعة شايفاه عشان يساعدها — بشرط يتسجّل في سجل التدقيق مين دخل وإمتى وليه.'],
+ ['y35','gapa','سجل التواصل مع القاعة','الإدارة','gap','مين كلم مين وإمتى وقال إيه. في مرحلة الـ ٢٥ قاعة، ده هو الشغل نفسه.'],
+ ['y36','gapa','تقارير التسوية','الإدارة','gap','بعد الدفع: كام دخل، كام اتحوّل، كام لسه، وكام عمولة اتخصمت. يومي.']
+];
+(function(){
+'use strict';
+
+var TAG={live:['شغالة','t-live'],demo:['شاشة عرض','t-demo'],future:['رؤية مستقبلية','t-future'],
+         gap:['ناقص · لازم','t-gap'],gapl:['ناقص · بعدين','t-gapl']};
+var VERD=[['keep','خليها'],['change','عدّلها'],['drop','اشيلها'],['ask','نتكلم فيها']];
+var VLABEL={keep:'خليها',change:'عدّلها',drop:'اشيلها',ask:'نتكلم فيها'};
+// a verdict read back from the sheet is untrusted input: only ever resolve
+// it through an own-property lookup, never straight off the object.
+function vlabel(v){return Object.prototype.hasOwnProperty.call(VLABEL,v)?VLABEL[v]:''}
+
+var LS={api:'dawwar-review-api',pass:'dawwar-review-pass',me:'dawwar-review-me',mine:'dawwar-review-mine'};
+function get(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
+function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+// The endpoint can be baked in below, or passed once as ?api=... on the shared link.
+var API='';
+(function(){
+  var qp=new URLSearchParams(location.search);
+  if(qp.get('api')){API=qp.get('api');set(LS.api,API);}
+  else API=get(LS.api);
+  if(qp.get('pass'))set(LS.pass,qp.get('pass'));
+})();
+
+var me=get(LS.me), pass=get(LS.pass);
+var mine={};
+var all=[];
+var tab='vote', filter='all', q='', dirty={}, timer=null, syncing=false;
+var agg={byFeat:{},people:[]};
+
+try{mine=JSON.parse(get(LS.mine)||'{}')||{}}catch(e){mine={}}
+
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function rec(id){return mine[id]||(mine[id]={v:'',note:''})}
+function answered(){var n=0;for(var k in mine){if(mine[k].v||mine[k].note)n++}return n}
+function saveLocal(){set(LS.mine,JSON.stringify(mine))}
+function status(cls,txt){var e=document.getElementById('sync');if(e){e.className='sync '+cls;e.textContent=txt}}
+
+function reduceRows(rows){
+  var m={};
+  rows.forEach(function(r){
+    if(!r.id||!r.person)return;
+    var k=r.person+' '+r.id;
+    if(!m[k]||r.t>=m[k].t)m[k]=r;
+  });
+  var byFeat={},people={};
+  Object.keys(m).forEach(function(k){
+    var r=m[k];
+    if(!r.v&&!r.note)return;
+    (byFeat[r.id]=byFeat[r.id]||[]).push(r);
+    people[r.person]=true;
+  });
+  return {byFeat:byFeat,people:Object.keys(people).sort()};
+}
+
+function contested(){
+  var out=[];
+  Object.keys(agg.byFeat).forEach(function(id){
+    var vs=agg.byFeat[id].filter(function(r){return r.v});
+    if(vs.length<2)return;
+    var s={};vs.forEach(function(r){s[r.v]=1});
+    if(Object.keys(s).length>1)out.push(id);
+  });
+  return out;
+}
+
+function queue(id){dirty[id]=true;saveLocal();clearTimeout(timer);timer=setTimeout(flush,1500);paintStats()}
+
+function flush(){
+  var ids=Object.keys(dirty);
+  if(!ids.length)return;
+  if(!API){status('s-local','محفوظ على جهازك — الرابط مش فيه عنوان الشيت');return}
+  var items=ids.map(function(id){return {id:id,v:mine[id].v||'',note:mine[id].note||''}});
+  dirty={};
+  status('s-busy','بيحفظ');
+  fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({pass:pass,person:me,items:items})})
+   .then(function(r){return r.json()})
+   .then(function(j){
+     if(j&&j.ok){status('s-ok','اتحفظ');setTimeout(function(){pull()},600)}
+     else if(j&&j.error==='bad_pass'){status('s-err','كود الدخول غلط')}
+     else{items.forEach(function(it){dirty[it.id]=true});status('s-err','الحفظ فشل — محفوظ على جهازك')}
+   })
+   .catch(function(){items.forEach(function(it){dirty[it.id]=true});
+     status('s-err','مفيش اتصال — محفوظ على جهازك')});
+}
+
+function pull(then){
+  if(!API){agg={byFeat:{},people:[]};if(then)then();return}
+  if(syncing){if(then)then();return}
+  syncing=true;
+  fetch(API+(API.indexOf('?')>-1?'&':'?')+'pass='+encodeURIComponent(pass))
+   .then(function(r){return r.json()})
+   .then(function(j){
+     syncing=false;
+     if(j&&j.ok){all=j.rows||[];agg=reduceRows(all);paintStats();
+       if(tab==='stats')render();else paintOthers();}
+     else if(j&&j.error==='bad_pass')status('s-err','كود الدخول غلط');
+     if(then)then();
+   })
+   .catch(function(){syncing=false;if(then)then()});
+}
+
+function renderGate(){
+  document.getElementById('root').innerHTML=
+   '<div class="gate"><h2>مراجعة فيتشرز دوّر</h2>'
+   +'<p>اكتب اسمك وكود الدخول مرة واحدة. رأيك بيتحفظ باسمك عشان نعرف بعدين مين شايف إيه وليه.</p>'
+   +'<label>اسمك</label><input id="gName" type="text" value="'+esc(me)+'" placeholder="مثلاً: كريم">'
+   +'<label>كود الدخول</label><input id="gPass" type="password" value="'+esc(pass)+'" placeholder="اللي اتبعتلك">'
+   +(API?'':'<div class="banner"><b>تنبيه:</b> الرابط ده مش فيه عنوان الشيت، فرأيك هيتحفظ على جهازك بس. اطلب الرابط الكامل.</div>')
+   +'<div style="margin-top:18px"><button class="btn primary" id="gGo">يلا نبدأ</button></div></div>';
+  document.getElementById('gGo').onclick=function(){
+    var n=document.getElementById('gName').value.trim();
+    var p=document.getElementById('gPass').value.trim();
+    if(!n){alert('اكتب اسمك الأول');return}
+    me=n;pass=p;set(LS.me,n);set(LS.pass,p);
+    pull(function(){render()});
+  };
+}
+
+function paintStats(){
+  var e=document.getElementById('stats');if(!e)return;
+  e.innerHTML='<span>ردّيت على: <b>'+answered()+'</b> من <b>'+F.length+'</b></span>'
+    +'<span>المشاركين: <b>'+(agg.people.length||1)+'</b></span>'
+    +'<span>عليها خلاف: <b>'+contested().length+'</b></span>';
+}
+
+function match(f){
+  if(filter==='all'){}
+  else if(filter==='mine'){if(!(mine[f[0]]&&(mine[f[0]].v||mine[f[0]].note)))return false}
+  else if(filter==='todo'){if(mine[f[0]]&&mine[f[0]].v)return false}
+  else if(filter==='hot'){if(contested().indexOf(f[0])<0)return false}
+  else if(f[1]!==filter)return false;
+  if(!q)return true;
+  return (f[2]+' '+f[3]+' '+f[5]).toLowerCase().indexOf(q)>-1;
+}
+
+function othersFor(id){
+  var rows=(agg.byFeat[id]||[]).filter(function(r){return r.person!==me});
+  if(!rows.length)return '';
+  var counts={},notes=[];
+  rows.forEach(function(r){
+    if(r.v)counts[r.v]=(counts[r.v]||0)+1;
+    if((r.note||'').trim())notes.push(r);
+  });
+  var chips=Object.keys(counts).map(function(v){
+    return '<span class="oth"><b>'+counts[v]+'</b> '+esc(vlabel(v))+'</span>'}).join('');
+  var nh=notes.map(function(r){
+    return '<div class="othnote"><b>'+esc(r.person)+':</b> '+esc(r.note)+'</div>'}).join('');
+  return (chips?'<div class="others">'+chips+'</div>':'')+(nh?'<div class="othnotes">'+nh+'</div>':'');
+}
+
+function paintOthers(){
+  Array.prototype.forEach.call(document.querySelectorAll('.feat'),function(el){
+    var id=el.getAttribute('data-id');
+    Array.prototype.forEach.call(el.querySelectorAll('.others,.othnotes'),function(n){n.remove()});
+    var h=othersFor(id);
+    if(h)el.insertAdjacentHTML('beforeend',h);
+  });
+}
+
+function voteView(){
+  var html='',any=false;
+  GROUPS.forEach(function(g){
+    var items=F.filter(function(f){return f[1]===g.id&&match(f)});
+    if(!items.length)return;
+    any=true;
+    html+='<section class="grp"><h2>'+esc(g.name)+' <span class="c">'+items.length+'</span></h2>'
+        +'<p class="gd">'+esc(g.desc)+'</p>';
+    items.forEach(function(f){
+      var r=rec(f[0]),t=TAG[f[4]]||TAG.live;
+      var cls=(f[4]==='gap'?' gap':(f[4]==='gapl'?' gapl':''));
+      html+='<article class="feat'+cls+'" data-id="'+f[0]+'">'
+       +'<div class="fname">'+esc(f[2])+' <span class="route">'+esc(f[3])+'</span> <span class="tag '+t[1]+'">'+t[0]+'</span></div>'
+       +'<p class="fdesc">'+f[5]+'</p>'
+       +'<div class="verdicts">'+VERD.map(function(v){
+           return '<button class="vbtn'+(r.v===v[0]?' on':'')+'" data-v="'+v[0]+'" data-id="'+f[0]+'">'+v[1]+'</button>'}).join('')+'</div>'
+       +'<textarea class="'+(r.note?'note-has':'')+'" data-id="'+f[0]+'" rows="'+(r.note?3:1)+'" placeholder="ليه؟ اكتب سببك">'+esc(r.note)+'</textarea>'
+       +othersFor(f[0])
+       +'</article>';
+    });
+    html+='</section>';
+  });
+  if(!any)html='<p class="empty">مفيش نتايج.</p>';
+  return html;
+}
+
+function bar(counts,total){
+  var order=['keep','change','drop','ask'],h='';
+  order.forEach(function(v){
+    var n=counts[v]||0;if(!n)return;
+    h+='<i class="i-'+v+'" style="width:'+Math.round(n/total*100)+'%"></i>';
+  });
+  return '<span class="split">'+h+'</span>';
+}
+
+function statsView(){
+  if(!API)return '<div class="banner"><b>التحليلات محتاجة الشيت.</b> الرابط ده مش فيه عنوان الشيت، فمفيش أصوات نجمّعها.</div>';
+  var ids=Object.keys(agg.byFeat);
+  if(!ids.length)return '<p class="empty">لسه مفيش أصوات. أول ما حد يصوّت هتظهر هنا.</p>';
+
+  var title={};F.forEach(function(f){title[f[0]]=f});
+
+  // per-person coverage
+  var per={};
+  agg.people.forEach(function(p){per[p]={keep:0,change:0,drop:0,ask:0,notes:0,total:0}});
+  ids.forEach(function(id){
+    agg.byFeat[id].forEach(function(r){
+      if(!per[r.person])return;
+      if(r.v&&vlabel(r.v)){per[r.person][r.v]=(per[r.person][r.v]||0)+1;per[r.person].total++}
+      if((r.note||'').trim())per[r.person].notes++;
+    });
+  });
+
+  var hot=contested().map(function(id){
+    var vs=agg.byFeat[id].filter(function(r){return r.v});
+    var c={};vs.forEach(function(r){c[r.v]=(c[r.v]||0)+1});
+    var top=Math.max.apply(null,Object.keys(c).map(function(k){return c[k]}));
+    return {id:id,c:c,n:vs.length,split:1-(top/vs.length)};
+  }).sort(function(a,b){return b.split-a.split||b.n-a.n});
+
+  var agree=ids.filter(function(id){
+    var vs=agg.byFeat[id].filter(function(r){return r.v});
+    if(vs.length<2)return false;
+    var s={};vs.forEach(function(r){s[r.v]=1});
+    return Object.keys(s).length===1;
+  }).map(function(id){
+    var vs=agg.byFeat[id].filter(function(r){return r.v});
+    return {id:id,v:vs[0].v,n:vs.length};
+  }).sort(function(a,b){return b.n-a.n});
+
+  var drops=ids.map(function(id){
+    var c={};agg.byFeat[id].forEach(function(r){if(r.v)c[r.v]=(c[r.v]||0)+1});
+    return {id:id,score:(c.drop||0)*2+(c.change||0),c:c};
+  }).filter(function(x){return x.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,15);
+
+  var h='<div class="legend">'
+   +'<span><i class="dot i-keep"></i> خليها</span><span><i class="dot i-change"></i> عدّلها</span>'
+   +'<span><i class="dot i-drop"></i> اشيلها</span><span><i class="dot i-ask"></i> نتكلم فيها</span></div>';
+
+  h+='<h3>مين شارك وردّ على كام</h3><div class="tw"><table><thead><tr><th>الشخص</th><th class="n">ردّ على</th><th class="n">خليها</th><th class="n">عدّلها</th><th class="n">اشيلها</th><th class="n">نتكلم</th><th class="n">ملاحظات</th></tr></thead><tbody>';
+  agg.people.forEach(function(p){var x=per[p];
+    h+='<tr><td>'+esc(p)+'</td><td class="n">'+x.total+' / '+F.length+'</td><td class="n">'+(x.keep||0)+'</td><td class="n">'+(x.change||0)+'</td><td class="n">'+(x.drop||0)+'</td><td class="n">'+(x.ask||0)+'</td><td class="n">'+x.notes+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+
+  h+='<h3>الفيتشرز اللي فيها خلاف ('+hot.length+')</h3>';
+  h+='<p class="gd">دي اللي محتاجة قعدة. مرتبة من الأكتر خلافًا.</p>';
+  if(!hot.length)h+='<p class="empty">مفيش خلاف لحد دلوقتي.</p>';
+  else{
+    h+='<div class="tw"><table><thead><tr><th>الفيتشر</th><th>التوزيع</th><th class="n">أصوات</th><th>مين قال إيه</th></tr></thead><tbody>';
+    hot.slice(0,25).forEach(function(x){
+      var f=title[x.id]||['','','?'];
+      var who=agg.byFeat[x.id].filter(function(r){return r.v}).map(function(r){
+        return esc(r.person)+': '+esc(vlabel(r.v))}).join(' · ');
+      h+='<tr><td>'+esc(f[2])+'</td><td>'+bar(x.c,x.n)+'</td><td class="n">'+x.n+'</td><td>'+who+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  h+='<h3>الأكتر طلبًا للتعديل أو الشيل</h3>';
+  if(!drops.length)h+='<p class="empty">مفيش.</p>';
+  else{
+    h+='<div class="tw"><table><thead><tr><th>الفيتشر</th><th class="n">عدّلها</th><th class="n">اشيلها</th></tr></thead><tbody>';
+    drops.forEach(function(x){var f=title[x.id]||['','','?'];
+      h+='<tr><td>'+esc(f[2])+'</td><td class="n">'+(x.c.change||0)+'</td><td class="n">'+(x.c.drop||0)+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  h+='<h3>متفق عليها ('+agree.length+')</h3>';
+  h+='<p class="gd">اتنين أو أكتر قالوا نفس الحاجة. دي مش محتاجة نقاش.</p>';
+  if(!agree.length)h+='<p class="empty">لسه.</p>';
+  else{
+    h+='<div class="tw"><table><thead><tr><th>الفيتشر</th><th>الاتفاق</th><th class="n">أصوات</th></tr></thead><tbody>';
+    agree.slice(0,40).forEach(function(x){var f=title[x.id]||['','','?'];
+      h+='<tr><td>'+esc(f[2])+'</td><td>'+esc(vlabel(x.v))+'</td><td class="n">'+x.n+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+  return h;
+}
+
+function render(){
+  if(!me){renderGate();return}
+  var chips=[['all','الكل'],['todo','لسه مردّتش'],['mine','اللي ردّيت عليه'],['hot','فيها خلاف']]
+    .concat(GROUPS.map(function(g){return [g.id,g.name]}));
+  document.getElementById('root').innerHTML=
+   '<header><div class="wrap" style="padding-bottom:0">'
+   +'<div class="htop"><div><h1>مراجعة فيتشرز دوّر</h1>'
+   +'<p class="sub">صوّت واكتب سببك. كل واحد بيشوف رأي الباقيين تحت كل فيتشر.</p></div>'
+   +'<div style="text-align:left"><div class="who">داخل باسم <b>'+esc(me)+'</b> · <a href="#" id="chg" style="color:var(--clay-600)">غيّر</a></div>'
+   +'<div id="sync" class="sync s-idle" style="margin-top:6px">جاهز</div></div></div>'
+   +'<div class="stats" id="stats"></div>'
+   +'<div class="tabs"><button class="tab'+(tab==='vote'?' on':'')+'" data-t="vote">التصويت</button>'
+   +'<button class="tab'+(tab==='stats'?' on':'')+'" data-t="stats">التحليلات</button></div>'
+   +(tab==='vote'?'<div class="controls"><input type="search" id="q" placeholder="دوّر على فيتشر" value="'+esc(q)+'">'
+      +chips.map(function(c){return '<button class="chip'+(filter===c[0]?' on':'')+'" data-f="'+c[0]+'">'+esc(c[1])+'</button>'}).join('')
+      +'</div>':'')
+   +'</div></header><div class="wrap">'
+   +(tab==='vote'?voteView():statsView())
+   +'</div>'
+   +'<div class="bar"><button class="btn" id="refresh">حدّث الأصوات</button>'
+   +'<button class="btn primary" id="saveNow">احفظ دلوقتي</button></div>';
+  paintStats();
+  wire();
+}
+
+function wire(){
+  var c=document.getElementById('chg');
+  if(c)c.onclick=function(ev){ev.preventDefault();me='';renderGate()};
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){
+    b.onclick=function(){tab=this.getAttribute('data-t');if(tab==='stats')pull(function(){render()});else render()}});
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(b){
+    b.onclick=function(){filter=this.getAttribute('data-f');render()}});
+  var qEl=document.getElementById('q');
+  if(qEl)qEl.oninput=function(){var pos=this.selectionStart;q=this.value.trim().toLowerCase();render();
+    var n=document.getElementById('q');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}};
+  Array.prototype.forEach.call(document.querySelectorAll('.vbtn'),function(b){
+    b.onclick=function(){
+      var id=this.getAttribute('data-id'),v=this.getAttribute('data-v'),r=rec(id);
+      r.v=(r.v===v)?'':v;
+      var card=this.closest('.feat');
+      Array.prototype.forEach.call(card.querySelectorAll('.vbtn'),function(x){
+        x.classList.toggle('on',x.getAttribute('data-v')===r.v)});
+      queue(id);
+    }});
+  Array.prototype.forEach.call(document.querySelectorAll('textarea'),function(t){
+    t.oninput=function(){var r=rec(this.getAttribute('data-id'));r.note=this.value;
+      this.classList.toggle('note-has',!!this.value);queue(this.getAttribute('data-id'))}});
+  document.getElementById('refresh').onclick=function(){status('s-busy','بيحدّث');pull(function(){status('s-ok','اتحدّث')})};
+  document.getElementById('saveNow').onclick=function(){
+    F.forEach(function(f){if(mine[f[0]]&&(mine[f[0]].v||mine[f[0]].note))dirty[f[0]]=true});
+    clearTimeout(timer);flush();
+  };
+}
+
+if(me&&pass)pull(function(){render()});
+else render();
+})();
+</script>
+</body>
+</html>
