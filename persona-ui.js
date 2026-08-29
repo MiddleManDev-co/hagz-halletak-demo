@@ -28,13 +28,13 @@ const navs={
   ['admin/verification','✓',L('مراجعة القاعات','Venue checks')],
   ['admin/venues','▦',L('القاعات','Venues')],
   ['admin/bookings','◎',L('الحجوزات','Bookings')],
-  ['admin/support','✉',L('الدعم','Support')]
+  ['admin/support','✉',L('الدعم','Support')],
+  ['admin/economics','₤',L('اقتصاديات المنصة','Platform economics')],
+  ['admin/marketplace-health','◎',L('صحة السوق','Market health')]
  ],
  investor:()=>[
   ['investor','📈',L('القصة','Story')],
   ['vision','✦',L('الرؤية','Vision')],
-  ['admin/economics','₤',L('الأرقام','Economics')],
-  ['admin/marketplace-health','◎',L('صحة السوق','Market health')],
   ['strategy-simulator','↗',L('سيناريوهات النمو','Growth scenarios')]
  ]
 };
@@ -42,24 +42,25 @@ const mobile={
  customer:['home','explore','my-wedding','visits'],
  venue:['venue-os/overview','venue-os/calendar','venue-os/leads','venue-os/visits'],
  admin:['pilot/ops','admin/verification','admin/bookings','admin/support'],
- investor:['investor','vision','admin/economics','strategy-simulator']
+ investor:['investor','vision','strategy-simulator']
 };
 function inferRole(route=currentRoute()){
  const stored=localStorage.getItem('hh-active-role');
  if(route==='investor'||route==='strategy-simulator'||(route==='vision'&&stored==='investor'))return 'investor';
  if(route==='pilot/commission'||route.startsWith('venue-os/'))return 'venue';
- if(route==='pilot/ops'||route.startsWith('admin/')){
-  if(stored==='investor'&&(route==='admin/economics'||route==='admin/marketplace-health'))return 'investor';
-  return 'admin';
- }
+ if(route==='pilot/ops'||route.startsWith('admin/'))return 'admin';
  return 'customer';
 }
-function getRole(){return localStorage.getItem('hh-active-role')||inferRole()}
-function setRole(role,go=true){
+function getRole(){
+ let r=localStorage.getItem('hh-active-role');
+ if(!r){r=inferRole();try{localStorage.setItem('hh-active-role',r)}catch(_){}}
+ return r;
+}
+function setRole(role,route){
  if(!roleHome[role])role='customer';
  localStorage.setItem('hh-active-role',role);
  if(window.state)window.state.persona=role;
- if(go)window.navTo?.(roleHome[role]);
+ window.navTo?.(typeof route==='string'&&route?route:roleHome[role]);
  render();
 }
 function isActive(path){const r=currentRoute();return r===path||r.startsWith(path+'/')}
@@ -81,6 +82,23 @@ function renderMobileNav(){
  nav.setAttribute('aria-label',`${roleLabel(role)} · ${L('قائمة الموبايل','mobile navigation')}`);
  nav.innerHTML=mobile[role].map(path=>{const item=byPath[path]||[path,'•',path];return `<a href="#/${path}" class="${isActive(path)?'active':''}"><span>${item[1]}</span><span>${item[2]}</span></a>`}).join('');
 }
+// Single owner of the sidebar. Five other places used to render or append to
+// it, which is why options appeared and disappeared while navigating.
+const sideTitle={venue:()=>L('قاعة رويال جاردن','Royal Garden'),admin:()=>L('إدارة المنصة','Platform admin')};
+function renderSideNav(){
+ const nav=document.querySelector('.sidebar .side-nav');if(!nav)return;
+ const role=getRole();
+ const html=navs[role]?navs[role]().map(([path,icon,label])=>`<a href="#/${path}" class="${isActive(path)?'active':''}"><span>${icon}</span>${label}</a>`).join(''):'';
+ if(nav.innerHTML!==html)nav.innerHTML=html;
+ const title=document.querySelector('.sidebar .sidebar-title');
+ if(title){const txt=sideTitle[role]?sideTitle[role]():roleLabel(role);if(title.textContent!==txt)title.textContent=txt}
+}
+let sideObserver=null;
+function ownSideNav(){
+ if(sideObserver)return;
+ sideObserver=new MutationObserver(()=>renderSideNav());
+ sideObserver.observe(document.body,{childList:true,subtree:true});
+}
 function renderBrand(){
  const brand=document.querySelector('.topbar .brand');if(!brand)return;
  const role=getRole();brand.href='#/'+roleHome[role];brand.title=L(`ارجع لأول شاشة عند ${roleLabel(role)}`,`Back to ${roleLabel(role)} home`);
@@ -101,16 +119,35 @@ function addWorkspaceBadge(){
  let badge=top.querySelector('.pu-workspace-badge');if(!badge){badge=document.createElement('div');badge.className='pu-workspace-badge';const brand=document.querySelector('.topbar .brand');brand?.after(badge)}
  const role=getRole();badge.innerHTML=`<span>${roleIcon[role]}</span><strong>${roleLabel(role)}</strong>`;
 }
-function syncFromRoute(){
- const inferred=inferRole();const stored=getRole();
- const r=currentRoute();
- const investorShared=stored==='investor'&&(r==='admin/economics'||r==='admin/marketplace-health'||r==='vision');
- if(!investorShared&&stored!==inferred)localStorage.setItem('hh-active-role',inferred);
+// Which perspective owns which screen. Anything not listed is public
+// (search, venue pages, product vision) and open to everyone.
+const routeOwner=[
+ [/^venue-os(\/|$)/,'venue'],
+ [/^pilot\/commission(\/|$)/,'venue'],
+ [/^admin(\/|$)/,'admin'],
+ [/^pilot\/ops(\/|$)/,'admin'],
+ [/^investor$/,'investor'],
+ [/^strategy-simulator$/,'investor']
+];
+function routeRole(r){for(const [re,role] of routeOwner)if(re.test(r))return role;return null}
+// The menu is not protection: hiding a link is not enough, so the screen itself
+// turns you away and sends you back to your own first screen.
+function guardRoute(){
+ const owner=routeRole(currentRoute());
+ if(!owner)return false;
+ const role=getRole();
+ if(role===owner)return false;
+ window.navTo?.(roleHome[role]);
+ return true;
 }
-function render(){syncFromRoute();renderRoleSwitch();renderMainNav();renderMobileNav();renderBrand();renderRibbon();addWorkspaceBadge();document.body.dataset.demoRole=getRole()}
+function render(){
+ if(guardRoute())return;
+ renderRoleSwitch();renderMainNav();renderMobileNav();renderSideNav();renderBrand();renderRibbon();addWorkspaceBadge();
+ document.body.dataset.demoRole=getRole();
+}
 window.hhSwitchRole=setRole;
 window.hhCurrentRole=getRole;
 window.addEventListener('hashchange',()=>setTimeout(render,0));
 window.addEventListener('hh:languagechange',()=>setTimeout(render,0));
-document.addEventListener('DOMContentLoaded',render);
+document.addEventListener('DOMContentLoaded',()=>{render();ownSideNav()});
 })();
