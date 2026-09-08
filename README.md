@@ -147,18 +147,25 @@ Manual founder/ops-assisted onboarding and availability follow-up are acceptable
 
 ## Demo routes
 
+Routes are locale-prefixed (`/ar/...` and `/en/...`).
+
 ### Pilot routes
-- `#/home`
-- `#/explore`
-- `#/venue/royal-garden`
-- `#/pilot/request/royal-garden`
-- `#/pilot/quote/royal-garden`
-- `#/pilot/confirmed`
-- `#/pilot/commission`
-- `#/pilot/ops`
+- `/ar/`
+- `/ar/explore`
+- `/ar/venue/royal-garden`
+- `/ar/pilot/request/royal-garden`
+- `/ar/pilot/quote/royal-garden`
+- `/ar/pilot/confirmed`
+- `/ar/pilot/commission`
+- `/ar/pilot/ops`
 
 ### Existing customer / VenueOS / Admin / Investor vision routes
 The original advanced demo routes remain available for product exploration and are marked as Future Vision where appropriate.
+
+### Legacy hash links
+The pre-migration hash URLs (`#/venue/royal-garden`, `?tour=full#/home`) still work:
+they are mapped onto the equivalent route on first paint, so previously shared links
+keep resolving.
 
 ## Languages and responsive behavior
 - Arabic RTL.
@@ -170,14 +177,37 @@ The original advanced demo routes remain available for product exploration and a
 - `prefers-reduced-motion` handling.
 
 ## Stack
-- Semantic HTML5.
-- Vanilla CSS.
-- Vanilla JavaScript.
-- Hash-based client-side routing.
-- `localStorage` for demo state.
-- GitHub Pages deployment.
+- Next.js 16 (App Router), React 19, TypeScript.
+- Tailwind CSS v4.
+- `next-intl` with Arabic and English message catalogs and `[locale]` routing.
+- Static export (`output: 'export'`) served from GitHub Pages under `/hagz-halletak-demo`.
+- `localStorage` for demo state (persona, shortlist, guided-tour position).
 
-No production backend, database, authentication or payment gateway exists in this repository.
+Because the site is a static export there is no server at runtime: no Server Actions,
+route handlers, or image optimization. Every screen is prerendered at build time and all
+interactivity is client-side. No production backend, database, authentication or payment
+gateway exists in this repository.
+
+## Development
+
+```bash
+npm install
+npm run dev          # http://localhost:3000/hagz-halletak-demo/ar
+npm run build        # static export into out/
+npm run serve        # serve out/ the way GitHub Pages does
+```
+
+| Command | Purpose |
+|---|---|
+| `npm run typecheck` | TypeScript, no emit |
+| `npm run lint` | ESLint (`next lint` was removed in Next.js 16) |
+| `npm test` | Vitest — catalog parity, message-key usage, route coverage |
+| `npm run e2e` | Playwright — demo story, tours, persona navigation |
 
 ## Validation
-GitHub Pages CI validates JavaScript syntax, bilingual behavior, route/file integrity, guided-demo layers, responsive behavior, the 360/BI vision layers and the Dawwar pilot presentation layer before deployment.
+CI runs typecheck, lint, unit tests, the production build, and the Playwright suite
+before deploying. The end-to-end tests run against the built `out/` directory through
+`scripts/serve-export.mjs`, which mirrors the GitHub Pages basePath mount, so
+`basePath`/`trailingSlash` regressions fail in CI rather than after a deploy.
+
+Language rules and their enforcement are documented in `STRICT-LOCALE-V2.md`.

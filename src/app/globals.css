@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Design tokens carried over verbatim from the legacy styles.css :root block so
+   the Tailwind rewrite starts from the same palette rather than a new one. */
+@theme {
+  --color-navy: #0d3b3b;
+  --color-navy-2: #1c5b58;
+  --color-navy-3: #24706c;
+  --color-ivory: #f6f1e8;
+  --color-paper: #fffdf9;
+  --color-burgundy: #a04a26;
+  --color-burgundy-2: #7a3419;
+  --color-gold: #7d6f38;
+  --color-gold-display: #8a7a3d;
+
+  --color-status-green: #1f7a4d;
+  --color-status-green-bg: #e4f2ea;
+  --color-status-orange: #9a6400;
+  --color-status-orange-bg: #fbf0d8;
+  --color-status-red: #a82732;
+  --color-status-red-bg: #fae8e9;
+  --color-status-blue: #2b5f9e;
+  --color-status-blue-bg: #e8eff8;
+
+  --color-ink: #1b2422;
+  --color-muted: #5f6b66;
+  --color-soft: #8b968f;
+  --color-line: #e2ddd2;
+  --color-surface: #efeadf;
+
+  --shadow-card: 0 1px 2px rgba(10, 46, 46, 0.06), 0 2px 8px rgba(10, 46, 46, 0.04);
+  --shadow-card-lg: 0 8px 28px rgba(10, 46, 46, 0.1);
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+
+  --container-page: 1240px;
+
+  --font-sans: var(--font-plex-arabic), var(--font-source-sans), system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The legacy build shipped a visible keyboard focus ring as an accessibility
+     commitment; Tailwind's reset removes the UA default, so restore it here. */
+  :focus-visible {
+    outline: 2px solid var(--color-navy-3);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
