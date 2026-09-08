@@ -40,22 +40,6 @@
   "exclude": [
     "node_modules",
     "out",
-    ".next",
-    "app.js",
-    "audit.js",
-    "extras.js",
-    "polish.js",
-    "navigator.js",
-    "navigator-share.js",
-    "business-intelligence.js",
-    "persona-ui.js",
-    "venue-360.js",
-    "ui-refinement.js",
-    "dawwar-pilot.js",
-    "locale-legacy-v2.js",
-    "dawwar-plain-copy.js",
-    "demo-sync.js",
-    "i18n.js",
-    "*.test.js"
+    ".next"
   ]
 }
