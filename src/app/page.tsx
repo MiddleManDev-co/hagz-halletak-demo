@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import { RootLocaleRedirect } from '@/components/RootLocaleRedirect';
 import { routing } from '@/i18n/routing';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 export const metadata: Metadata = {
-  title: 'Dawwar',
+  title: 'MATRAH',
+  icons: { icon: `${basePath}/matrah-mark.svg` },
   robots: { index: false, follow: false },
 };
 

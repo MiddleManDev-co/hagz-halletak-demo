@@ -7,7 +7,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { IBM_Plex_Sans_Arabic, Source_Sans_3 } from 'next/font/google';
+import { Alexandria } from 'next/font/google';
 import { localeDirection, routing } from '@/i18n/routing';
 import { pickClientMessages } from '@/i18n/client-namespaces';
 import { LegacyHashRedirect } from '@/components/LegacyHashRedirect';
@@ -15,21 +15,16 @@ import { Topbar } from '@/components/Topbar';
 import { DemoRibbon } from '@/components/DemoRibbon';
 import { MobileNav } from '@/components/MobileNav';
 import { DemoNavigator } from '@/components/DemoNavigator';
+import { PersonaRouteSync } from '@/components/PersonaRouteSync';
 import '../globals.css';
 
-const plexArabic = IBM_Plex_Sans_Arabic({
+const alexandria = Alexandria({
   subsets: ['arabic', 'latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-plex-arabic',
+  variable: '--font-alexandria',
   display: 'swap',
 });
 
-const sourceSans = Source_Sans_3({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-source-sans',
-  display: 'swap',
-});
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -47,6 +42,13 @@ export async function generateMetadata({
   return {
     title: brand('name') + ' | ' + t('title'),
     description: t('description'),
+    icons: { icon: `${basePath}/matrah-mark.svg` },
+    openGraph: {
+      title: brand('name') + ' | ' + t('title'),
+      description: t('description'),
+      siteName: brand('name'),
+      type: 'website',
+    },
   };
 }
 
@@ -72,24 +74,25 @@ export default async function LocaleLayout({
       lang={locale}
       dir={localeDirection[locale]}
       data-scroll-behavior="smooth"
-      className={plexArabic.variable + ' ' + sourceSans.variable}
+      className={alexandria.variable}
     >
       <body className="flex min-h-dvh flex-col bg-ivory text-ink antialiased">
         <NextIntlClientProvider messages={clientMessages}>
+          <PersonaRouteSync />
           <a
-              href="#main"
-              className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:text-paper"
-            >
-              {t('skipToContent')}
-            </a>
-            <LegacyHashRedirect locale={locale} />
-            <Topbar locale={locale} />
-            <DemoRibbon />
-            <div id="main" className="flex-1">
-              {children}
-            </div>
-            <DemoNavigator locale={locale} />
-            <MobileNav locale={locale} />
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:text-paper"
+          >
+            {t('skipToContent')}
+          </a>
+          <LegacyHashRedirect locale={locale} />
+          <Topbar locale={locale} />
+          <DemoRibbon />
+          <div id="main" className="flex-1">
+            {children}
+          </div>
+          <DemoNavigator locale={locale} />
+          <MobileNav locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>

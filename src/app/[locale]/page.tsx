@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { venues } from '@/lib/venues';
 import { VenueCard } from '@/components/VenueCard';
 import { SearchPanel } from '@/components/SearchPanel';
+import { BrandLogo } from '@/components/BrandLogo';
 
 /**
  * Ported from `pilotHome()` in dawwar-pilot.js — which replaced app.js's
@@ -23,9 +24,12 @@ export default function HomePage({
 
   return (
     <main>
-      <section className="border-b border-line bg-paper">
-        <div className="mx-auto grid max-w-(--container-page) gap-10 px-5 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-          <div>
+      <section className="matrah-hero border-b border-line bg-paper">
+        <div className="relative mx-auto grid max-w-(--container-page) gap-10 px-5 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
+          <div className="relative z-10">
+            <div className="mb-8">
+              <BrandLogo showTagline prominent />
+            </div>
             <span className="inline-flex items-center gap-2 rounded-full bg-status-green-bg px-3 py-1 text-xs font-semibold text-status-green">
               {t('pilot_mvp_trusted_venue_marketplace')}
             </span>
@@ -74,7 +78,9 @@ export default function HomePage({
             </div>
           </div>
 
-          <SearchPanel />
+          <div className="relative z-10">
+            <SearchPanel />
+          </div>
         </div>
       </section>
 

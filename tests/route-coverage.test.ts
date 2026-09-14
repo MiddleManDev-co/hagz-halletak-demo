@@ -89,6 +89,8 @@ describe.skipIf(!BUILT)('route coverage', () => {
   it('ships the static assets Pages needs', () => {
     // Without .nojekyll a Jekyll pass would drop the _next/ directory.
     expect(existsSync(join(OUT, '.nojekyll'))).toBe(true);
+    // The shared MATRAH mark is used by metadata and the review shell.
+    expect(existsSync(join(OUT, 'matrah-mark.svg'))).toBe(true);
     // review.html is carried over unported and must keep its URL.
     expect(existsSync(join(OUT, 'review.html'))).toBe(true);
   });

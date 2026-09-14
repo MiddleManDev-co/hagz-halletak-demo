@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { routing, type Locale } from '@/i18n/routing';
 
-const STORAGE_KEY = 'dawwar-locale';
+const STORAGE_KEY = 'matrah-locale';
 
 /**
  * Swaps the locale segment in place, preserving the rest of the path so the

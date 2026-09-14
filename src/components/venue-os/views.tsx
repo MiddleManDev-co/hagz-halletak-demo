@@ -217,10 +217,10 @@ export function VenueLeads() {
 }
 
 const BOOKINGS = [
-  ['DWR-2031', 'Mahmoud & Salma', '15 Oct', 145000, 30000, 'confirmed'],
-  ['DWR-2028', 'Mona & Ali', '09 Oct', 128000, 40000, 'confirmed'],
-  ['DWR-2021', 'Sara & Mostafa', '02 Oct', 160000, 50000, 'confirmed'],
-  ['DWR-2017', 'Omar & Mariam', '28 Sep', 135000, null, 'hold'],
+  ['MTR-2031', 'Mahmoud & Salma', '15 Oct', 145000, 30000, 'confirmed'],
+  ['MTR-2028', 'Mona & Ali', '09 Oct', 128000, 40000, 'confirmed'],
+  ['MTR-2021', 'Sara & Mostafa', '02 Oct', 160000, 50000, 'confirmed'],
+  ['MTR-2017', 'Omar & Mariam', '28 Sep', 135000, null, 'hold'],
 ] as const;
 
 export function VenueBookings() {

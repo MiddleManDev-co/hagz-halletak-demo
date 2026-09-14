@@ -1,6 +1,6 @@
 # Strict locale
 
-Dawwar does not translate at runtime. There is no DOM purification, no
+MATRAH does not translate at runtime. There is no DOM purification, no
 substring rewriting, and no `MutationObserver` watching for text to fix.
 
 Every string is authored in both languages in `messages/ar.json` and
@@ -15,12 +15,12 @@ page is prerendered.
   from the other fails the build.
 - A missing key is a build failure, not a fallback — `onError` in
   `src/i18n/request.ts` throws rather than rendering the raw key as visible text.
-- System identifiers such as `DWR-2031` and `RQ-8142` stay identifiers in both
+- System identifiers such as `MTR-2031` and `RQ-8142` stay identifiers in both
   languages.
-- Venue and brand names (`Royal Garden`, `VenueOS`, `Dawwar`) stay in Latin
+- Venue and brand names (`Royal Garden`, `VenueOS`, `MATRAH`) stay in Latin
   script inside Arabic copy; they are names, not copy.
 - Demo couple: محمود وسلمى / Mahmoud & Salma.
-- Product brand: دوّر / Dawwar.
+- Product brand: مَطرح / MATRAH.
 
 ## Enforcement
 

@@ -1,6 +1,6 @@
-# Dawwar — دوّر على القاعة المناسبة والمتاحة فعلًا
+# MATRAH | مَطرح — المطرح الصح، في المعاد الصح
 
-Dawwar is an Egyptian venue marketplace + lightweight venue operating system.
+MATRAH is an Egyptian venue marketplace + lightweight venue operating system.
 
 The launch product is intentionally narrower than the full product vision:
 
@@ -28,7 +28,7 @@ The launch product is intentionally narrower than the full product vision:
 - VenueOS Lite provides the calendar, leads, visits, bookings and commission statement needed for the pilot.
 
 ### Payment model during pilot
-Customer payments and deposits go directly to the venue. Dawwar does **not** need to hold the full booking value during the pilot.
+Customer payments and deposits go directly to the venue. MATRAH does **not** need to hold the full booking value during the pilot.
 
 Online deposit collection, hard atomic holds, automated refunds, settlement and venue payouts are post-MVP capabilities that become worthwhile after transaction volume validates the need.
 
@@ -40,7 +40,7 @@ Online deposit collection, hard atomic holds, automated refunds, settlement and 
 4. Send a Request-to-Book instead of creating a hard hold.
 5. Review the venue response and final quote.
 6. Simulate a direct deposit to the venue.
-7. Confirm booking `DWR-2031` from both customer and venue sides.
+7. Confirm booking `MTR-2031` from both customer and venue sides.
 8. Open VenueOS Lite to see the lead, visit, booking and commission state.
 9. Open Admin/Ops to see verification, stale-availability follow-up, attribution and commission reconciliation.
 10. Explore the remaining advanced screens as **Future Vision**.

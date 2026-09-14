@@ -21,7 +21,7 @@ const arFlat = flatten(ar as Catalog);
 const enFlat = flatten(en as Catalog);
 
 const ARABIC = /[؀-ۿ]/;
-/** Values with no letters at all ("↑ 22%", "DWR-2031") are script-neutral. */
+/** Values with no letters at all ("↑ 22%", "MTR-2031") are script-neutral. */
 const HAS_LETTERS = /\p{Letter}/u;
 
 /**
@@ -37,8 +37,7 @@ const PROPER_NOUNS = [
   'Lake House',
   'VenueOS',
   'DateDrop',
-  'Dawwar',
-  'Hagz Halletak',
+  'MATRAH',
 ];
 
 /** A language switcher names each language in its own script. */
@@ -99,5 +98,12 @@ describe('message catalogs', () => {
     for (const key of untranslated as string[]) {
       expect(arFlat[key], `${key} is allowlisted but no longer exists`).toBeDefined();
     }
+  });
+
+  it('keeps the visible catalogs on the MATRAH brand', () => {
+    expect(Object.values(enFlat).join('\n')).not.toMatch(/Dawwar|DWR-/i);
+    expect(Object.values(arFlat).join('\n')).not.toMatch(/دوّر|DWR-/);
+    expect(enFlat['Brand.name']).toBe('MATRAH');
+    expect(arFlat['Brand.name']).toBe('مَطرح');
   });
 });

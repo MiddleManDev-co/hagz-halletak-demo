@@ -45,7 +45,7 @@ export default function PilotOpsPage({
             {
               marker: '3',
               title: t('booking_attribution'),
-              detail: `DWR-2031 ← RQ-8142 ← ${t('dawwar_search')}`,
+              detail: `MTR-2031 ← RQ-8142 ← ${t('dawwar_search')}`,
             },
             {
               marker: '4',

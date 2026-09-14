@@ -23,7 +23,7 @@ export function SearchPanel() {
         event.preventDefault();
         router.push('/explore');
       }}
-      className="rounded-md border border-line bg-paper p-5 shadow-card-lg"
+      className="overflow-hidden rounded-md border border-line border-t-4 border-t-burgundy bg-paper p-5 shadow-card-lg"
     >
       <div className="flex items-start justify-between gap-3">
         <div>

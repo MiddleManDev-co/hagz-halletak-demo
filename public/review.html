@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>مراجعة فيتشرز دوّر</title>
-<link rel="icon" href="data:,">
+<title>مراجعة فيتشرز مَطرح</title>
+<link rel="icon" href="matrah-mark.svg" type="image/svg+xml">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
-  --teal-700:#0d3b3b;--teal-500:#1c5b58;--teal-300:#6ba39c;--teal-100:#cfe1dd;--teal-050:#e8f1ef;
-  --clay-600:#8f3f20;--clay-500:#b4552f;--clay-200:#eccdbe;--clay-050:#f8ebe3;
-  --gold-700:#6f6230;--gold-500:#8a7a3d;
+  --teal-700:#123b38;--teal-500:#1c5a52;--teal-300:#6ba39c;--teal-100:#cfe1dd;--teal-050:#e8f1ef;
+  --clay-600:#943b2a;--clay-500:#bd5439;--clay-200:#eccdbe;--clay-050:#f8ebe3;
+  --gold-700:#80601e;--gold-500:#a77e36;
   --ok:#1f7a4d;--ok-bg:#e4f2ea;--hold:#9a6400;--hold-bg:#fbf0d8;
   --stop:#a82732;--stop-bg:#fae8e9;--info:#2b5f9e;--info-bg:#e8eff8;
-  --bg:#f6f1e8;--paper:#fffdf9;--surface:#efeadf;
-  --ink:#1b2422;--body:#38423e;--muted:#5f6b66;--soft:#8b968f;
-  --line:#e2ddd2;--line-strong:#cfc9bb;--on-brand:#fffdf9;
-  --shadow:0 1px 2px rgba(10,46,46,.06),0 2px 8px rgba(10,46,46,.04);
-  --ar:"IBM Plex Sans Arabic",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+  --bg:#f7f1e8;--paper:#fffcf7;--surface:#eee6da;
+  --ink:#1f2b28;--body:#38423e;--muted:#5e6c67;--soft:#7c8882;
+  --line:#ddd4c7;--line-strong:#cfc5b7;--on-brand:#fffcf7;
+  --shadow:0 1px 2px rgba(18,59,56,.06),0 3px 10px rgba(18,59,56,.05);
+  --ar:"Alexandria",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
 }
 @media (prefers-color-scheme: dark){:root{
   --teal-700:#bcd6d2;--teal-500:#8fbdb6;--teal-300:#4d8b84;--teal-100:#1d3a38;--teal-050:#162b2a;
@@ -34,6 +34,8 @@ body{direction:rtl;background:var(--bg);color:var(--body);font-family:var(--ar);
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px 90px}
 header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 0 12px}
 .htop{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+.brand-title{display:flex;align-items:center;gap:12px}
+.brand-title img{width:42px;height:42px;flex:none}
 h1{font-size:clamp(20px,3vw,26px);margin:0;color:var(--ink);font-weight:700}
 .sub{font-size:13.5px;color:var(--muted);margin:4px 0 0}
 .who{font-size:13px;color:var(--muted)}
@@ -123,7 +125,7 @@ h3{font-size:16px;color:var(--ink);margin:26px 0 8px;font-weight:700}
 var GROUPS=[
  {id:'customer',name:'👰 العروسين',desc:'اللي بيدوّر على قاعة — البحث لحد الحجز المؤكد.'},
  {id:'venue',name:'🏛 القاعة',desc:'شغل القاعة اليومي: المواعيد والطلبات والزيارات والحجوزات.'},
- {id:'admin',name:'🛡 الإدارة',desc:'فريق دوّر: المراجعة والتوثيق والدعم.'},
+ {id:'admin',name:'🛡 الإدارة',desc:'فريق مَطرح: المراجعة والتوثيق والدعم.'},
  {id:'investor',name:'📈 عرض المستثمر',desc:'مش مستخدم — ده عرض للتقديم بس.'},
  {id:'core',name:'⚙ فيتشرز عامة',desc:'حاجات شغالة عبر كل المناظير.'},
  {id:'gapbase',name:'🔴 ناقص · الأرضية',desc:'حاجات المنتج كله مبني عليها ومش موجودة. دي الأول قبل أي حاجة تانية.'},
@@ -131,7 +133,7 @@ var GROUPS=[
  {id:'gapc',name:'🔴 ناقص · العروسين',desc:'من منظور العميل.'},
  {id:'gapo',name:'🔴 ناقص · المالك',desc:'من منظور صاحب المركز أو القاعة.'},
  {id:'gapm',name:'🔴 ناقص · مسؤول القاعة',desc:'من منظور اللي بيشتغل يوم بيوم.'},
- {id:'gapa',name:'🔴 ناقص · الإدارة',desc:'من منظور فريق دوّر.'},
+ {id:'gapa',name:'🔴 ناقص · الإدارة',desc:'من منظور فريق مَطرح.'},
  {id:'gapbiz',name:'🔴 ناقص · البيزنس',desc:'قواعد ومؤشرات مش شاشات.'}
 ];
 var F=[
@@ -169,7 +171,7 @@ var F=[
  ['v7','venue','الباقات','venue-os/packages','demo','أسعار الباقات والمحتوى بتاعها.'],
  ['v8','venue','الفريق','venue-os/team','demo','أعضاء فريق القاعة وصلاحياتهم.'],
  ['v9','venue','حجز سريع','venue-os/quick-booking','demo','تسجيل حجز Walk-in أو تليفون بسرعة، مع منع الحجز المزدوج.'],
- ['v10','venue','العمولة','pilot/commission','live','مستحقات دوّر على الحجوزات اللي جت من المنصة، وكل بند مربوط بالطلب اللي سببه.'],
+ ['v10','venue','العمولة','pilot/commission','live','مستحقات مَطرح على الحجوزات اللي جت من المنصة، وكل بند مربوط بالطلب اللي سببه.'],
  ['v11','venue','التحليلات','venue-os/analytics','demo','أرقام أداء القاعة.'],
  ['v12','venue','مركز الأعمال','venue-os/business-center','future','لوحة مالية موسّعة — رؤية مستقبلية.'],
  ['v13','venue','ذكاء الإيراد','venue-os/revenue-intelligence','future','تسعير وتوقعات إيراد — رؤية مستقبلية.'],
@@ -238,7 +240,7 @@ var F=[
  ['x31','gappay','الدفع الإلكتروني والعربون','الباكدة · ما بعد الباكدة','gapl','دلوقتي العربون بيروح للقاعة مباشرة بشكل مقصود.'],
  ['x32','gapbiz','الفواتير والضرايب','الباكدة §11','gapl','محاسب مصري قبل أول فاتورة عمولة، مش بعدها.'],
  ['x33','gappay','دفع العربون أونلاين — والفلوس تروح للقاعة','قرار مطلوب','gap','العميل يدفع من موبايله، بس الفلوس تتحوّل للقاعة مباشرة عن طريق حساب أو رابط دفع القاعة نفسها. إحنا بنسجّل إن العربون اتدفع، ومش بنمسك فلوس. ليه المسار ده: بيدي العميل تجربة «دفعت من موبايلي»، وبيحافظ على أقوى جملة بنقولها للقاعة «فلوسك بتوصلك مباشرة»، ومن غير ما نبقى جهة دفع.'],
- ['x34','gappay','دوّر يمسك فلوس العميل (Escrow)','قرار مطلوب','gapl','البديل التاني: الفلوس تقعد عندنا وبعدين نحوّلها. ده بيخلينا مسؤولين عن الاسترجاع والتسوية والنزاعات، وبيحتاج ترخيص وشريك دفع، وبيشيل من إيدينا أقوى ورقة مع القاعات. اقتراحي: مش دلوقتي — إلا لما حجم المعاملات يستاهل.'],
+ ['x34','gappay','مَطرح يمسك فلوس العميل (Escrow)','قرار مطلوب','gapl','البديل التاني: الفلوس تقعد عندنا وبعدين نحوّلها. ده بيخلينا مسؤولين عن الاسترجاع والتسوية والنزاعات، وبيحتاج ترخيص وشريك دفع، وبيشيل من إيدينا أقوى ورقة مع القاعات. اقتراحي: مش دلوقتي — إلا لما حجم المعاملات يستاهل.'],
  ['x35','gappay','تسجيل العربون وإيصال للعميل','قرار مطلوب','gap','لما العربون يتدفع، الحالة تتسجّل ويطلع إيصال العميل يعرضه للأهل. الفايدة الخفية: ده بيدينا إشارة مؤكدة إن الحجز اتم — وهي بالظبط اللي فوترة العمولة واقفة عليها، فبتحسّن نسبة التحصيل اللي هي المتغيّر اللي بيقرر البيزنس.'],
  ['x36','gapc','العميل يطلب تفاصيل زيادة والسعر يتعدّل','رحلة العميل','gap','بوفيه أكبر، إضاءة، دي جي، عدد أكتر. العميل يختار، والقاعة ترد بعرض مفصّل بند بند. ليه مهم: بيخلي العروض قابلة للمقارنة بين القاعات، وبيقلل أكتر نوع نزاع بيحصل — «السعر اتغير بعد العربون».'],
  ['x37','gapc','طلب واحد يروح لكذا قاعة','رحلة العميل','gap','العميل يكتب طلبه مرة واحدة (التاريخ والعدد والميزانية والتفاصيل) ويوصل لأكتر من قاعة، وترجعله عروض. ليه ده مهم لينا مش للعميل بس: الطلب ده <b>إحنا اللي عملناه</b>، فالإسناد فيه مفيش عليه خلاف نهائيًا — وده أنضف حل لأصعب مشكلة عندنا.'],
@@ -285,7 +287,7 @@ var F=[
  ['y31','gapm','جدول اليوم للاستقبال','المسؤول','gap','قايمة مين جاي النهارده تتطبع أو تتفتح على تابلت في الاستقبال. الاستقبال مش هيفتح النظام.'],
  // ---- الإدارة ----
  ['y32','gapa','متابعة الردود المتأخرة','الإدارة','gap','مين مردش خلال ٢٤ ساعة — كطابور شغل. ده مؤشر بوابة المرحلة التالتة، لازم يبقى ليه شاشة.'],
- ['y33','gapa','إدارة المستخدمين والصلاحيات','الإدارة','gap','مين في فريق دوّر يقدر يشوف ويعمل إيه.'],
+ ['y33','gapa','إدارة المستخدمين والصلاحيات','الإدارة','gap','مين في فريق مَطرح يقدر يشوف ويعمل إيه.'],
  ['y34','gapa','الدخول على حساب قاعة للدعم','الإدارة','gap','فريق الدعم محتاج يشوف اللي القاعة شايفاه عشان يساعدها — بشرط يتسجّل في سجل التدقيق مين دخل وإمتى وليه.'],
  ['y35','gapa','سجل التواصل مع القاعة','الإدارة','gap','مين كلم مين وإمتى وقال إيه. في مرحلة الـ ٢٥ قاعة، ده هو الشغل نفسه.'],
  ['y36','gapa','تقارير التسوية','الإدارة','gap','بعد الدفع: كام دخل، كام اتحوّل، كام لسه، وكام عمولة اتخصمت. يومي.']
@@ -402,7 +404,7 @@ function pull(then){
 
 function renderGate(){
   document.getElementById('root').innerHTML=
-   '<div class="gate"><h2>مراجعة فيتشرز دوّر</h2>'
+   '<div class="gate"><h2>مراجعة فيتشرز مَطرح</h2>'
    +'<p>اكتب اسمك وكود الدخول مرة واحدة. رأيك بيتحفظ باسمك عشان نعرف بعدين مين شايف إيه وليه.</p>'
    +'<label>اسمك</label><input id="gName" type="text" value="'+esc(me)+'" placeholder="مثلاً: كريم">'
    +'<label>كود الدخول</label><input id="gPass" type="password" value="'+esc(pass)+'" placeholder="اللي اتبعتلك">'
@@ -586,14 +588,14 @@ function render(){
     .concat(GROUPS.map(function(g){return [g.id,g.name]}));
   document.getElementById('root').innerHTML=
    '<header><div class="wrap" style="padding-bottom:0">'
-   +'<div class="htop"><div><h1>مراجعة فيتشرز دوّر</h1>'
-   +'<p class="sub">صوّت واكتب سببك. كل واحد بيشوف رأي الباقيين تحت كل فيتشر.</p></div>'
+   +'<div class="htop"><div class="brand-title"><img src="matrah-mark.svg" alt=""><div><h1>مراجعة فيتشرز مَطرح</h1>'
+   +'<p class="sub">صوّت واكتب سببك. كل واحد بيشوف رأي الباقيين تحت كل فيتشر.</p></div></div>'
    +'<div style="text-align:left"><div class="who">داخل باسم <b>'+esc(me)+'</b> · <a href="#" id="chg" style="color:var(--clay-600)">غيّر</a></div>'
    +'<div id="sync" class="sync s-idle" style="margin-top:6px">جاهز</div></div></div>'
    +'<div class="stats" id="stats"></div>'
    +'<div class="tabs"><button class="tab'+(tab==='vote'?' on':'')+'" data-t="vote">التصويت</button>'
    +'<button class="tab'+(tab==='stats'?' on':'')+'" data-t="stats">التحليلات</button></div>'
-   +(tab==='vote'?'<div class="controls"><input type="search" id="q" placeholder="دوّر على فيتشر" value="'+esc(q)+'">'
+   +(tab==='vote'?'<div class="controls"><input type="search" id="q" placeholder="ابحث عن فيتشر" value="'+esc(q)+'">'
       +chips.map(function(c){return '<button class="chip'+(filter===c[0]?' on':'')+'" data-f="'+c[0]+'">'+esc(c[1])+'</button>'}).join('')
       +'</div>':'')
    +'</div></header><div class="wrap">'

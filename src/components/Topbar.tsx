@@ -7,6 +7,7 @@ import { PERSONAS, useDemoState } from '@/lib/demo-state';
 import { PERSONA_HOME, navItemsFor } from '@/lib/personas';
 import { LanguageSwitch } from './LanguageSwitch';
 import { PersonaDialog } from './PersonaDialog';
+import { BrandLogo } from './BrandLogo';
 
 export function useIsActive(locale: string) {
   const pathname = usePathname();
@@ -30,13 +31,10 @@ export function Topbar({ locale }: { locale: string }) {
       <div className="mx-auto flex max-w-(--container-page) items-center gap-4 px-5 py-3">
         <Link
           href={PERSONA_HOME[persona]}
-          className="flex shrink-0 items-center gap-2 font-bold text-navy"
+          className="shrink-0 rounded-sm"
           aria-label={brand('name')}
         >
-          <span className="grid size-8 place-items-center rounded-md bg-navy text-paper">
-            {brand('mark')}
-          </span>
-          <span className="text-lg">{brand('name')}</span>
+          <BrandLogo showTagline />
         </Link>
 
         <nav

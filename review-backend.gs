@@ -1,5 +1,5 @@
 /**
- * Dawwar — feature review backend (Google Apps Script)
+ * MATRAH — feature review backend (Google Apps Script)
  *
  * كل صوت بيتسجّل كصف جديد، ومبنمسحش حاجة — فلو اتنين صوّتوا في نفس اللحظة
  * محدش بيضيع، وبنقدر نشوف الرأي اتغيّر إمتى. عند القراءة بناخد آخر صف

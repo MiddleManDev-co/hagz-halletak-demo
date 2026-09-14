@@ -1,17 +1,16 @@
 @import "tailwindcss";
 
-/* Design tokens carried over verbatim from the legacy styles.css :root block so
-   the Tailwind rewrite starts from the same palette rather than a new one. */
+/* MATRAH brand tokens: warm premium utility with an Egyptian hospitality feel. */
 @theme {
-  --color-navy: #0d3b3b;
-  --color-navy-2: #1c5b58;
-  --color-navy-3: #24706c;
-  --color-ivory: #f6f1e8;
-  --color-paper: #fffdf9;
-  --color-burgundy: #a04a26;
-  --color-burgundy-2: #7a3419;
-  --color-gold: #7d6f38;
-  --color-gold-display: #8a7a3d;
+  --color-navy: #123b38;
+  --color-navy-2: #1c5a52;
+  --color-navy-3: #277568;
+  --color-ivory: #f7f1e8;
+  --color-paper: #fffcf7;
+  --color-burgundy: #bd5439;
+  --color-burgundy-2: #943b2a;
+  --color-gold: #a77e36;
+  --color-gold-display: #80601e;
 
   --color-status-green: #1f7a4d;
   --color-status-green-bg: #e4f2ea;
@@ -22,24 +21,24 @@
   --color-status-blue: #2b5f9e;
   --color-status-blue-bg: #e8eff8;
 
-  --color-ink: #1b2422;
-  --color-muted: #5f6b66;
-  --color-soft: #8b968f;
-  --color-line: #e2ddd2;
-  --color-surface: #efeadf;
+  --color-ink: #1f2b28;
+  --color-muted: #5e6c67;
+  --color-soft: #7c8882;
+  --color-line: #ddd4c7;
+  --color-surface: #eee6da;
 
-  --shadow-card: 0 1px 2px rgba(10, 46, 46, 0.06), 0 2px 8px rgba(10, 46, 46, 0.04);
-  --shadow-card-lg: 0 8px 28px rgba(10, 46, 46, 0.1);
+  --shadow-card: 0 1px 2px rgba(18, 59, 56, 0.06), 0 3px 10px rgba(18, 59, 56, 0.05);
+  --shadow-card-lg: 0 16px 42px rgba(18, 59, 56, 0.13);
 
   --radius-xs: 6px;
   --radius-sm: 10px;
-  --radius-md: 14px;
+  --radius-md: 16px;
   --radius-pill: 999px;
 
   --container-page: 1240px;
 
-  --font-sans: var(--font-plex-arabic), var(--font-source-sans), system-ui,
-    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: var(--font-alexandria), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @layer base {
@@ -54,12 +53,37 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  ::selection {
+    background: color-mix(in srgb, var(--color-burgundy) 24%, transparent);
+    color: var(--color-ink);
+  }
+
   /* The legacy build shipped a visible keyboard focus ring as an accessibility
      commitment; Tailwind's reset removes the UA default, so restore it here. */
   :focus-visible {
     outline: 2px solid var(--color-navy-3);
     outline-offset: 2px;
   }
+}
+
+.matrah-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 5%, rgba(189, 84, 57, 0.11), transparent 31rem),
+    radial-gradient(circle at 88% 18%, rgba(39, 117, 104, 0.13), transparent 28rem),
+    var(--color-paper);
+}
+
+.matrah-hero::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(18, 59, 56, 0.12) 0.75px, transparent 0.75px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(to bottom, black, transparent 76%);
+  content: '';
+  pointer-events: none;
+  opacity: 0.22;
 }
 
 @media (prefers-reduced-motion: reduce) {

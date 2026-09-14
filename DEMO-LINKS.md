@@ -1,8 +1,8 @@
-# Dawwar — Direct Demo Links
+# MATRAH — Direct Demo Links
 
 The default story now presents the commission-first pilot. Advanced payment, 360, analytics and strategy screens remain available as Future Vision.
 
-> The GitHub Pages path still uses the repository's current legacy slug. The visible product brand is **Dawwar**.
+> The GitHub Pages path still uses the repository's current legacy slug. The visible product brand is **MATRAH**.
 >
 > Links are locale-prefixed. Swap `/ar/` for `/en/` to present in English.
 > Older hash links (`?tour=full#/home`) still resolve — they redirect to the
@@ -10,7 +10,7 @@ The default story now presents the commission-first pilot. Advanced payment, 360
 
 ## Recommended first-time demo
 
-**Dawwar Pilot — ~4 minutes**  
+**MATRAH Pilot — ~4 minutes**<br>
 https://middlemandev-co.github.io/hagz-halletak-demo/ar/?tour=full
 
 Search → trusted availability → Request-to-Book → venue quote → direct customer-to-venue deposit → confirmed booking → VenueOS commission → Admin/Ops → Future Vision.

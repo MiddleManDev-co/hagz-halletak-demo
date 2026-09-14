@@ -3,12 +3,15 @@
 import { useEffect } from 'react';
 import { routing } from '@/i18n/routing';
 
-const STORAGE_KEY = 'dawwar-locale';
+const STORAGE_KEY = 'matrah-locale';
+const LEGACY_STORAGE_KEY = 'dawwar-locale';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 function preferredLocale(): string {
   try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored =
+      window.localStorage.getItem(STORAGE_KEY) ??
+      window.localStorage.getItem(LEGACY_STORAGE_KEY);
     if (stored && (routing.locales as readonly string[]).includes(stored)) {
       return stored;
     }

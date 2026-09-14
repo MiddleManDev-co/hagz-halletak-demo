@@ -77,7 +77,7 @@ export function CustomerMessages() {
   const t = useTranslations('Audit');
 
   const threads = [
-    ['Royal Garden', 'DWR-2031 · ', 'confirmed'],
+    ['Royal Garden', 'MTR-2031 · ', 'confirmed'],
     ['Luma Hall', '', 'visit_friday'],
     ['Support', '', 'payment_question'],
   ] as const;

@@ -59,7 +59,7 @@ async function walkStory(page: Page, locale: keyof typeof STORY) {
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     copy.bookingConfirmed,
   );
-  await expect(page.getByText('DWR-2031')).toBeVisible();
+  await expect(page.getByText('MTR-2031')).toBeVisible();
 
   await page.getByRole('link', { name: new RegExp(copy.venueSide) }).click();
   await expect(page).toHaveURL(new RegExp(`/${locale}/pilot/commission/`));

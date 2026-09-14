@@ -61,6 +61,29 @@ export const PERSONA_HOME: Record<Persona, string> = {
   investor: '/investor',
 };
 
+export function personaForPathname(pathname: string): Persona {
+  const segments = pathname.split('/').filter(Boolean);
+  const localeIndex = segments.findIndex(
+    (segment) => segment === 'ar' || segment === 'en',
+  );
+  const route = segments
+    .slice(localeIndex >= 0 ? localeIndex + 1 : 0)
+    .join('/');
+
+  if (route === 'pilot/commission' || route.startsWith('venue-os')) {
+    return 'venue';
+  }
+  if (route === 'pilot/ops' || route.startsWith('admin')) return 'admin';
+  if (
+    route === 'investor' ||
+    route === 'vision' ||
+    route === 'strategy-simulator'
+  ) {
+    return 'investor';
+  }
+  return 'customer';
+}
+
 export const PERSONA_ICON: Record<Persona, string> = {
   customer: '💍',
   venue: '🏛',

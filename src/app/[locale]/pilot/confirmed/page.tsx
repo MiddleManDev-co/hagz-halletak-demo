@@ -4,7 +4,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Callout, Panel, StatusPill } from '@/components/pilot-ui';
 
-const BOOKING_REF = 'DWR-2031';
+const BOOKING_REF = 'MTR-2031';
 const FINAL_QUOTE = 148000;
 
 /** Ported from `confirmedPage()` in dawwar-pilot.js. */

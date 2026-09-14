@@ -43,7 +43,7 @@ async function switchPersona(page: Page, label: string) {
     return;
   }
 
-  await page.getByRole('button', { name: 'Choose a Dawwar view' }).click();
+  await page.getByRole('button', { name: 'Choose a MATRAH view' }).click();
   await page
     .getByRole('dialog')
     .getByRole('button', { name: label, exact: true })
@@ -76,6 +76,24 @@ async function switchPersona(page: Page, label: string) {
         .getByRole('navigation', { name: /· (mobile )?navigation$/ })
         .getByRole('link', { name: /Venue checks|Operations/ })
         .first(),
+    ).toBeVisible();
+  });
+
+  test('a direct workspace URL selects the matching perspective', async ({
+    page,
+  }) => {
+    await page.goto('en/venue-os/');
+
+    await expect(
+      page.getByRole('navigation', {
+        name: /^Venue · (mobile )?navigation$/,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        'See dates, customer requests, visits, and bookings. The whole team stays on the same page.',
+        { exact: true },
+      ),
     ).toBeVisible();
   });
 });

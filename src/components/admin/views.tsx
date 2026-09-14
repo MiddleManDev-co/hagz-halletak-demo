@@ -106,7 +106,7 @@ export function AdminSupport() {
       '#SUP-884',
       'payment',
       'customer_sees_the_deposit_twice_on_the',
-      'DWR-2031',
+      'MTR-2031',
       'medium',
       'orange',
     ],
@@ -213,9 +213,9 @@ export function AdminVenues() {
 }
 
 const ADMIN_BOOKINGS = [
-  ['DWR-2031', 'Royal Garden', 'Mahmoud & Salma', 148000, 'confirmed'],
-  ['DWR-2028', 'Luma Hall', 'Mona & Ali', 128000, 'confirmed'],
-  ['DWR-2021', 'Nile Palace', 'Sara & Mostafa', 160000, 'confirmed'],
+  ['MTR-2031', 'Royal Garden', 'Mahmoud & Salma', 148000, 'confirmed'],
+  ['MTR-2028', 'Luma Hall', 'Mona & Ali', 128000, 'confirmed'],
+  ['MTR-2021', 'Nile Palace', 'Sara & Mostafa', 160000, 'confirmed'],
 ] as const;
 
 /** Booking attribution table, ported from `adminBookings()` in app.js. */
